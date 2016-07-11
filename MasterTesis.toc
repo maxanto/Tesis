@@ -56,8 +56,6 @@
 \contentsline {subsubsection}{Sequential switching}{72}{section*.12}
 \contentsline {subsubsection}{Period $T$ as a function of $P$ and $B$}{73}{section*.13}
 \contentsline {subsection}{\numberline {4.2.5}Conclusions}{74}{subsection.4.2.5}
-\contentsline {chapter}{\numberline {5}Conclusiones}{85}{chapter.5}
-\contentsline {chapter}{\numberline {A}Field Programmable Gate Array (FPGA)}{87}{appendix.Alph1}
+\contentsline {chapter}{\numberline {A}Field Programmable Gate Array (FPGA)}{85}{appendix.Alph1}
 \vspace {2em}
 \vspace {2em}
-\contentsline {chapter}{Bibliograf\'{\i }a}{89}{appendix*.14}
