@@ -1,22 +1,21 @@
 %Plantilla basada en "Template for Masters / Doctoral Thesis" (plantilla disponible en writeLaTex) que subió LaTeXTemplates.com
 
 \documentclass[a4paper]{book}
-\usepackage[paperwidth=17cm, paperheight=22.5cm, bottom=2.5cm, right=2.5cm]{geometry}
+%\usepackage[paperwidth=17cm, paperheight=22.5cm, bottom=2.5cm, right=2.5cm]{geometry}
 \usepackage{amssymb,amsmath,amsthm} %paquete para símbolo matemáticos
 \usepackage[spanish]{babel}
 \usepackage[utf8]{inputenc} %Paquete para escribir acentos y otros símbolos directamente
 \usepackage{enumerate}
 \usepackage{graphicx}
-%\usepackage{subfig} %para poner subfiguras
+\usepackage{subfig} %para poner subfiguras
 \graphicspath{{Img/}} %En qué carpeta están las imágenes
-\usepackage[nottoc]{tocbibind}
-\usepackage[pdftex,
-            pdfauthor={NOMBRE DEL AUTOR},
-            pdftitle={TÍTULO DE LA TESIS},
-            pdfsubject={ÁREA DE LA TESIS},
-            pdfkeywords={PALABRAS CLAVE},
-            pdfproducer={Latex con hyperref},
-            pdfcreator={pdflatex}]{hyperref}
+\usepackage[nottoc]{tocbibind} %Para que la bibliografía aparezca en el índice
+%\usepackage[pdftex,
+%pdfauthor={Maximiliano Antonelli},
+%pdftitle={Sistemas complejos, ruidos discretos y su implementación en FPGA},
+%pdfsubject={ÁREA DE LA TESIS},
+%pdfproducer={Latex con hyperref},
+%pdfcreator={pdflatex}]{hyperref}
 
 
 
@@ -67,10 +66,10 @@
 \include{CapIntro/MasterIntro}
 \thispagestyle{empty}
 
-\include{CapGen/MasterGen}
+\include{CapCuanti/MasterCuanti}
 \thispagestyle{empty}
 
-\include{CapCuanti/MasterCuanti}
+\include{CapGen/MasterGen}
 \thispagestyle{empty}
 
 \include{CapArit/MasterArit}
@@ -102,7 +101,7 @@
 %----------------------------------------------------------------------------------------
 \backmatter
 \nocite{*}
-\bibliographystyle{plain}
+\bibliographystyle{unsrt}
 \bibliography{bibliografía.bib} %Aquí ponen el nombre del archivo .bib
 
 \end{document}

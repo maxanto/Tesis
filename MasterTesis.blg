@@ -1,5 +1,0 @@
-[0] Config.pm:340> INFO - This is Biber 2.4
-[0] Config.pm:343> INFO - Logfile is 'MasterTesis.blg'
-[41] biber-MSWIN32:287> INFO - === 
-[404] Utils.pm:163> ERROR - Cannot find control file 'MasterTesis.bcf'! - did you pass the "backend=biber" option to BibLaTeX?
-[404] Biber.pm:112> INFO - ERRORS: 1
