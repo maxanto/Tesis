@@ -59,6 +59,8 @@ Temporary Items
 *.dat
 *.asv
 *.dvi
+
 *.toc
+
 
 *.out
