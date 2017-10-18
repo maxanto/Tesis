@@ -1,0 +1,38 @@
+\section{Determinación del \textit{jitter} en \emph{RO}'s}
+\label{sec:jitter}
+
+Hay dos situaciones diferentes en lo que concierne al \textit{jitter} en \textit{RO}s:
+(a) en algunas aplicaciones es suficiente con asegurar que el \textit{jitter} no perturba a la señal por encima de un límite aceptable.
+En este caso la señal se observa en un osciloscopio con un amáscara sobre la pantalla, lo que es suficiente para verificar que la señal se mantiene dentro de los márgenes de tolerancia;
+(b) en otros casos se precisa una determinación exacta del \textit{jitter}.
+Entre esos casos está la caractarización de \textit{RO}s considerada en este trabajo.
+
+Los \textit{RO}s ideales están compuestos por un numero impar de inversores.
+Cada inversor tiene un tiempo de propagación y por lo tanto los flancos de subida y bajada separados por medio período viajan a través de los inversores.
+Si todos los tiempos de propagación son constantes, la salida de este \textit{RO} ideal es una señal cuadrada con un espectro de frecuencia discreto.
+Pero los tiempos de propagación no son constantes, por lo tanto hay \textit{jitter}.
+El \textit{jitter} distorsiona el espectro de potencia ensanchando cada delta en un máximo con cierta anchura.
+
+Supongamos que $T/2$ es el medio período de un \emph{RO} ideal.
+Entonces está dado por:
+%
+\begin{eqnarray}
+\frac{T}{2}=k \sum_{i=1}^{k}d_i
+\end{eqnarray}
+%
+En donde $k$ es el número de inversores y $d_i$ es el tiempo de propagación a través del $i-$ésimo inversor.
+Cuando hay jitter, $d_i$ es una variable aleatoria que modelamos como:
+%
+\begin{eqnarray}
+d_i=D_i+ \Delta d_i
+\end{eqnarray}
+%
+where $D_i$ is the mean value of $d_i$ with nominal source voltage level and normal temperature, and $\bigtriangleup d_i$ is the delay variation produced by both local physical events and global changes in the device working conditions (as VCC, temperature, etc.). Then jitter in \emph{RO}'s is evidenced by the random displacement of the trailing (falling) edges from their otherwise perfectly periodic location. The direct measurement of this displacement has two main problems: (a) requires a very high-frequency instrument, because time resolution is limited by the sampling period $T_s$; (b) this technique introduces extra jitter and distortions in the measured signal coming from the data acquisition chain. Then it is more convenient to use \emph{indirect measurements}, by means of auxiliary random variables related to statistical properties related with jitter to measure jitter with minimal disturbance \cite{Lubicz2014}. The general procedure is as follow:
+\begin{enumerate}
+\label{list:altrenew}
+\item Sample the output with sampling period $T_s$ to get a binary time series. 
+In the ideal case of \emph{no-jitter} the output is a \emph{continuous and perfectly periodic square wave} with period $T$. Then it is possible to adjust $T_s$ to make $T/2=m~T_s$ with $m\in N^+$. The binary time series will be periodic with $m$ \emph{1}'s followed by $m$ \emph{0}'s. When jitter is present the binary series is not periodic but stochastic. This stochastic model is known as \emph{alternating renewal process}.
+\item Many different randomness quantifiers may be used to characterize the stochastic model associated with the measured jitter. In this paper, we propose the use of \emph{ITQ}'s. 
+\end{enumerate}
+%
+Note that jitter is accumulative and two basic situations arise: (a) if the jitter introduced by each stage is assumed to be totally independent of the jitter introduced by other stages, it means $\sigma_T^2=m*\sigma_s^2$, where $\sigma_s$ is the jitter of each sample, and it is supposed that all samples have jitter with the same normal distribution; (b) if jitter sources are totally correlated with one another then $\sigma_T=m*\sigma_s$. 

@@ -1,0 +1,53 @@
+\section{Introduction}
+\label{sec:intro}
+
+El \emph{Jitter} es cualquier desviación leve del período medio de una señal presuntamente periódica.
+Hay muchos ejemplos físicos donde la inestabilidad es relevante.
+Algunos ejemplos de diferentes áreas son:
+(a) Stalberg \textit{et. al} \cite{Stalberg1971} encontraron que el intervalo de tiempo entre los dos potenciales de acción de las fibras de dos fibras musculares, que pertenecen a la misma unidad motora en los músculos humanos normales, muestra una variabilidad o inestabilidad;
+(b) Mecozzi \textit{et. al} \cite{Mecozzi2001} detectaron jitter de temporal y variaciones de amplitud en enlaces ópticos utilizando transmisión de pulso altamente disperso;
+(c) Derickson \textit{et. al} \cite{Derickson1991} realizó una comparación completa de la fluctuación de tiempo en el caso de los láseres semiconductores en modo bloqueado;
+(d) el California y Carnegie Planet Search en el Observatorio Keck \cite{Wright2005} informó la inestabilidad de las estrellas en las velocidades radiales;
+(e) Roberts \& Guillemin estudiaron los retardos debidos a las colas en etapas de \textit{upstream multiplexing}, en una red de Modo de transferencia asíncrono (ATM);
+(f) Baron et al \cite{Baron2012} consideró la calidad de la señal del \textit{bunch clock} del \textit{Large Hadron Collider} (LHC), en términos de inestabilidad, un problema fundamental porque sincroniza todos los sistemas electrónicos en el detector;
+(g) Marsalek \textit{et. al} analizaron la relación entre la entrada sináptica y la fluctuación de fase de salida pico en neuronas individuales \cite{Marsalek1997}, etc.
+
+Además, los instrumentos digitales se utilizan en cualquier experimento moderno y la inestabilidad inevitable en los sistemas de adquisición de datos produce incertidumbres en el tiempo y, por consiguiente, en cualquier determinación del espectro.
+
+Este capítulo está dedicado a los osciladores de anillos (\emph{RO}).
+Recalcemos que en esta aplicación particular, el \textit{jitter} no siempre es indeseable.
+El \textit{jitter} no es desead en aplicaciones que usan un \emph{RO} como generador de reloj \cite{Buedo1998, Beomsup1990, Hajimiri1999, Mandal2010, Gupta2011}.
+Por el contrario, los generadores de números aleatorios \emph{RNG} basados en \emph{RO}'s, usan \textit{jitter} como fuente de aleatoriedad, \cite{Sunar2007, Wold2009}.
+El \textit{jitter} también mejora la compatibilidad electromagnética para distribuir la frecuencia del reloj sobre una banda, mejorando la Compatibilidad Electromagnética (EMC) \cite{DeMicco2012}.
+
+La determinación del \textit{jitter} de fase en \emph{RO} se ha estudiado en varios artículos: en \cite{McNeill1997} se presentó el estudio de tres medidas relevantes del \textit{jitter} en el dominio del tiempo.
+En \cite{Valtchanov2008} se propuso un modelo para la generación y distribución del \textit{jitter} en \emph{RO}.
+En este artículo, los autores separan las fuentes de inestabilidad en deterministas y aleatorias (gaussianas); además, cada fuente se clasifica adicionalmente en local o global.
+Demuestran que las contribuciones más importantes son la inestabilidad gaussiana local y la inestabilidad determinística global y solo la primera debe usarse como una fuente de aleatoriedad de generadores de números aleatorios verdaderos (\emph{TRNG}).
+El mismo enfoque se usó en \cite{Fischer2008, Valtchanov2010, Baudet2011, Jessa2011}.
+En Lubicz \textit{et. al} se describe un método práctico y eficiente para estimar la tasa de entropía de un \emph{TRNG} basado en osciladores libres; enfatizaron que su método no requiere extraer las señales del dispositivo y analizarlas con equipos externos \cite{Lubicz2014} (una metodología que introduce fluctuación y distorsión extra en la señal medida debido a la cadena de adquisición de datos).
+
+Por lo general, \emph{jitter determinista} es el nombre que se le da a cualquier \emph{jitter no gaussiano}.
+Está limitado y se caracteriza por su valor máximo de $\Delta_{pp}$.
+\textit{Jitter} aleatori es el nombre utilizado para la \textit{jitter} gaussiano y se caracteriza por su valor RMS.
+A veces aparece \textit{jitter} periódico determinístico.
+Tiene un \emph{período} que es el intervalo entre dos tiempos el efecto máximo (mínimo); el inverso del período de tiempo es \emph{la frecuencia del jitter}.
+El \textit{jitter} periódico con una frecuencia de fluctuación inferior a $10 Hz$ usualmente se denomina \emph{wander} y el nombre \emph{jitter} está reservada solo a la fluctuación periódica con frecuencias en o por encima de $10 Hz$.
+En comunicaciones, \emph{jitter total} es $T = \Delta_{pp} + 2nR_{rms}$ donde $n$ es un número entre $6$ y $8$ relacionado con la tasa de error de bit (\emph{BER}).
+
+Los \emph{RO}s son uno de los principales componentes de los circuitos integrados analógicos y digitales y se han utilizado ampliamente como osciladores \emph{on-chip} para generar relojes en circuitos de alta velocidad.
+Además, los \emph{RO}s se pueden implementar fácilmente en circuitos digitales programables como \emph{FPGA}s.
+Las principales ventajas de los osciladores integrados \emph{RO} sobre los \emph{LC} son su área de chip más pequeña, su rango de funcionamiento más amplio (que puede ser sintonizado eléctricamente) y su menor consumo de energía.
+
+Ya sea que se quiera usar o eliminarlo, el \textit{jitter} en \emph{RO}s debe medirse, lo que no es una tarea simple.
+La principal contribución de este trabajo es proporcionar una técnica de medición del \textit{jitter} basada en cuantificadores de la teoría de la información (\emph{ITQ}).
+Utilizamos un modelo estocástico cuya aleatoriedad está relacionada con la amplitud de la inestabilidad.
+Cada \emph{ITQ} propuesto utilizado en este trabajo se basa en una entropía, es decir, una función de Shannon de la función de distribución de probabilidad (\emph{PDF}) asignada a la serie de tiempo del proceso estocástico.
+También se pueden usar desequilibrios y complejidades \cite{Amigo2005, Rosso2007b}, pero no representan una mejora en nuestro caso.
+En trabajos anteriores \cite{DeMicco2008, DeMicco2009} mostramos que muchas \emph{PDF}s diferentes pueden asignarse a la misma cadena de datos.
+La mejor opción depende de la aplicación específica.
+En este caso utilizamos dos opciones para \emph{PDF}: el \emph{histograma normalizado} y el \emph{histograma de patrones de orden}.
+Se usa un plano de representación para comparar diferentes situaciones.
+Una vez que se elige la \emph{PDF}, la Entropía de Shannon es la función básica que cuantifica la uniformidad de la \emph{PDF}.
+Las \emph{entropías normalizadas}, \emph{entropías diferenciales} y \emph{tasa entropía} son las otras \emph{ITQ}s evaluadas.
+En nuestro caso las \emph{entropías diferenciales} obtienen los mejores resultados y se utiliza un \emph{plano de entropías diferenciales} para comparar su sensibilidad como medida de \textit{jitter}.
