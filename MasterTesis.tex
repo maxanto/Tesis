@@ -14,6 +14,7 @@
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{multirow} %Para dibujar tablas
+\renewcommand{\baselinestretch}{1.5}
 
 \begin{document}
 
@@ -31,21 +32,19 @@
 \mainmatter %empieza la numeración de las páginas
 \pagestyle{headings}
 
-%  Incluye los capítulos en el folder de capítulos
-
 \include{CapIntro/MasterIntro}
 \thispagestyle{empty}
 
 \include{CapCuanti/MasterCuanti}
 \thispagestyle{empty}
 
+\include{CapRings/MasterRings}
+\thispagestyle{empty}
+
 \include{CapSist/MasterSist}
 \thispagestyle{empty}
 
-\include{CapArit/MasterArit}
-\thispagestyle{empty}
-
-\include{CapRings/MasterRings}
+\include{CapSwitch/MasterSwitch}
 \thispagestyle{empty}
 
 \include{Conclu}

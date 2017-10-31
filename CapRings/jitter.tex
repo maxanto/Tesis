@@ -27,12 +27,23 @@ Cuando hay jitter, $d_i$ es una variable aleatoria que modelamos como:
 d_i=D_i+ \Delta d_i
 \end{eqnarray}
 %
-where $D_i$ is the mean value of $d_i$ with nominal source voltage level and normal temperature, and $\bigtriangleup d_i$ is the delay variation produced by both local physical events and global changes in the device working conditions (as VCC, temperature, etc.). Then jitter in \emph{RO}'s is evidenced by the random displacement of the trailing (falling) edges from their otherwise perfectly periodic location. The direct measurement of this displacement has two main problems: (a) requires a very high-frequency instrument, because time resolution is limited by the sampling period $T_s$; (b) this technique introduces extra jitter and distortions in the measured signal coming from the data acquisition chain. Then it is more convenient to use \emph{indirect measurements}, by means of auxiliary random variables related to statistical properties related with jitter to measure jitter with minimal disturbance \cite{Lubicz2014}. The general procedure is as follow:
+donde $D_i$ es el valor medio de $d_i$ con el nivel nominal de voltaje de fuente y la temperatura normal, y $\Delta d_i$ es la variación del retardo producida por los eventos físicos locales y los cambios globales en las condiciones de trabajo del dispositivo (como $V_{CC}$, temperatura , etc.).
+Entonces, el \textit{jitter} en \emph{RO}s se evidencia por el desplazamiento aleatorio de la ubicación de los flancos ascendentes (descendentes), con respecto a la ubicación perfectamente periódica.\
+La medición directa de este desplazamiento tiene dos problemas principales:
+(a) requiere un instrumento de muy alta frecuencia, porque la resolución del tiempo está limitada por el período de muestreo $T_s$;
+(b) esta técnica introduce fluctuaciones y distorsiones adicionales en la señal medida proveniente de la cadena de adquisición de datos.
+Entonces es más conveniente usar \emph{medidas indirectas}, por medio de variables aleatorias auxiliares relacionadas con las propiedades estadísticas relacionadas con el \textit{jitter} para medir la fluctuación de fase con una perturbación mínima \cite{Lubicz2014}.
+El procedimiento general es el siguiente:
 \begin{enumerate}
-\label{list:altrenew}
-\item Sample the output with sampling period $T_s$ to get a binary time series. 
-In the ideal case of \emph{no-jitter} the output is a \emph{continuous and perfectly periodic square wave} with period $T$. Then it is possible to adjust $T_s$ to make $T/2=m~T_s$ with $m\in N^+$. The binary time series will be periodic with $m$ \emph{1}'s followed by $m$ \emph{0}'s. When jitter is present the binary series is not periodic but stochastic. This stochastic model is known as \emph{alternating renewal process}.
-\item Many different randomness quantifiers may be used to characterize the stochastic model associated with the measured jitter. In this paper, we propose the use of \emph{ITQ}'s. 
+\item Se muestrea la salida con el período de muestreo $ T_s $ para obtener una serie de tiempo binaria.
+En el caso ideal de \emph{no-jitter}, la salida es una \emph{onda cuadrada continua y perfectamente periódica} con un período $T$.
+Entonces es posible ajustar $T_s$ para hacer $T/2 = mT_s $ con $m \in N^+$.
+La serie de tiempo binaria será periódica con $m$ unos seguida de $m$ ceros.
+Cuando el \textit{jitter} está presente, la serie binaria no es periódica sino estocástica.
+Este modelo estocástico se conoce como \emph{proceso de renovación alterna}.
+\item Se pueden usar muchos cuantificadores de aleatoriedad diferentes para caracterizar el modelo estocástico asociado con el \textit{jitter} medido.
+En este trabajo utilizamos cuantificadores de la teoría de la información.
 \end{enumerate}
-%
-Note that jitter is accumulative and two basic situations arise: (a) if the jitter introduced by each stage is assumed to be totally independent of the jitter introduced by other stages, it means $\sigma_T^2=m*\sigma_s^2$, where $\sigma_s$ is the jitter of each sample, and it is supposed that all samples have jitter with the same normal distribution; (b) if jitter sources are totally correlated with one another then $\sigma_T=m*\sigma_s$. 
+Tengamos en cuenta que el \textit{jitter} es acumulativo y surgen dos situaciones básicas:
+(a) si se supone que el \textit{jitter} introducido por cada etapa es totalmente independiente del \textit{jitter} introducido por otras etapas, significa que  $\sigma_T^2=m*\sigma_s^2$, en donde $\sigma_s$ es el \textit{jitter} de cada muestra, y se supone que todas las muestras tienen fluctuaciones con la misma distribución normal;
+(b) si las fuentes de \textit{jitter} están totalmente correlacionadas entre sí, entonces $\sigma_T=m*\sigma_s$.

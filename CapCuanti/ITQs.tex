@@ -258,6 +258,10 @@ Existen fuentes bibliográficas para una discusión completa sobre la convenienc
 \label{subsec:addquanti}
 
 La entropía de Shannon $S(P)$ es el punto de partida para otros cuantificadores:
+Para medir la entropía de una serie binaria es necesario 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	hablar del conjunto de particiones y no se que
+	
 
 \begin{enumerate}
 	\item Entropía normalizada $H(P)$: es la entropía de Shannon dividida por su valor máximo. Por ejemplo, si usamos $S_2$ (ver arriba), se obtiene la entropía máxima para equiprobabilidad entre dos símbolos. Su valor es $S_{max}=-1/2 log(1/2)-1/2 log(1/2)=log(2)=1$; tentonces, la entropía normalizada es $H_2=S_2$. Si usamos $S_W$ la equiprobabilidad entre las $2^W$ posibles palabras (números decimales de $W$-bits) produce $S_{max}=W$ y $H_W=S_W/W$. Finalmente, para $S^{(D)}_{BP}$ la equiprobabilidad entre los $D!$ patrones de orden produce $S_{max}= log(D!)$ y $H^{(D)}_{BP}=S^D_{BP}/log(D!)$.
@@ -273,3 +277,26 @@ La entropía de Shannon $S(P)$ es el punto de partida para otros cuantificadores
 	h^*_0= \lim\limits_{D\rightarrow \infty} h^*=\lim\limits_{D\rightarrow \infty}{S^{(D)}_{BP}/(D-1)}
 	\end{eqnarray}
 \end{enumerate}
+
+Let us stress some important issues involved in the calculations of the above-mentioned entropies:
+\begin{enumerate}
+	\item The binary entropy $S_2$ is noncasual while both, the block entropy $S_W$ and the Bandt \& Pompe entropy $S^{(D)}_{BP}$, are causal. 
+	\item The block entropy $S_W$ takes into account correlations between $W$ consecutive bits. Bandt\& Pompe entropy $S^{(D)}_{BP}$ takes into account correlations between $D$ consecutive $W$-length words.
+	Both grouping procedures (decimal numbers of $W$ bits and permutation patterns of $D$ decimal numbers) may be done with or without superposition. The number of data required for good statistics is different depending the grouping procedures are made with superposition or not.
+	\item For $S_W$ there is only one grouping process ($W$ bits are grouped to obtain a decimal numbers time series $Y$). Let us define $\alpha$ as a statistical quality parameter, given by the quotient between the number of elements in the symbolic time series $Y$ and the number of symbols in the alphabet. In this paper we will not accept $\alpha~<~10$. 
+	
+	Obviously the quality factor $\alpha$ increases with the length of the time series:
+	%
+	\begin{enumerate}
+		\item If the grouping of $W$ bits is made with superposition, two consecutive $W$-length words share $W-2$ bits. Consequently starting with a file with a length of $N$-bits we get $N-W+1$ words. Furthermore, there are $2^W$ symbols in the alphabet and $\alpha=(N-W+1)/(2^W)$. 
+		\item If $S_W$ is evaluated without superposition the number of $W$-length words is $floor~\{N/W\}$ and the quality parameter becomes $\alpha=floor~\{N/W\}/(2^W)$. For $N\gg W$ the statistical quality factor is $W$ times lower that the one with superposition.
+	\end{enumerate}
+	
+	\item In the case of $S^{(D)}_{BP}$, there are two grouping processes involved. 
+	\begin{enumerate}
+		\item If both grouping processes are made with superposition we get $N-W-D+2$ elements starting with a file $N$-bits length, and the quality factor is $\alpha=(N-W-D+2)/D!)$. In this case $S^{(D)}_{BP}$ takes into account the correlations between $W+D$ consecutive bits. 
+		\item If the grouping process of $W$ bits is made without superposition but the grouping of $D$ decimal numbers is made with superposition we get $floor\{N/W\}-D+1$ elements and the statistical quality parameter is $\alpha=(floor\{N/W\}-D+1)/D!$. In this case $S^{(D)}_{BP}$ will include correlations between $WD$ consecutive bits. 
+		\item If the grouping process of $W$ bits is made with superposition and the grouping of $D$ decimal numbers is made without superposition we get $floor\{(N-W+1)/D\}$ elements starting from a file with $N$ bits.The statistical quality factor is $\alpha=floor\{(N-W+1)/D\}/D!$ and $S^{(D)}_{BP}$ takes into account correlations between $W+D-1$ bits.
+		\item If both grouping processes are made without superposition we get $floor\{floor\{N/W\}/D\}$ elements starting from a $N$-bits length file. The statistical quality factor is $\alpha=floor\{floor\{N/W\}/D\}/D!$ and $S^{(D)}_{BP}$ takes into account correlations between $WD$ consecutive bits.
+	\end{enumerate}
+\end{enumerate} 

@@ -1,102 +1,146 @@
-\section{Results}
+\section{Resultados}
 \label{sec:resu}
 
-An evenly sampled output of a jitter-less \emph{RO} was simulated with Matlab\textsuperscript{\copyright} and an output file with a length of $N_b=7,000,000$ of bits was generated. A set of a hundred values of the sampling ratio $r= T_s/T\in[6.5,9.5]$, was explored (where $T_s$ is the sampling period and $T$ is the \emph{RO}  output period). Jitter with a normal distribution and a set with different values of variance $\sigma_s$ (see below) were added to the original file. Our method emulates the real process of sampling the noisy output of a real \emph{RO}; the detailed code is published in Mathworks\cite{MathworksMaxi}.
+Se simuló con Matlab\textsuperscript{\textregistered} una salida de un \emph{RO} muestreada uniformemente sin \textit{jitter} y se generó un archivo de salida con una longitud de $N_b = 7.000.000$ de bits.
+Se exploró un conjunto de cien valores de relación de muestreo $r = T_s/T \in [6,5; 9,5]$ (donde $T_s$ es el período de muestreo y $T$ es el período de salida \emph{RO}).
+\textit{Jitter} con una distribución normal con un conjunto de diferentes valores de varianza $\sigma_s$ (ver a continuación) se agregaron y se generaron nuevos archivos de la misma longitud.
+Nuestro método emula el verdadero proceso de muestreo de la salida ruidosa de un \emph{RO} real; el código detallado se publicó en Mathworks \cite{MathworksMaxi}.
 
-For each value of $\sigma_s$, ten surrogates (each one with a different random initial condition) were generated and new files with $N_b$ bits each were stored. It was assumed that jitter of individual samples is independent, normal distributed random variables, with zero mean value and variance $\sigma_i=\sigma_s$. Consequently, the variance of the accumulated jitter over one period $T$ is given by $\sigma^2_T=r \sigma^2_s$ \cite{Valtchanov2008}. The values considered  are $\sigma_T=\{0,$ $0.001,$ $0.002,$ $0.003,$ $0.004,$ $0.005,$ $0.007,$ $0.01,$ $0.02,$ $0.02,$ $0.04,$ $0.05,$ $0.07,$ $0.1\}$.
+Por cada valor de $\sigma_s$, ten surrogates (each one with a different random initial condition) were generated and new files with $N_b$ bits each were stored. It was assumed that jitter of individual samples is independent, normal distributed random variables, with zero mean value and variance $\sigma_i=\sigma_s$. Consequently, the variance of the accumulated jitter over one period $T$ is given by $\sigma^2_T=r \sigma^2_s$ \cite{Valtchanov2008}. The values considered  are $\sigma_T=\{0,$ $0.001,$ $0.002,$ $0.003,$ $0.004,$ $0.005,$ $0.007,$ $0.01,$ $0.02,$ $0.02,$ $0.04,$ $0.05,$ $0.07,$ $0.1\}$.
 
-For each file all the quantifiers defined in \ref{sec:quanti} were evaluated for $D\in[2,10]$ and $W\in[1,26]$. The details about evaluation, advantages and drawbacks of each quantifier are reported in section \ref{sec:quanti}: they are $S_W$, $S^{(D)}_{BP}$, $H_{W}$, $H^{(D)}_{BP}$, $h$ and $h^*$.  Let us only show here the  more relevant results  to show the reason the last two quantifiers ($h$ and $h^*$) are the best ones.
+Para cada valor de $\sigma_s$, se generaron diez surrogados (cada uno con una condición inicial aleatoria diferente) y se almacenaron nuevos archivos con $N_b$ bits cada uno. Se asumió que el \textit{jitter} de las muestras individuales es independiente, con variables aleatorias distribuidas normales y un valor medio cero y varianza $\sigma_i = \sigma_s$.
+En consecuencia, la varianza del \textit{jitter} acumulada durante un período de $T$ está dada por $\sigma^2_T = r \sigma^2_s $ \cite{Valtchanov2008}.
+Los valores considerados son $\sigma_T=\{0,$ $0.001,$ $0.002,$ $0.003,$ $0.004,$ $0.005,$ $0.007,$ $0.01,$ $0.02,$ $0.02,$ $0.04,$ $0.05,$ $0.07,$ $0.1\}$.
+
+Por cada archivo se evaluaron todos los cuantificadores definidos en la sección \ref{sec:quanti} para $D\in[2,10]$ y $W\in[1,26]$..
+Los detalles sobre la evaluación, las ventajas y los inconvenientes de cada cuantificador se informan en la sección \ref{sec:quanti}: ellos son $S_W$, $S^{(D)}_{BP}$, $H_{W}$, $H^{(D)}_{BP}$, $h$ and $h^*$. 
+Aquí mostraremos solo los resultados más relevantes para mostrar la razón por la cual los dos últimos cuantificadores ($h$ y $h^*$) resultan los más adecuados para este problema.
 
 \begin{itemize}
-\item In the case of normalized entropy $H_{W}$, it strongly depends on $W$. Furthermore the analysis of $H_{W}$ as a function of $r$ shows that it does not allow to determine an optimum value of the sampling ratio $r$ (see Fig. \ref{fig:H_W_rCS}). This is an important issue if the quantifiers are going to be used for experimental setups. 
-\item In the case of the normalized Bandt \& Pompe entropy $H^{(D)}_{BP}$, a strong dependence on the embedding dimension $D$ is additionally present. Again it is not easy to determine the optimum value of $r$ from the analysis of this parameter as a function of $r$  (see Fig. \ref{fig:HBP_W_rSS}). 
-\item A similar behavior appears in all the other functionals related with these two entropies. 
-In summary, our results show that  both $ h$ y $h^*$ are independent of any arbitrary parameter used in their statistical determination.  These two quantifiers have also been considered in two excellent articles \cite{Amigo2006,Ebeling2001}. 
+	\item En el caso de entropía normalizada $H_ {W}$, depende en gran medida de $W$.
+	Además, el análisis de $H_{W}$ en función de $r$ muestra que no permite determinar un valor óptimo de la relación de muestreo $r$ (ver Fig. \ref{fig:H_W_rCS}).
+	Este es un problema importante si los cuantificadores se van a usar para configuraciones experimentales.
+	\item En el caso de la entropía de Bandt \& Pompe normalizada $H^{(D)}_{BP}$, también está presente una fuerte dependencia con la dimensión de emmbedding $D$.
+	Nuevamente, no es fácil determinar el valor óptimo de $r$ del análisis de este parámetro en función de $r$ (ver Fig. \ref{fig:HBP_W_rSS}).
+	\item Un comportamiento similar aparece en todos los otros funcionales relacionados con estas dos entropías.
+	En resumen, nuestros resultados muestran que tanto $h$ y $h^*$ son independientes de cualquier parámetro arbitrario utilizado en su determinación estadística.
+	Estos dos cuantificadores también se han considerado en dos excelentes artículos \cite{Amigo2006, Ebeling2001}.
 \end{itemize}
+
 %
 \begin{figure}
 \center
 \includegraphics[width=0.8\textwidth]{H_W_rCS}
-\caption{Normalized entropy $H_W$ as a function of $W$ for a jitter-less \emph{RO} sampled with different values of $r$.}
+\caption{Entropía normalizada $H_W$ en función de $W$ para un \emph{RO} sin \textit{jitter} muestreado con diferentes valores de $r$.}
 \label{fig:H_W_rCS}
 \end{figure}
 %
 \begin{figure}
 \center
 \includegraphics[ width=0.8\textwidth]{HBP_W_rSS}
-\caption{$H^{(D)}_{BP}$ as a function of $W$ for a jitter-less \emph{RO} sampled with different values of $r$. Calculations are made without superposition of words}
+\caption{$H^{(D)}_{BP}$ en función de  $W$ para un \emph{RO} sin \textit{jitter} muestreado con diferentes valores de $r$. Los cálculos fueron hechos con superposición de palabras}
 \label{fig:HBP_W_rSS}
 \end{figure}
 
-Our results show that two quantifiers, $h$ and $h^*$, are appropriate to be used as jitter measures because: 
+Estos resultados muestran que los dos cuantificadores, $h$ y $h^*$, son apropiados para ser usados como medidores de \textit{jitter} debido a que: 
 \begin{itemize} 
-\item (a) for $\sigma_T=0$ (jitter-less output) they rapidly approach to a constant limiting value as both $D$ and $W$ increase toward $\infty$ and this limiting value is independent of both $D$ and $W$; 
-\item (b) they are increasing monotone (and almost proportional) functions of $\sigma_T$. \item (c) From their analysis, it is possible to detect the optimum value of the sampling ratio $r$. Let us show these claims in the following figures that are representative of all our results. 
+\item (a) Para $\sigma_T=0$ (salida sin \textit{jitter}) se acercan rápidamente a un valor limite constante ya que tanto $D$ como $W$ tienden a $\infty$ y este valor es independiente de $D$ y $W$; 
+\item (b) Son funciones monótonas y proporcionales de $\sigma_T$.
+\item (c) A partir de su análisis, es posible detectar el valor óptimo de la relación de muestreo $r$.
+En las siguientes figuras mostraremos estas afirmaciones que son representativas de todos nuestros resultados.
 \end{itemize}
 %
-Figure \ref{fig:hm_D_SJ} shows the Bandt \& Pompe differential entropy $h^*$, as a function of $D$, with $W$ as a parameter, for a ring without jitter. It can be seen that there is a threshold value $W=4$ over which all the curves collapse into one for every value of $D$. Furthermore, Fig. \ref{fig:hm_D_SJ} also shows that for $D\ge8$ all the curves collapse into one, regardless the value of $W$. In conclusion, if $D\ge 8$ and $W\ge 4$ one obtains a quantifier independent of both $D$ and $W$. The influence of jitter on this quantifier is shown in Figure \ref{fig:hm_D_CJ}, where $h^*$ is plotted as a function of $D$ with $\sigma_T$ as a parameter. The values considered are $\sigma_T=\{0 (no~jitter),$ $0.001,$ $0.002,$ $0.003,$ $0.004,$ $0.005,$ $0.007,$ $0.01,$ $0.02,$ $0.02,$ $0.04,$ $0.05,$ $0.07,$ $0.1\}$. The inset of Fig. \ref{fig:hm_D_CJ} shows $h^*$ as a function of $\sigma_T$ for $D=8$. This inset shows that this quantifier is an increasing monotone function of $\sigma_T$. Finally Fig. \ref{fig:hm_r_CJ} shows $h^*$ as a function of the sampling ratio $r$. 
-In this figure, it is shown that there is a minimum for the right $r$ (in this case $r=8$). Furthermore sensitivity of $h^*$ as a function of jitter is maximum for this same ideal value of $r$.
+La figura \ref{fig:hm_D_SJ} muestra la entropía diferencial de Bandt \& Pompe $h^*$, como función de $D$, con $W$ como parámetro, para un \textit{RO} sin \textit{jitter}.
+Se puede ver que existe un valor umbral $W = 4$ sobre el cual todas las curvas colapsan en una sin importar el valor de $D$.
+Además, la Fig. \ref{fig:hm_D_SJ} también muestra que para $D \ge 8$ todas las curvas colapsan en una, independientemente del valor de $W$.
+En conclusión, si $D \ge 8$ y $W \ge 4$ obtenemos un cuantificador independiente de $D$ y $W$.
+La influencia del \textit{jitter} en este cuantificador se muestra en la figura \ref{fig: hm_D_CJ}, donde $h^*$ se representa como una función de $D$ con $\sigma_T$ como parámetro.
+Los valores considerados son $\sigma_T=\{0 (sin~jitter),$ $0.001,$ $0.002,$ $0.003,$ $0.004,$ $0.005,$ $0.007,$ $0.01,$ $0.02,$ $0.02,$ $0.04,$ $0.05,$ $0.07,$ $0.1\}$.
+El recuadro de la Fig. \ref{fig:hm_D_CJ} muestra $h^*$ como una función de $\sigma_T$ para $D = 8$.
+Este recuadro muestra que este cuantificador es una función monótona creciente de $\sigma_T$.
+Finalmente, la Fig.\ref{fig: hm_r_CJ} muestra $h^*$ como una función de la relación de muestreo $r$.
+En esta figura, se muestra que hay un mínimo para el $r$ correcto (en este caso $r = 8$).
+Además, la sensibilidad de $h^*$ en función del \textit{jitter} es máxima para este mismo valor ideal de $r$.
 
 \begin{figure}
 \center
 \includegraphics[ width=0.8\textwidth]{hm_D_SJ}
-\caption{$h^*$ as a function of $D$ for a jitter-less \emph{RO} sampled with $r=8$.}
+\caption{$h^*$ en función de $D$ para un \emph{RO} sin \textit{jitter} muestreado con $r=8$.}
 \label{fig:hm_D_SJ}
 \end{figure}
 
 \begin{figure}
 \center
 \includegraphics[width=0.8\textwidth]{hm_D_CJ}
-\caption{$h^*$ as a function of $D$ for a \emph{RO} sampled with $r=8$ for a world length $W=6$ for jitter with several variances. The inset shows $h^*$ as a function of $\sigma_T$ for $r=8$, $W=6$ and $D=8$.}
+\caption{$h^*$ en función de $D$ para un \emph{RO} muestreado con $r=8$ con longitud de palabra $W=6$ para \textit{jitter} con diferentes varianzas. El recuadro muestra $h^*$ en función de $\sigma_T$ para $r=8$, $W=6$ y $D=8$.}
 \label{fig:hm_D_CJ}
 \end{figure}
 
 \begin{figure}
 \center
 \includegraphics[ width=0.8\textwidth]{hm_r_CJ}
-\caption{$h^*$ as a function of $r$ for $r\in[7.95,8.05]$, with several $\sigma_T$, $W=6$ and $D=8$. The curve has a minimum at the correct value $r=8$.}
+\caption{$h^*$ en función de $r$ para $r\in[7.95,8.05]$, con algunos $\sigma_T$, $W=6$ y $D=8$. La curva tiene un mínimo en el valor correcto de $r=8$.}
 \label{fig:hm_r_CJ}
 \end{figure}
 
-Let us now analyze the second quantifier, $h$. This quantifier only depends on $W$ because $D$ is not used to define the \emph{PDF} assigned to the data series. Fig. \ref{fig:h_W_SJ} shows jitter-less case, $h$ is almost independent of $W$ for $W\ge4$. In this paper, we adopted $W=6$. Figure \ref{fig:h_W_CJ} shows the influence of jitter over this quantifier. It is clear from the inset in this figure that, for the selected value $W=6$, $h$ is an increasing monotone function of jitter variance $\sigma_T$.
-
-Fig. \ref{fig:h_r_CJ} shows that $h$ has a minimum when the value of $r$ takes its optimum value ($r=8$). Note that this minimum is robust also in the presence of jitter.
+Analicemos ahora el segundo cuantificador, $h$.
+Este cuantificador solo depende de $W$ porque $ D $ no se usa para definir la \emph{PDF} asignada a la serie de datos.
+La Fig. \ref{fig: h_W_SJ} muestra un caso sin \textit{jitter}, $h$ es independiente de $W$ para $W \ge 4$.
+Para lo siguiente adoptamos $W = 6$.
+La figura \ref{fig: h_W_CJ} muestra la influencia del \textit{jitter} sobre este cuantificador.
+Queda claro en el recuadro de esta figura que, para el valor seleccionado $W = 6$, $h$ es una función monótona creciente de la varianza del \textit{jitter} $\sigma_T$.
+La Fig. \ref{fig: h_r_CJ} muestra que $h$ tiene un mínimo cuando $r$ toma su valor óptimo ($r = 8$).
+Note que este mínimo es robusto también en presencia de jitter.
 
 \begin{figure}
 \center
 \includegraphics[width=0.8\textwidth]{h_W_SJ}
-\caption{$h$ as a function of $W$ for a jitter-less \emph{RO} sampled with $r=8$.}
+\caption{$h$ en función de $W$ para un \emph{RO} sin \textit{jitter} muestreado con $r=8$.}
 \label{fig:h_W_SJ}
 \end{figure}
 
 \begin{figure}
 \center
 \includegraphics[ width=0.8\textwidth]{h_W_CJ}
-\caption{$h$ as a function of $W$ for a \emph{RO} sampled with $r=8$, for jitter with several variances. The inset shows $h$ as a function of $\sigma_T$ for $r=8$ and $W=6$.}
+\caption{$h$ en función de $W$ para un \emph{RO} muestreado con $r=8$, con \textit{jitter} con distintas varianzas. El recuadro muestra $h$ en función de $\sigma_T$ con $r=8$ y $W=6$.}
 \label{fig:h_W_CJ}
 \end{figure}
 
 \begin{figure}
 \center
 \includegraphics[ width=0.8\textwidth]{h_r_CJ}
-\caption{$h$ as a function of $r$ for $r\in[7.95,8.05]$, with several $\sigma_T$ and $W=6$ . The curve has a minimum at the optimum value $r=8$.}
+\caption{$h$ en función de $r$ con $r\in[7.95,8.05]$, para distintos $\sigma_T$ y $W=6$ . La curva tiene un mínimo en $r=8$.}
 \label{fig:h_r_CJ}
 \end{figure}
 
-Further analysis must be done to assure that the selected values $W=6$ and $D=8$ produce symbolic files with a good statistics. For a given alphabet $\mathcal{A}$ with $m$ elements, and a given symbolic file of length $n$, the quality parameter $\alpha=n/m$, see \ref{sec:quanti}. Quality is better as $\alpha$ increases and a minimum value $\alpha=10$ was accepted. According to section \ref{sec:quanti} the selected values $W=6$ and $D=8$ provide $\alpha_h\simeq10^5$, $\alpha_{h^*}\simeq175$ with superposition and $29$ without superposition. All cases give $\alpha>10$ as required.
+Se debe realizar un análisis adicional para asegurar que los valores seleccionados $W = 6$ y $D = 8$ produzcan archivos simbólicos con una buena estadística. Para un alfabeto dado $\mathcal{A}$ con $m$ elementos, y un archivo simbólico dado de longitud $n$, el parámetro de calidad $\alpha = n/m$, vea \ref{sec: quanti}.
+La calidad es mejor a medida que $\alpha$ aumenta y se acepta un valor mínimo $\alpha = 10$.
+De acuerdo con la sección \ref{sec: quanti} los valores seleccionados $W = 6$ y $D = 8$ proporcionan $\alpha_h \simeq 10^5$, $ \alpha_ {h^*} \simeq 175$ con superposición y $29$ sin superposición. Todos los casos dan $\alpha>10$ como es requerido.
 
-%PARTE DE ESTO TIENE QUE IR A LA SECCION CUANTI
+%EN LA SECCIÓN CUANTI TENGO QUE PONER COMO SE CALCULA ALFA
 
+Figure \ref{fig:hm_h_CJ} shows the $h^*_{m} \times h$ plane. The quantifiers have been calculated sweeping the values of $D$ from $2$ to $11$, and $W$ from $2$ to $26$ (both for $h^*$ and only $W$ in the case of $h_{hist}$).
+Better differentiation is obtained for higher values of the parameters, this is because both quantifiers tend to quantify the source value for $D$ and $W$ equal to infinite.
+Nevertheless, this is impossible in real practice, also the amount of data available limits the values of the parameters based to achieve good statistics. Therefore, we seek the minimum values (threshold value) of the parameters that discern the jitter good enough. In Figure \ref{fig:hvsh_8} it can be seen that for values of $W$ equal to $3$ or lower the $h_{hist}$ quantifier is insensitive to the variations of the jitter. Therefore, $W$ should be $4$ or higher, this result is in concordance with the threshold determined in Figures \ref{fig:hhistvsW_T8_CJ}. In the case of $h^*$ the $W$ value should be equal or higher than $4$ and the value of $D$ higher than $7$, again this result is in concordance with the ones derived from Figures \ref{fig:hmvsD_T8} and \ref{fig:hmvsD_CJ_T8}. The bottom left area of the plane is the one with better performance of both quantifiers.
 
-%============= el que sigue es el plano general y me parece que es mejor no ponerlo =============================================================
-%Figure \ref{fig:hm_h_CJ} shows the $h^*_{m}-h}$ plane. The quantifiers have been calculated sweeping the values of $D$ from $2$ to $11$, and $W$ from $2$ to $26$ (both for $h^*$ and only $W$ in the case of $h_{hist}$).
-%Better differentiation is obtained for higher values of the parameters, this is because both quantifiers tend to quantify the source value for $D$ and $W$ equal to infinite.
-%Nevertheless, this is impossible in real practice, also the amount of data available limits the values of the parameters based to achieve good statistics. Therefore, we seek the minimum values (threshold value) of the parameters that discern the jitter good enough. In Figure \ref{fig:hvsh_8} it can be seen that for values of $W$ equal to $3$ or lower the $h_{hist}$ quantifier is insensitive to the variations of the jitter. Therefore, $W$ should be $4$ or higher, this result is in concordance with the threshold determined in Figures \ref{fig:hhistvsW_T8_CJ}. In the case of $h^*$ the $W$ value should be equal or higher than $4$ and the value of $D$ higher than $7$, again this result is in concordance with the ones derived from Figures \ref{fig:hmvsD_T8} and \ref{fig:hmvsD_CJ_T8}. The bottom left area of the plane is the one with better performance of both quantifiers.
-%========== fin plano general
+La figura \ref{fig: hm_h_CJ} muestra el plano $h^*_{m} \times h$.
+Los cuantificadores se calcularon barriendo los valores de $D$ de $2$ a $11$ y $W$ de $2$ a $26$ (barrimos ambos para $h^*$ y solo $W$ en el caso de $h_{hist}$).
+Se obtiene una mejor diferenciación para valores más altos de los parámetros, esto es porque ambos cuantificadores tienden a cuantificar la entropía de la fuente cuando $D$ y $W$ tienden a infinito.
+Sin embargo esto es imposible en la práctica real, la cantidad de datos disponibles limita los valores de los parámetros para lograr buenas estadísticas.
+Por lo tanto, buscamos los valores mínimos (valor umbral) de los parámetros que distinguen el \textit{jitter} lo suficientemente bien.
+En la figura \ref{fig:hvsh_8} se puede ver que para valores de $W$ iguales o menores a $3$, el cuantificador $h_{hist}$ no es sensible a las variaciones del \textit{jitter}.
+Por lo tanto, $W$ debe ser $ $ o superior, este resultado está en concordancia con el umbral determinado en las Figuras \ref{fig: hhistvsW_T8_CJ}.
+En el caso de $h^*$ el valor de $W$ debe ser igual o superior a $4$ y el valor de $D$ superior a $7$, nuevamente este resultado está en concordancia con los derivados de las Figuras \ref{fig : hmvsD_T8} y \ref{fig: hmvsD_CJ_T8}.
+El área inferior izquierda del plano es la que tiene un mejor rendimiento de ambos cuantificadores, sin embargo es la que precisa un mayor esfuerzo de cómputo y una mejor estadística.
 
-A comparison between both quantifiers is shown in Figure \ref{fig:hm_h_CJ}. Markers correspond to variances $\sigma_T=\{0,$ $0.001,$ $0.002,$ $0.003,$ $0.004,$ $0.005,$ $0.007,$ $0.01,$ $0.02,$ $0.03,$ $0.04,$ $0.05,$ $0.07,$ $0.1\}$.
-Note that the slope of any of these curves is $dh^*/dh$ and it is equal to the quotient between slopes of curves in the insets of Figs. \ref{fig:hm_D_CJ}, and \ref{fig:h_W_CJ}. If $dh^*/dh~>1$, $h^*$ is more sensitive than $h$ to measure jitter. The slope slightly increases from $\sim2.47$ for $W=5$ to $\sim5.54$ for $W=19$ showing that $h^*$ becomes more sensitive as $W$ increases.
+%TENGO QUE PONER EL PLANO EN LAS FIGURAS
 
+Una comparación entre ambos cuantificadores se muestra en la figura \ref{fig:hm_h_CJ}.
+Los marcadores corresponden a varianzas $\sigma_T=\{0,$ $0.001,$ $0.002,$ $0.003,$ $0.004,$ $0.005,$ $0.007,$ $0.01,$ $0.02,$ $0.03,$ $0.04,$ $0.05,$ $0.07,$ $0.1\}$.
+Hay que tener en cuenta que la pendiente de cualquiera de estas curvas es $dh^*/dh$ y es igual al cociente entre pendientes de curvas en las inserciones de las Figs. \ref{fig: hm_D_CJ}, y \ref{fig: h_W_CJ}.
+Si $dh^*/dh\to1$, $h^*$ es más sensible que $h$ para medir el \textit{jitter}.
+La pendiente aumenta levemente de $\sim2.47$ para $W =5 $ a $\sim5.54$ para $W = 19$, esto muestra que $h^*$ se vuelve más sensible a medida que aumenta $W$.
+	
 \begin{figure}
 \center
 \includegraphics[ width=0.8\textwidth]{hm_h_CJ}
@@ -104,9 +148,10 @@ Note that the slope of any of these curves is $dh^*/dh$ and it is equal to the q
 \label{fig:hm_h_CJ}
 \end{figure}
 
-%Further sensitivity improvement may be obtained by making a minor change in the evaluation of $h^*$: the procedure starts converting blocks of $W$ consecutive bits into natural numbers between $0$ and $2^W$. Each block may have or not a superposition with the previous one. Then $D$ consecutive natural numbers are used to obtain an ordering pattern. Again these step may be done with or without superposition. In the calculations reported in previous Figs. there are $W-1$ bits shared between consecutive blocks and $D-1$ numbers shared between consecutive ordering patterns.
-
-We also evaluated $h^*$ without the superposition of bits between consecutive natural numbers but keeping the superposition of $D-1$ natural numbers between ordering patterns (In all cases $h$ was evaluated with superposition of $W-1$ consecutive bits). Results are depicted in Fig. \ref{fig:Deltahm_Deltah_CS_SS} where it is shown that removing the superposition the sensitivity of this quantifier increases. Of course, we get a smaller amount of $W$ bits natural numbers form the original seven million binary file, and consequently, the statistical quality is lower than that of the original calculation with superposition. To increase $\alpha$ up to its previous value, longer binary files are required.
+También evaluamos $h^*$ sin la superposición de bits entre números naturales consecutivos pero manteniendo la superposición de los $D-1$ números naturales entre patrones de orden (en todos los casos $h$ se evaluó con la superposición de $W-1$ bits consecutivos).
+Los resultados se representan en la Fig. \ref{fig: Deltahm_Deltah_CS_SS} donde se muestra que al eliminar la superposición aumenta la sensibilidad de este cuantificador.
+Por supuesto, obtenemos una cantidad menor de $W$ bits en números naturales del archivo original de siete millones de binarios, y en consecuencia, la calidad estadística es menor que la del cálculo original con superposición.
+Para aumentar $\alpha$ hasta su valor anterior, se requieren archivos binarios más largos.
 
 \begin{figure}
 \center

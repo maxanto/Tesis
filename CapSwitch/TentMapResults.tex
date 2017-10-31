@@ -1,0 +1,49 @@
+\subsubsection{TENT} \label{sssec:tent}
+
+Cuando este mapa se implementa en una computadora que utiliza cualquier sistema de representación numérica binaria (¡incluso punto flotante!), los errores de truncamiento aumentan rápidamente y hacen que el punto fijo inestable en $x^* = 0$ se estabilice.
+Las secuencias dentro del dominio de atracción de este punto fijo tendrán un corto transitorio de longitud entre $0$ y $B$ seguido de un número infinito de $0$s \cite{Jessa2002, Callegari}.
+Este problema se explica de forma muy sencilla en \cite{Li2004}, el problema aparece porque todas las iteraciones tienen una operación de desplazamiento a la izquierda que arrastra los $0$s del lado derecho del número a las posiciones más significativas.
+
+Las Figs. \ref{fig:Hval_Tent} a \ref{fig:MP_Tent} muestran los cuantificadores para representaciones numéricas de coma flotante y fija.
+Los cuantificadores $H_{hist}$, $H_{BP}$ y $C_{BP}$ son iguales a cero para todas las precisiones, esto refleja que las series convergen rápidamente hacia un punto fijo para cada condición inicial.
+En el caso de $H_{BPW}$ y $C_{BPW}$ los cuantificadores son diferentes a cero porque el procedimiento BPW descarta los elementos una vez que se alcanza el punto fijo.
+Las altas dispersiones en $H_{BPW}$, $C_{BPW}$ y MP están relacionadas con la corta duración del transitorio de la serie.
+Estos transitorios que convergen en un punto fijo tienen una longitud máxima de $B$ elementos (iteraciones) para aritmética de punto fijo y $80$ para punto flotante (precisión long-double).
+%
+\begin{figure}[htpb]
+	\centering
+	\begin{subfigure}[b]{0.49\textwidth}
+		\includegraphics[width=\textwidth]{Hval_Tent}
+		\caption{$H_{hist}$ vs. $B$}
+		\label{fig:Hval_Tent}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.49\textwidth}
+		\includegraphics[width=\textwidth]{Hbp_Tent}
+		\caption{$H_{BP}$ vs. $B$}
+		\label{fig:Hbp_Tent}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.49\textwidth}
+		\includegraphics[width=\textwidth]{Hbpw_Tent}
+		\caption{$H_{BPW}$ vs. $B$}
+		\label{fig:Hbpw_Tent}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.49\textwidth}
+		\includegraphics[width=\textwidth]{Cbp_Tent}
+		\caption{$C_{BP}$ vs. $B$}
+		\label{fig:Cbp_Tent}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.49\textwidth}
+		\includegraphics[width=\textwidth]{Cbpw_Tent}
+		\caption{$C_{BPW}$ vs. $B$}
+		\label{fig:Cbpw_Tent}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.49\textwidth}
+		\includegraphics[width=\textwidth]{MP_Tent}
+		\caption{MP vs. $B$}
+		\label{fig:MP_Tent}
+	\end{subfigure}
+	\caption{Propiedades estadísticas del mapa TENT}
+	\label{fig:TENT_QuantiB}
+\end{figure}
+
+Resumiendo, a pesar de usar un alto número de bits (con cualquier representación numérica en base 2) para representar el mapa TENT digitalizado, siempre converge rápidamente al punto fijo en $(x_n, x_{n+1}) = (0, 0)$.

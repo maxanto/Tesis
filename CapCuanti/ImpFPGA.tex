@@ -1,4 +1,4 @@
-\section{Cuantificador de entropías implementado en FPGA}
+\subsection{Cuantificador de entropías implementado en FPGA}
 \label{sec:ImpFPGA}
 
 En esta sección se describe la implementación de un sistema de medición de entropías.
@@ -30,7 +30,7 @@ Los datos pueden tener un origen digital (generados mediante códigos), o bien p
 Se utilizó la placa de desarrollo \textit{M1AFS-embedded kit}, basado en el chip \textit{M1AFS1500} que se destaca por tener un bloque analógico embebido en el mismo encapsulado de la FPGA.
 Luego, se verifica la exactitud numérica del cuantificador implementado comparando sus resultados con un programa patrón. A partir del máximo error detectado se determina la exactitud numérica del sistema.
 
-\subsection{\textit{Hardware} Implementado}
+\subsubsection{\textit{Hardware} Implementado}
 \label{sec:Hardware}
 
 El diseño del \textit{hardware} se basó en el que provee ACTEL en \cite{Core8051sH}, basado en el microcontrolador 8051, interfaces y periféricos.
@@ -39,62 +39,65 @@ Se utilizó la placa de desarrollo \textit{M1AFS-EMBEDDED-KIT} que contiene una 
 El chip \textit{M1AFS1500} contiene embebido un bloque analógico que consiste en nueve adaptadores direccionables de cuatro entradas cada uno, un multiplexor analógico de 32 entradas y un conversor analógico-digital configurable.
 
 El sistema implementado puede dividirse en tres etapas principales como se muestra en la Fig. \ref{Fig:Sistema}: una primer etapa de Adquisición de datos, que convierte a palabras digitales las señales del mundo analógico, una Lógica de Cálculo, que se vale de la memoria SRAM para llevar a cabo los cálculos y coordinar las interfaces y una etapa de Presentación de resultados, que envía los resultados de la medición a una computadora a través de la interfaz \textit{USB-to-UART}.
-
+%
 \begin{figure}
 	\centering
 	\includegraphics[width=.8\columnwidth]{Sistema.pdf}\\
 	\caption{Esquema del sistema completo.}\label{Fig:Sistema}
 \end{figure}
 
-\subsubsection{Etapa de Adquisición}
+\begin{enumerate}
+	\item \textit{Etapa de Adquisición:}
+	
+	Para ingresar los datos analógicos a ser evaluados utilizamos la entrada de tensión $AV2$ del \textit{Analog~Quad~2} del bloque analógico.
+	Se encuentra direccionada en el canal siete del multiplexor analógico y fue configurada para un rango de tensiones de entrada de 0~V a 4~V.
+	El conversor analógico-digital se configuró con una resolución de 12~bits.
+	En este primer prototipo la frecuencia de muestreo máxima alcanzada fue de 16~ks/s limitada por el retardo necesario en el procesamiento de la lógica.
+	
+	\item \textit{Lógica de cálculo:}
+	
+	En esta etapa se realizan los cálculos y la sincronización entre periféricos.
+	En la Fig. \ref{fig:logica} pueden verse los bloques principales que la componen.
+	%
+	\begin{figure}
+		\centering
+		\includegraphics[width=.75\columnwidth]{Logica.pdf}\\
+		\caption{Detalle de la lógica de cálculo.}\label{fig:logica}
+	\end{figure}
+	
+	El núcleo de la implementación es un \textit{Core} 8051 que provee ACTEL en su catálogo de librerías.
+	Se trata de un microcontrolador que contiene la lógica principal del microprocesador 8051 de Intel, sin sus periféricos.
+	Este micro tiene una arquitectura Von Newman con un bus de direcciones de 16~bits, lo que limita nuestro diseño a 64~KB de memoria de código y 64~KB de memoria de datos.
+	
+	Sobre este microcontrolador corre el programa que realiza los cálculos presentados en la sección \ref{sec:entropias}.
+	Se encarga de, a partir de los datos de entrada, obtener las PDFs ($BP$ e $hist$) y de realizar los cálculos para la obtención de las entropías, según la ec. \ref{eq:entropia}.
+	El \textit{software} implementado se describe más detalladamente en la sección \ref{sec:Software}.
+	
+	La memoria de código es una memoria no volátil (NVM) implementada con los bloques flash internos de la FPGA.
+	Ocupa las direcciones desde 0x0000 hasta 0xFFFF y se escribe con el contenido de un archivo en formato hexadecimal durante la compilación.
+	
+	Las funcionalidades del sistema son ampliadas mediante la conexión de periféricos a través de la interfaz APB.
+	
+	Para realizar la comunicación con la PC utilizamos el \textit{Controlador UART}.
+	La salida de este bloque es dirigida hacia afuera de la FPGA y se conecta a un chip \textit{USB-to-UART} que se encuentra soldado a la placa del kit de desarrollo.
+	
+	El bloque analógico es controlado por el \textit{Controlador AI}, que direcciona y sincroniza sus entradas.
+	
+	\item \textit{Presentación:}
+	
+	La etapa de Presentación de los datos involucra al chip adaptador \textit{USB-to-UART} que se encuentra en la placa de desarrollo y es manejado tanto por el programa que corre en la FPGA como por el \textit{software} que corre sobre la PC.
+	El chip adaptador \textit{USB-to-UART} es el responsable de adaptar la entrada-salida UART de la lógica a una entrada-salida USB estándar mediante la cual es posible interactuar con la PC.
+	Por otra parte el programa que corre en la PC se encarga de la interfaz con el usuario y es descripto en detalle en la siguiente sección.
+	
+\end{enumerate}
 
-Para ingresar los datos analógicos a ser evaluados utilizamos la entrada de tensión $AV2$ del \textit{Analog~Quad~2} del bloque analógico.
-Se encuentra direccionada en el canal siete del multiplexor analógico y fue configurada para un rango de tensiones de entrada de 0~V a 4~V.
-El conversor analógico-digital se configuró con una resolución de 12~bits.
-En este primer prototipo la frecuencia de muestreo máxima alcanzada fue de 16~ks/s limitada por el retardo necesario en el procesamiento de la lógica.
-
-\subsubsection{Lógica de cálculo}
-
-En esta etapa se realizan los cálculos y la sincronización entre periféricos.
-En la Fig. \ref{fig:logica} pueden verse los bloques principales que la componen.
-
-\begin{figure}
-	\centering
-	\includegraphics[width=.75\columnwidth]{Logica.pdf}\\
-	\caption{Detalle de la lógica de cálculo.}\label{fig:logica}
-\end{figure}
-
-El núcleo de la implementación es un \textit{Core} 8051 que provee ACTEL en su catálogo de librerías.
-Se trata de un microcontrolador que contiene la lógica principal del microprocesador 8051 de Intel, sin sus periféricos.
-Este micro tiene una arquitectura Von Newman con un bus de direcciones de 16~bits, lo que limita nuestro diseño a 64~KB de memoria de código y 64~KB de memoria de datos.
-
-Sobre este microcontrolador corre el programa que realiza los cálculos presentados en la sección \ref{sec:entropias}.
-Se encarga de, a partir de los datos de entrada, obtener las PDFs ($BP$ e $hist$) y de realizar los cálculos para la obtención de las entropías, según la ec. \ref{eq:entropia}.
-El \textit{software} implementado se describe más detalladamente en la sección \ref{sec:Software}.
-
-La memoria de código es una memoria no volátil (NVM) implementada con los bloques flash internos de la FPGA.
-Ocupa las direcciones desde 0x0000 hasta 0xFFFF y se escribe con el contenido de un archivo en formato hexadecimal durante la compilación.
-
-Las funcionalidades del sistema son ampliadas mediante la conexión de periféricos a través de la interfaz APB.
-
-Para realizar la comunicación con la PC utilizamos el \textit{Controlador UART}.
-La salida de este bloque es dirigida hacia afuera de la FPGA y se conecta a un chip \textit{USB-to-UART} que se encuentra soldado a la placa del kit de desarrollo.
-
-El bloque analógico es controlado por el \textit{Controlador AI}, que direcciona y sincroniza sus entradas.
-
-\subsubsection{Presentación}
-
-La etapa de Presentación de los datos involucra al chip adaptador \textit{USB-to-UART} que se encuentra en la placa de desarrollo y es manejado tanto por el programa que corre en la FPGA como por el \textit{software} que corre sobre la PC.
-El chip adaptador \textit{USB-to-UART} es el responsable de adaptar la entrada-salida UART de la lógica a una entrada-salida USB estándar mediante la cual es posible interactuar con la PC.
-Por otra parte el programa que corre en la PC se encarga de la interfaz con el usuario y es descripto en detalle en la siguiente sección.
-
-\subsection{\textit{Software} Implementado}
+\subsubsection{\textit{Software} Implementado}
 \label{sec:Software}
 
 El funcionamiento del sistema se logra mediante la interacción de dos programas.
 Uno corriendo en la PC y otro en el microcontrolador implementado en la FPGA.
 Puede verse un diagrama de flujo de ambos programas y la interacción entre ellos en la Fig. \ref{fig.softflow}.
-
+%
 \begin{figure}[htpb]
 	\centering\includegraphics[scale=0.23]{Soft}
 	\caption{Diagrama de flujo del \textit{software} implementado.}\label{fig.softflow}
@@ -109,7 +112,7 @@ Estos resultados son enviados a la PC mediante el mismo puerto.
 
 Con el fin de validar el sistema, el programa en la FPGA envía a \textit{Matlab\textsuperscript\copyright} el vector de datos muestreados, para que se puedan calcular en la PC sus entropías y compararlas con los resultados del sistema implementado.
 
-\subsection{Resultados}
+\subsubsection{Resultados}
 \label{sec:resultados}
 
 Como se dijo, para testear el sistema se compararon los resultados obtenidos por el sistema implementado y por un programa patrón que corre en la PC.
@@ -122,7 +125,7 @@ Tienen una amplitud de 4~Vpp y un nivel de continua de 2~V de forma de aprovecha
 En los cuatro casos la frecuencia de las señales fue de 100~Hz y la velocidad de muestreo de 16~ks/s.
 
 El cuadro \ref{tabla} muestra el error absoluto entre los resultados de los cuantificadores calculados en la FPGA comparados con los resultados calculados con el programa patrón sobre los mismos datos.
-
+%
 \begin{table}
 	\begin{tabular}{@{\extracolsep{\fill}}| c| c | c |c |}
 		\hline
@@ -145,7 +148,7 @@ El cuadro \ref{tabla} muestra el error absoluto entre los resultados de los cuan
 \end{table}
 
 La Fig. \ref{fig:resultados} muestra los valores entregados por la FPGA en el plano $H_{BP}$ vs. $H_{hist}$.
-
+%
 \begin{figure}[htb]
 	\centering\includegraphics[height=0.26\textheight]{resultados}
 	\caption{Resultados de las mediciones.}\label{fig:resultados}
@@ -155,22 +158,22 @@ Los resultados de la compilación nos permite conocer los recursos de la FPGA ut
 Recordemos que esta es una implementación de \textit{hardware} rígida, es decir primero se arma el circuito en la FPGA (microcontrolador, periféricos, etc.) y luego se carga el \textit{software} sobre él.
 
 El reporte de la compilación de \textit{hardware} devuelto el \textit{Place and Route} se muestra en la Fig. \ref{fig:hard}. Podemos ver que la implementación utiliza un 19\% de los recursos lógicos de la FPGA, el 21\% de las celdas de entrada-salida y el 28\% de los bloques de memoria.
-
-El reporte de la compilación de \textit{software} se muestra en la Fig. \ref{fig:soft}.
-Podemos ver que la memoria FLASH no volátil se encuentra ocupada al 15,4\%.
-Por otro lado, de las 65536 direcciones la memoria SRAM tenemos disponibles 61440 dado que parte de esta memoria es utilizada por el bus APB, por lo que se utiliza el 76,7\% de la memoria disponible.
-
+%
 \begin{figure}[htb]
 	\centering\includegraphics[scale=.13]{reporteHard}
 	\caption{Recursos empleados por el \textit{hardware} del sistema.}\label{fig:hard}
 \end{figure}
 
+El reporte de la compilación de \textit{software} se muestra en la Fig. \ref{fig:soft}.
+Podemos ver que la memoria FLASH no volátil se encuentra ocupada al 15,4\%.
+Por otro lado, de las 65536 direcciones la memoria SRAM tenemos disponibles 61440 dado que parte de esta memoria es utilizada por el bus APB, por lo que se utiliza el 76,7\% de la memoria disponible.
+%
 \begin{figure}[htb]
 	\centering\includegraphics[scale=.13]{reporteSoft}
 	\caption{Recursos empleados por el \textit{software} del sistema.}\label{fig:soft}
 \end{figure}
 
-\subsection{Discusión}
+\subsubsection{Discusión}
 \label{sec:discusion}
 
 El programa debió ser adaptado al microcontrolador instanciado en la FPGA.
@@ -189,7 +192,7 @@ El efecto del ruido aditivo es especialmente notable en las zonas en donde el va
 Se generan dos Gaussianas muy finas en torno a los valores ideales en la $PDF_{hist}$, esto no afecta demasiado el valor calculado $H_{hist}$, sin embargo para la $PDF_{BP}$, se calcula el patrón de orden directamente a la señal ruidosa, por lo que el valor de $H_{BP}$ es más alto que el esperado.
 La señal generada mediante la función rand de C, presenta las mejores propiedades estadísticas ubicándose en el punto $\sim(1,1)$.
 
-\subsection{Conclusiones y trabajo futuro}
+\subsubsection{Conclusiones y trabajo futuro}
 \label{sec:conclusiones}
 
 Se desarrolló e implementó un sistema que permite medir con buena precisión las entropías causal y no-causal de señales analógicas provenientes del exterior de la FPGA y también internas generadas por código.

@@ -1,4 +1,4 @@
-\section{Algoritmo evolutivo para la búsqueda de caos}
+\subsection{Algoritmo evolutivo para la búsqueda de caos}
 
 Propusimos emplear un método eurístico para buscar parámetros del sistema implementado de tal forma que se maximice la caoticidad de su salida.
 Nuestro trabajo tiene la ventaja que realiza una búsqueda inteligente mediante el empleo de un algoritmo genético, lo que minimiza el tiempo de cómputo.
@@ -20,9 +20,21 @@ Este es el caso si la función a maximizar es el MLE y el espacio de exploració
 
 Para evaluar la viabilidad del método, se generó el siguiente algoritmo y se probó sobre el mapa logístico.
 
-En la figura \ref{digramaflujo1} podemos ver el diagrama de flujo principal.
+En la figura \ref{fig:digramaflujo1} podemos ver el diagrama de flujo principal.
 El bloque \textit{Evolution} fue descompuesto en otro sub-diagrama para simplificar la descripción.
-Este segundo diagrama puede verse en la figura \ref{digramaflujo2}, esta surutina maneja la evolución de los parámetros.
+Este segundo diagrama puede verse en la figura \ref{fig:digramaflujo2}, esta surutina maneja la evolución de los parámetros.
+%
+\begin{figure}
+	\centering
+	\includegraphics[width=0.9\columnwidth]{main_flowchart.pdf}\\
+	\caption{Main flow chart.}\label{fig:diagramaflujo1}
+\end{figure}
+%
+\begin{figure}
+	\centering
+	\includegraphics[width=0.56\columnwidth]{evolution_flowchart.pdf}\\
+	\caption{Evolution flow chart.}\label{fig:diagramaflujo2}
+\end{figure}
 
 El algoritmo inicia con una inicialización general de parámetros como el número máximo de generaciones $max\_gen$, el número máximo de mutaciones $max\_mut$ y el número máximo de cambios en cada mutación $max\_stem$.
 Luego se definen los primeros dos padres, ellos definirán los márgenes de búsqueda.
@@ -36,63 +48,51 @@ Si la distancia entre ellos es más grande que el parámetro $max\_hop$, entonce
 Este proceso se repite hasta que se llega al máximo número de  generaciones $max\_gen$.
 El grupo final de adultos es la solución al problema de buscar los máximos MLE locales.
 
-La subrutina \textit{Evolution} de la figura \ref{diagramaflujo2}) es un algoritmo muy simple basado en mutaciones.
+La subrutina \textit{Evolution} de la figura \ref{fig:diagramaflujo2}) es un algoritmo muy simple basado en mutaciones.
 El primer paso es generar una mutación del hijo con una probabilidad uniformemente distribuida entre $\pm max\_step$, tambien se calcula su \textit{fitness function} $Fm$, que se compara con la del individuo original $Fc$.
 Entonces sobrevive el mejor adaptado para dar lugar a la siguiente mutación.
 Este procedimiento se repute hasta que se llega al máximo número de mutaciones $max\_mut$.
 
-\begin{figure}
-	\centering
-	\includegraphics[width=0.9\columnwidth]{main_flowchart.pdf}\\
-	\caption{Main flow chart.}\label{diagramaflujo1}
-\end{figure}
-
-\begin{figure}
-	\centering
-	\includegraphics[width=0.56\columnwidth]{evolution_flowchart.pdf}\\
-	\caption{Evolution flow chart.}\label{diagramaflujo2}
-\end{figure}
-
-Como resultado podemos ver el $MLE$ del mapa logístico en función de su único parámetro $r$ en la figura \ref{resultadoAlgorithm}.
+Como resultado podemos ver el $MLE$ del mapa logístico en función de su único parámetro $r$ en la figura \ref{fig:resultadoAlgorithm}.
 La línea contínua muestra el $MLE$ en pasos continuos de $r$, mientras que los puntos destacados son el resultado del algoritmo propuesto.
-
+%
 \begin{figure}
 	\centering
 	\includegraphics[width=1\columnwidth]{EvolutivoVSExaustivo.jpg}\\
-	\caption{Algorithm results.}\label{resultadoAlgorithm}
+	\caption{Algorithm results.}\label{fig:resultadoAlgorithm}
 \end{figure}
 
-El bloque que calcula el $MLE$ fue sintetizado y verificado experimentalmente en un Altera CYCLONE III FPGA y los resultados de la compilación mostrados en la figura \ref{compilacion}.
+El bloque que calcula el $MLE$ fue sintetizado y verificado experimentalmente en un Altera CYCLONE III FPGA y los resultados de la compilación mostrados en la figura \ref{fig:compilacion}.
 Los resultados del \textit{Timing Analysis} reportan que la máxima frecuancia es de $84.95MHz$.
 El reporte de compilación muestra que la utilización de la lógica no excede el $20\%$, es decir un total de $20307$ de elementos lógicos, $54\%$ de los bits de memoria totales y $8\%$ de los multiplicadores embebidos.
-
+%
 \begin{figure}
 	\centering
 	\includegraphics[width=1\columnwidth]{compilacion.pdf}\\
-	\caption{Compilation report of the \textit{MLE} calculator.}\label{compilacion}
+	\caption{Compilation report of the \textit{MLE} calculator.}\label{fig:compilacion}
 \end{figure}
 
-En la figura \ref{st} se muestra la salida del Signal Tap.
+En la figura \ref{fig:st} se muestra la salida del Signal Tap.
 La señal \textit{salida} es la suma de los $MLE$ luego de cada iteración.
 La segunda señal llamada \textit{cuenta\_sal} corresponde a la sumatoria actual.
 Finalmente, cada flanco descendente de la señal \textit{listoD1} indica que la salida es un dato válido.
-La salida fué procesada con Matlab para obtener la curva mostrada en la figura\ref{lyapu}.
+La salida fué procesada con Matlab para obtener la curva mostrada en la figura\ref{fig:lyapu}.
 El valor del MLE en la iteración $250000$ es $0.1415$, lo que es consistente con el MLE obtenido con Matlab.
-
+%
 \begin{figure*}
 	\centering
 	\includegraphics[width=2.1\columnwidth]{st.pdf}\\
-	\caption{Signal Tap output.}\label{st}
+	\caption{Signal Tap output.}\label{fig:st}
 \end{figure*}
-
+%
 \begin{figure}
 	\centering
 	\includegraphics[width=1\columnwidth]{Lyap_MATLAB.jpg}\\
-	\caption{Lyapunov curve}\label{lyapu}
+	\caption{Lyapunov curve}\label{fig:lyapu}
 \end{figure}
 
 
-\subsection{Estado actual del avance}
+\subsubsection{Estado actual del avance}
 
 Actualmente estamos en etapa de desarrollo de la implementación en hardware de este algoritmo.
 En este segundo caso, el sistema bajo prueba es la familia de mapas cuadráticos bidimensionales descriptos en el capítulo \ref{subsubsec:QMaps} y cuya ecuación es \ref{[eq:QMapsMLE]}.

@@ -1,0 +1,23 @@
+\section{Conclusions}\label{sec:conclusions}
+
+Exploramos la degradación estadística debido al error inherente de los sistemas en base 2 para de mapas caóticos simples, conmutados y con skipping.
+Evaluamos las distribuciones de mezcla y amplitud desde un punto de vista estadístico.
+
+Este trabajo complementa los resultados anteriores dados en \cite{Nagaraj2008}, donde se investigaron las duraciones de los períodos.
+En ese sentido, nuestros resultados fueron compatibles.
+Podemos ver que la conmutación entre dos mapas aumenta la dependencia del período en función de la precisión, esto se debe a que la longitud de correlación también se incrementa.
+Sin embargo, el procedimiento estándar de skipping reduce la duración del período en casi la mitad.
+
+Todas las estadísticas de los mapas representados en punto fijo producen una evolución no monótona hacia los resultados de coma flotante.
+Este resultado es relevante porque muestra que no siempre se recomienda aumentar la precisión.
+
+Es especialmente interesante observar que algunos sistemas (TENT) con muy buenas propiedades estadísticas en el mundo de los números reales, se vuelven ``patológicos'' cuando se usan representaciones numéricas binarias.
+Como regla general, si un mapa se genera solo por operaciones de shifteo (esto depende de la base de la unidad lógica aritmética y del mapa en sí), todas las condiciones iniciales convergerán a un punto fijo con un transitorio no mayor que la longitud de la mantisa que está siendo utilizada.
+
+Al comparar los cuantificadores BP y BPW, pudimos detectar caídas a puntos fijos y pudimos estimar la longitud relativa de sus transitorios.
+Esto puede verse en todas las implementaciones de TENT, en una condición inicial de SWITCH y EVEN para la implementación en coma flotante.
+
+En relación con el comportamiento estadístico, nuestros resultados muestran que SWITCH tiene una mejora marginal en la mezcla con respecto a LOG (y TENT, por supuesto).
+Sin embargo, la mayor mejora se produce cuando se aplica el skipping, podemos ver que las entropías de BP y BPW crecen y las complejidades de BP y BPW disminuyen, para una dada representación numérica.
+Este resultado es relevante porque evidencia de que un período largo no es sinónimo de buenas estadísticas, los mapas con skipping EVEN y ODD tienen longitudes de período de la mitad que los de SWITCH, pero su mezcla es mejor y sus distribuciones de amplitud se mantienen casi iguales.
+Como contrapartida, se necesita más precisión para alcanzar las mejores asíntotas que ofrecen el método de skipping.
