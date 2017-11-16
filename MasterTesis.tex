@@ -1,22 +1,24 @@
-%Plantilla basada en "Template for Masters / Doctoral Thesis" (plantilla disponible en writeLaTex) que subió LaTeXTemplates.com
-
-\documentclass[a4paper]{book}
+\documentclass[a4paper,twoside]{book}
+\usepackage[lmargin=3cm,rmargin=3cm,tmargin=3.5cm,bmargin=3.5cm,bindingoffset=1.5cm]{geometry}
 \usepackage{amssymb,amsmath,amsthm} %paquete para símbolo matemáticos
 \usepackage[spanish]{babel}
 \usepackage[utf8]{inputenc} %Paquete para escribir acentos y otros símbolos directamente
+\usepackage[T1]{fontenc}
 \usepackage{enumerate}
 \usepackage{graphicx}
 \graphicspath{{Img/}} %En qué carpeta están las imágenes
 \usepackage[nottoc]{tocbibind} %Para que la bibliografía aparezca en el índice
 \usepackage[spanish]{babel} %Permite reconocer las reglas tipográficas específicas de cada idioma y también aclarar en el documento cómo se da la separación de las palabras.
 \usepackage{setspace} %Para establecer el espacio de interlineado
+\renewcommand{\baselinestretch}{1.5}
 \hyphenation{uti-lice te-ner FPGA} %Especifica la separación silábica de las palabras en el documento.
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{multirow} %Para dibujar tablas
-\renewcommand{\baselinestretch}{1.5}
 
 \begin{document}
+
+	
 
 \input{Portada}
 

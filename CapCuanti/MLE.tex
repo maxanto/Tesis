@@ -1,6 +1,21 @@
 \section{Máximo Exponente de Lyapunov}
 \label{sec:MLE}
 
+\subsubsection{Maximum Lyapunov Exponent}
+
+%ESTO VIENE DE OTRO LADO
+Los exponentes de Lyapunov son cuantificadores que caracterizan cómo evoluciona la separación entre dos trayectorias con condiciones iniciales adyacentes, \cite{Sprott2003}.
+Es bien sabido que los comportamientos caóticos se caracterizan principalmente por Lyapunov números de los sistemas dinámicos.
+Un comportamiento caótico requiere que uno o más números de Lyapunov sean mayores que cero.
+De lo contrario, el sistema es estable.
+En este documento, empleamos el número máximo exponente de Lyapunov ya que es uno de los más útiles indicadores de caos.
+
+La distancia entre las trayectorias cambia en $2 ^ {MLE}$ para cada iteración, en promedio.
+Si $MLE < 0$ las trayectorias convergen, esto puede deberse a un punto fijo, si $MLE = 0$ las trayectorias mantienen su distancia, esto puede ser debido a un ciclo límite, si $MLE > 0$, el distancia entre trayectorias aumenta, y es un indicador de caos, \cite{Strotgartz1994}.
+
+En este caso, hemos adoptado una forma no analítica de medirlo ya que aquí solo se puede acceder a las entradas y salidas del sistema \cite{Sprott2003}.
+%FIN DE ESTO VIENE DE OTRO LADO
+
 ¿Que es lo que diferencia a un ciclo límite o una órbita cerrada de una órbita caótica? una órbita caótica (atractor caótico) es aperiódica, es decir que nunca se repite exactamente y la oscilación persiste para $t \to \infty$.
 El movimiento sobre un atractor exhibe una dependencia sensible a las condiciones iniciales.
 Esto significa que dos trayectorias que comienzan muy cercanas, rápidamente divergen una de otra, por lo que tendrán futuros muy diferentes.

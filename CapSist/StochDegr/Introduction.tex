@@ -1,57 +1,58 @@
-\subsection{Introduction} \label{sec:intro}
+\subsection{Introducción} \label{sec:intro}
 
-Chaotic systems have an increasing number of applications and their implementation is specially involved due to the extreme sensitivity to initial conditions.
-In general, these systems are used for the generation of controlled noises, these digital pseudo-random noise generators (PRNGs) can be employed in a large number of electronic applications, such as encryption sequences for privacy, multiplexing techniques, electromagnetic compatibility \cite{Machado2004,Smaoui2009,DeMicco2007A,DeMicco2007C,DeMicco2007B}.
-In computers and digital devices only \textsl{pseudo chaotic} attractors can be generated.
-But discretization may destroy the \textsl{pseudo chaotic} behavior and consequently is a nontrivial process.
+Los sistemas caóticos tienen un número cada vez mayor de aplicaciones y su implementación se debe principalmente a la extrema sensibilidad a las condiciones iniciales.
+En general, estos sistemas se utilizan para la generación de ruidos controlados, estos generadores de ruido pseudoaleatorios digitales (PRNG) se pueden emplear en un gran número de aplicaciones electrónicas, como secuencias de cifrado para privacidad, técnicas de multiplexación, compatibilidad electromagnética \cite{Machado2004, Smaoui2009, DeMicco2007A, DeMicco2007C, DeMicco2007B}.
+En computadoras y dispositivos digitales, solo se pueden generar atractores \textsl{pseudocaóticos}.
+Pero la discretización puede destruir el comportamiento \textsl{pseudocaótico} y, en consecuencia, es un proceso no trivial.
 
-Several strategies have been proposed in the literature for a correct selection of the optimal number of bits in hardware implementations.
-However, most of these procedures are limited to linear systems \cite{Constantinides2002,Constantinides2003}.
-In digital chaotic systems, a completely different behavior may be obtained by varying the precision.
-This issue has gained interest recently, and several new schemes have been proposed \cite{Ding2007,Asseri2002,Azzaz2009}.
+Se han propuesto varias estrategias para una selección correcta del número óptimo de bits en las implementaciones de hardware.
+Sin embargo, la mayoría de estos procedimientos están limitados a sistemas lineales \cite{Constantinides2002, Constantinides2003}.
+En los sistemas digitales caóticos, se puede obtener un comportamiento completamente diferente al variar la precisión.
+Este problema ha ganado interés recientemente, y se han propuesto varios esquemas nuevos \cite{Ding2007, Asseri2002, Azzaz2009}.
 
-In short, in spite of the arithmetic used, i. e. fixed-point or floating-point arithmetic, the set of numbers that can be represented is limited. 
-Even using extremely high precision as done by Liao and Wang \cite{Liao2013a} the generated sequences by a chaotic system using digital hardware will always be periodic.
+En resumen, a pesar de la aritmética utilizada, ya sea de punto fijo o punto flotante, el conjunto de números que se pueden representar es limitado.
+Incluso utilizando una precisión extremadamente alta como lo hacen Liao y Wang \cite{Liao2013a}, las secuencias generadas por un sistema caótico que usa hardware digital siempre serán periódicas.
 
-Grebogi's work \cite{Grebogi1988} showed that the average length $T$  of periodic orbits of a dynamical system implemented in a computer, scales as a function of the computer precision $\xi$ and the correlation dimension of the chaotic attractor, as $T \sim  \xi^{-D/2}$.
-In \cite{SHUJUN2005} some findings on a new series of dynamical indicators, which can quantitatively reflect the degradation effects on a digital chaotic map realized with a fixed-point finite precision, have been reported, but they are restricted to $1D$ piecewise linear chaotic maps (PWLCM).
-In \cite{Dias2011} the effect of numerical precision on the mean distance and on the mean coalescence time between trajectories of deterministic maps with either multiplicative noise parameter or with an additive noise term was investigated.
-Nepomuceno et al. \cite{Nepomuceno2017} studied the changes in the pseudo orbits of continuous chaotic systems when varying the time and discretization schemes.
+El trabajo de Grebogi \cite{Grebogi1988} mostró que la longitud promedio de las órbitas periódicas $T$ de un sistema dinámico implementado en una computadora, escala en función de la precisión de la computadora $\xi$ y la dimensión de correlación del atractor caótico, como $T \sim \xi ^ {- D / 2}$.
+En \cite{shujun2005} se informaron algunos hallazgos sobre una nueva serie de indicadores dinámicos, que pueden reflejar cuantitativamente los efectos de la degradación en un mapa caótico digital realizado con una precisión finita de punto fijo, pero están restringidos a mapas caóticos lineales por partes $1D$ (PWLCM).
+En \cite{Dias2011} se investigó el efecto de la precisión numérica sobre la distancia media y sobre el tiempo medio de coalescencia entre las trayectorias de los mapas determinísticos con un parámetro de ruido multiplicativo o con un término de ruido aditivo.
+Nepomuceno \textit{et al.} \cite{Nepomuceno2017} estudió los cambios en las pseudo-órbitas de sistemas caóticos continuos al variar el tiempo y los esquemas de discretización.
 
-Liao \cite{Liao2013b,Liao2012,Liao2009} proposed a numerical algorithm, namely the clean numerical simulation (CNS).
-He claimed that the CNS gives an extremely precise numerical approach for chaotic dynamic systems in a given finite interval.
-If the initial condition were exact, then the long-term prediction of chaos would be possible in theory, unfortunately, the required CPU time increases exponentially as the number of digits precision and Taylor expansion order increases (for continuous systems), so that it is practically impossible to give true trajectories of chaos in a very long interval.
-Unlike our analysis, which is carried out on a map, we do not address the issue arising from the time discretization.
-What is more, in \cite{Liao2009}, lower precisions are despised because they are very far from the real trajectory.
-In contradistinction our approach comes from the hardware implementation point of view, where using minimum resources is mandatory, does not dismiss any precision.
-Instead, our goal is to investigate the characteristics for each precision so that the designer has a complete overview of the options to be used in its implementation.
-So that designers will be able to decide which properties to rescind according to the available resources and requirements.
+Liao \cite{Liao2013b, Liao2012, Liao2009} propuso un algoritmo numérico llamado \textit{clean numerical simulation} (CNS).
+Afirmó este enfoque numérico es extremadamente preciso para sistemas dinámicos caóticos en un intervalo finito dado.
+Si la condición inicial fuera exacta, la predicción del caos a largo plazo sería posible en teoría.
+Desafortunadamente, el tiempo de CPU requerido aumenta exponencialmente a medida que aumenta el número de dígitos de precisión y el orden de expansión de Taylor (para sistemas continuos), de modo que es prácticamente imposible dar verdaderas trayectorias de caos en un intervalo muy largo.
+A diferencia de este análisis, que se lleva a cabo en un mapa, no abordamos el problema que surge de la discretización de tiempo.
+Lo que es más, en \cite{Liao2009}, las precisiones más bajas son despreciadas porque están muy lejos de la trayectoria real.
+En contraposición, nuestro enfoque proviene del punto de vista de la implementación en hardware, donde el uso de recursos mínimos es obligatorio.
+Nuestro objetivo es investigar las características de cada precisión para que el diseñador tenga una visión general completa de las opciones que se utilizarán en su implementación.
+De esta manera, que los diseñadores pueden decidir qué propiedades rescindir según los recursos y requisitos disponibles.
 
-One important thing to note is that besides analyzing the changes in the period lengths, the statistical properties of the sequences will be different from those of the real system and so they also should be analysed.
-In \cite{Persohn2012} an excellent work about the consequences finite precision has on the periodicity of a PRNG based on the logistic map was developed.
-There, the number, delay, and period of the orbits of the logistic map at varying degrees of precision were determined, however they lacked a statistical analysis.
-Our research complements their work by adding statistical quantifiers.
-What is more, they analysed the floating-point architecture of the map, while here we have chosen fixed-point architecture as it is the optimal architecture for hardware implementations.
-From an engineering point of view, fixed-point arithmetic is more efficient than floating-point, it consumes fewer resources and their operations require lower number of clock cycles.
-As a consequence, power consumption is also diminished.
+Una cosa importante a tener en cuenta es que además de analizar los cambios en las duraciones de los períodos, las propiedades estadísticas de las secuencias serán diferentes de las del sistema real, por lo que también deberían analizarse.
+En \cite{Persohn2012} se desarrolló un excelente trabajo sobre las consecuencias que la precisión finita tiene sobre la periodicidad de un PRNG basado en el mapa logístico.
+Allí, se determinaron el número, retardo y período de las órbitas del mapa logístico con diversos grados de precisión, sin embargo, carecían de un análisis estadístico.
+Nuestra investigación complementa su trabajo al agregar cuantificadores estadísticos.
+Lo que es más, analizaron la arquitectura de coma flotante del mapa, mientras que aquí hemos elegido la arquitectura de punto fijo ya que es la arquitectura óptima para las implementaciones en hardware.
+Desde el punto de vista de la ingeniería, la aritmética de punto fijo es más eficiente que la de punto flotante, consume menos recursos y sus operaciones requieren un menor número de ciclos de reloj.
+Como consecuencia, el consumo de energía también se ve disminuido.
 
-Among many chaotic systems available in the literature, we are interested in a family of $2D$-maps proposed by Sprott \cite{Sprott1993}. 
-The main characteristic of this system is it presents multiple chaotic attractors depending on the selected point in the parameter's space, this feature is very attractive to be used in electronic applications.
-Only results for the analytical representation of the maps in \cite{Sprott1993} have been published in the open literature.
+Entre muchos sistemas caóticos disponibles en la literatura, estamos interesados en una familia de mapas $2D$ propuestos por Sprott \cite{Sprott1993}.
+La principal característica de este sistema es que presenta múltiples atractores caóticos dependiendo del punto seleccionado en el espacio de los parámetros, esta característica es muy atractiva para ser utilizada en aplicaciones electrónicas.
+Solo los resultados para la representación analítica de los mapas en \cite{Sprott1993} han sido publicados en la literatura abierta.
 
-The objective of this paper is to extend the analysis to the digital version, to make possible  the hardware implementation in fixed-point arithmetic.
-For which it is imperative to know both characteristics, period length and degree of randomness, of the sequences.
-We developed a detailed analysis of the \textsl{degradation} of the multiattractor chaotic system as a fixed-point implementation is used.
-By \textsl{degradation} we mean:
-(a) the appearance of stable fixed points and stable periodic orbits with short periods, inside a floating-point domain of attraction without stable orbits;
-(b) the attractor itself becomes periodic and its statistical characteristics change, making the system more deterministic.
+El objetivo de este documento es ampliar el análisis a la versión digital para posibilitar la implementación del hardware en aritmética de punto fijo.
+Para lo cual es imprescindible conocer las dos características, la duración del período y el grado de aleatoriedad de las secuencias.
+Desarrollamos un análisis detallado de la \textsl{degradación} del sistema caótico multiatractor a medida que se utiliza una implementación de punto fijo.
+Por \textsl{degradación} queremos decir:
+(a) la aparición de puntos fijos estables y órbitas periódicas estables con períodos cortos, dentro de un dominio de atracción de coma flotante sin órbitas estables;
+(b) el atractor mismo se vuelve periódico y sus características estadísticas cambian, lo que hace que el sistema sea más determinista.
 
-The main contributions of this paper are: 
+Las principales contribuciones de esta sección son:
 \begin{itemize}
-\item the analysis of the domains of attraction of the chaotic attractors for a given set of parameters as the number of bits increases; in terms of period lengths and the appearance of stable fixed points and periodic orbits with short periods are specially considered;
-\item the determination of the consequent \textsl{threshold width} for the bus, in order to make the statistical properties of the digital implementation close to those of the floating-point implementation; 
-\item  two different probability distribution functions (PDF) are assigned  to evaluate the stochasticity of the time series for different bus widths.
-Each PDF  $P$ is measured by the respective normalized Shannon entropy $H(P)$.
-These entropies have abrupt changes at specific bus widths.
-Period's lengths and \textsl{MLE} are also evaluated and results are compared with $H$s.
+\item el análisis de los dominios de atracción de los atractores caóticos para un conjunto dado de parámetros a medida que aumenta el número de bits; en términos de la duración del período y la aparición de puntos fijos estables y órbitas periódicas con períodos cortos se consideran especialmente;
+\item la determinación del consecuente umbral para el ancho del bus, para hacer que las propiedades estadísticas de la implementación digital sean cercanas a las de la implementación de coma flotante;
+\item Dos funciones de distribución de probabilidad diferentes (PDF) se asignan para evaluar la estocasticidad de la serie temporal para diferentes anchos de bus.
+Cada PDF $P$ se mide por la correspondiente entropía de Shannon normalizada $H(P)$.
+Estas entropías tienen cambios abruptos en anchos de bus específicos.
+Las duraciones de los períodos y el \textsl{MLE} también se evalúan y los resultados se comparan con las $H$s.
 \end{itemize}

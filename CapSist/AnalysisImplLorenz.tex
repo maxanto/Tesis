@@ -37,25 +37,13 @@ Sin embargo, desde el punto de vista criptográfico son débiles.
 Cuando se trata de aplicaciones criptográficas, no se recomiendan métodos lineales para generar secuencias pseudoaleatorias (como LFSR, LCG o sus combinaciones adecuadas), ya que algoritmos eficientes para predecir la secuencia sobre la base de una secuencia de observación relativamente corta están a disposición \cite{Boyar1989, Plumstead1982}.
 Por otro lado, para la mayoría de las familias de generadores no lineales, el problema parece ser intratable y, con pocas excepciones, no suele existir una evaluación analítica de sus períodos \cite{kocarev2011}.
 
-Elegimos el sistema caótico de Lorenz porque es un sistema ampliamente estudiado y también ha sido implementado por otros autores con diferentes metodologías \ cite {Asseri2002, Azzaz2009, Azzaz2010}.
-Por ejemplo, en \ cite {Asseri2002}, se implementó un oscilador caótico Lorenz mediante una caja de herramientas del Generador de Sistemas Xilinx que funciona bajo $ MATLAB-Simulink ^\copyright $.
-Esta caja de herramientas convierte el modelo MATLAB-Simulink en el modelo de Xilinx System Generator.
+Elegimos el sistema caótico de Lorenz porque es un sistema ampliamente estudiado y también ha sido implementado por otros autores con diferentes metodologías \cite{Asseri2002, Azzaz2009, Azzaz2010}.
+Por ejemplo, en \cite{Asseri2002}, se implementó un oscilador caótico Lorenz mediante una toolbox del Generador de Sistemas Xilinx que funciona bajo \textit{MATLAB-Simulink\textsuperscript{\copyright}}.
+Esta toolbox convierte el modelo MATLAB-Simulink en el modelo de Xilinx System Generator.
 Luego se obtiene el código VHDL.
 Como es una operación automática, no permite ciertos cambios específicos y presenta algunas limitaciones.
-La operación de integración se aproximó con el algoritmo de Euler, utilizando bloques de suma y retardo. La implementación propuesta en \ cite {Azzaz2009} y \ cite {Azzaz2010} usa $ RK4 $ en una arquitectura de punto fijo de $ 32- $ bit.
-La aplicación considerada fue la generación de clave aleatoria caótica para el cifrado de flujo de datos.
-
-In this paper $Quartus$ II $7.2^\copyright$ development software is used to generate the VHDL hardware description language and the physical implementation is made on the development board $Altera^\copyright$ Cyclone III $EP3C120$.
-Three representations are studied:
-1)  floating-point IEEE $754$ standard,
-2) decimal fixed point, and 
-3) integer arithmetics \cite{Gonzalez2003}.
-Each representation involves a different number of bits.
-We consider two floating point representations for the standards single or double, with $32$ and $64$ bits respectively to represent the sign, the exponent and the mantissa;
-decimal fixed point arithmetics uses $p$ bits to represent the integer part and $m$ bits to represent the fractional part.
-We considered $32$ and $64$ bits fixed point representations with $9$ bits for the integer part and $1$ bit for the sign and the remaining $22$ or $54$ bits for the fractional part.
-In the $k$ bits integer arithmetics the alphabet has $2^k$ symbols.
-We considered $k=54$.
+La operación de integración se aproximó con el algoritmo de Euler, utilizando bloques de suma y retardo.
+La implementación propuesta en \cite{Azzaz2009} y \cite{Azzaz2010} usa $RK4$ en una arquitectura de punto fijo de $32$ bits.
 
 En esta sección se utilizó el software \textit{QuartusII\textsuperscript{\copyright} 7.2} para generar el lenguaje de descripción de hardware VHDL y la implementación física se realiza en la placa de desarrollo \textit{Altera\textsuperscript{\copyright} Cyclone III EP3C12}.
 Tres representaciones numéricas son estudiadas:
@@ -86,7 +74,7 @@ El sistema de Lorenz se define mediante el siguiente conjunto de ecuaciones dife
 donde $\delta$, $\Gamma$ y $b$ son parámetros constructivos del sistema.
 Para ciertos valores de estos parámetros, el sistema tiene un comportamiento caótico.
 Siempre se requiere un algoritmo para convertir un sistema dinámico continuo en un sistema dinámico de tiempo discreto.
-El algoritmo más simple fue propuesto por Euler y, para las Ecs. \ref{eq: lorconti} surge el siguiente modelo discreto:
+El algoritmo más simple fue propuesto por Euler y, para las Ecs. \ref{eq:lorconti} surge el siguiente modelo discreto:
 %
 \begin{eqnarray}\label{eq:loreuler}
 {\widetilde X}_{t+\Delta t}&=&{\widetilde X}_{t}+ \Delta t \left[
@@ -114,47 +102,47 @@ En aplicaciones que requieren una reproducción exacta de la dinámica del siste
 \subsection{Discretización de las variables de estado}
 \label{sec:numrepre}
 
-As pointed out in the introduction three different numerical representations are used in this paper.
-Each one is described in the following subsections.
+Como se señaló en la introducción, se utilizan tres representaciones numéricas diferentes en este documento.
+Cada una se describe en las siguientes subsecciones.
 
-\subsubsection{IEEE $754$ standard implementation}
+\subsubsection{Estándar IEEE 754}
 \label{sec:impleFloat}
 
-Floating point representation is one of the methods to represent real numbers with finite precision.
-The advantage of floating-point representation over fixed-point and integer representations is it can support a much wider range of values because it automatically scales each number to use the full word length for the mantissa; this is done by moving the decimal point (this procedure implies a change in the value of the exponent) towards the position of the most significant bit.
-Consequently full precision is preserved even for small numbers.
-Binary floating-point arithmetic is best suited to work  with real-world quantities over a wide range of scales. 
-Special care must be taken because of some accuracy issues.
+La representación en punto flotante es uno de los métodos para representar números reales con precisión finita.
+La ventaja de la representación de punto flotante sobre las representaciones de punto fijo y entero es que puede admitir un rango de valores mucho más amplio porque escala automáticamente cada número para usar la longitud de palabra completa para la mantisa; esto se hace moviendo el punto decimal (este procedimiento implica un cambio en el valor del exponente) hacia la posición del bit más significativo.
+En consecuencia, la precisión total se conserva incluso para números pequeños.
+La aritmética de punto flotante binaria es más adecuada para trabajar con cantidades del mundo real en una amplia gama de escalas.
+Se debe tener especial cuidado debido a algunos problemas de precisión.
 
-The single precision IEEE $754$ standard assigns $23$ bits to the mantissa (bit $0$ to $22$), the exponent occupies the following $8$ bits (bit $23$ to $30$) and the $31$-st bit is assigned to the sign.
-The double precision IEEE $754$ standard assigns $52$ bits to the mantissa (bit $0$ to $51$), the exponent occupies the following $11$ bits (bit $52$ to $62$) and the $63$-rd bit is assigned to the sign.
+El estándar de precisión simple IEEE 754 asigna $23$ bits a la mantisa (bit $0$ a $22$), el exponente ocupa los siguientes $8$ bits ($23$ a $30$) y el bit $31$ está asignado al signo.
+El estándar de precisión doble IEEE 754 asigna $52$ bits a la mantisa (bit $0$ a $51$), el exponente ocupa los siguientes $11$ bits ($52$ a $62$) y el bit $63$ está asignado al signo.
 
-Floating point arithmetic operations are more complicated than fixed point ones.
-Their execution requires more time and complex hardware.
-However, thanks to technological advance and the development of new materials, nowadays there exists FPGAs with more memory and resources, capable of working at high frequencies in these standards.
+Las operaciones aritméticas de punto flotante son más complicadas que las de punto fijo.
+Su ejecución requiere más tiempo y hardware complejo.
+Sin embargo, gracias al avance tecnológico y al desarrollo de nuevos materiales, hoy en día existen FPGAs con más memoria y recursos, capaces de trabajar a altas frecuencias en estos estándares.
 
-\subsubsection{Fixed point implementation}
+\subsubsection{Implementación en punto fijo}
 \label{sec:impleFix}
 
-When all the numbers are within a known range it is possible to achieve more accuracy using the so-called fixed point representation instead of the floating point representation.
-The hardware required to manipulate these representations is the same commonly used to perform integer operations and it is less expensive than the one required for the floating-point case.
+Cuando todos los números se encuentran dentro de un rango conocido, es posible lograr una mayor precisión utilizando la denominada representación de punto fijo en lugar de la representación de punto flotante.
+El hardware requerido para manipular estas representaciones es el mismo comúnmente utilizado para realizar operaciones enteras y es menos costoso que el requerido para el caso de punto flotante.
 
-To avoid the overflow it is necessary to initially perform an analysis to determine the largest value involved in the calculus, including the intermediate operations.
-With this information the minimum number of bits to be employed is determined.
-Once established the number of bits required to represent the integer part, one additional bit is used to represent negative numbers (based two complement).
-The remaining bits added are used to improve the precision as they represent the decimal part.
+Para evitar el desbordamiento, es necesario realizar inicialmente un análisis para determinar el mayor valor involucrado en el cálculo, incluidas las operaciones intermedias.
+Con esta información, se determina el número mínimo de bits que se emplearán.
+Una vez establecido el número de bits necesarios para representar la parte entera, se usa un bit adicional para representar números negativos basados en complemanto a 2 (CA2).
+Los bits restantes se utilizan para mejorar la precisión ya que representan la parte decimal.
 
-The addition, substraction and multiplication operations are implemented in the same way as in integer arithmetic.
-It is only necessary to take care of the position of the radix point.
+Las operaciones de suma, resta y multiplicación se implementan de la misma manera que en la aritmética de enteros.
+Solo es necesario cuidar la posición del punto de base.
 
-In this paper we considered two cases, $32$ and $64$ bits for each whole number.
-In both cases we used $9$ bits for the integer part, plus $1$ bit for the sign, leaving the remaining bits, $22$ or $54$ respectively, for the decimal part.
+En este documento consideramos dos casos, $32$ y $64$ bits por cada número entero.
+En ambos casos usamos $9$ bits para la parte entera, más $1$ bit para el signo, dejando los bits restantes, $22$ o $54$ respectivamente, para la parte decimal.
 
-\subsubsection{Integer arithmetics implementation}
+\subsubsection{Impelmentación en aritmética entera}
 \label{sec:impleInt}
 
-In integer arithmetics the circuitry can be significantly reduced if power of $2$ divisors are adopted.
-To obtain the integer version for the Lorenz system the following transformations of polarization and scaling, were done \cite{Gonzalez2003}:
+En aritmética de enteros, los circuitos se pueden reducir significativamente si se adoptan divisores con una potencia de $2$.
+Para obtener la versión entera para el sistema Lorenz, se realizaron las siguientes transformaciones de polarización y escalado: \cite{Gonzalez2003}:
 %
 \begin{eqnarray} \label{eq:newvariables}
 {X}_{t}&=&\left({\widetilde X}_{t} + B\right)S \ , \nonumber \\
@@ -162,83 +150,107 @@ To obtain the integer version for the Lorenz system the following transformation
 {Z}_{t}&=&\left({\widetilde Z}_{t} + B\right)S \ , \nonumber
 \end{eqnarray}
 %
-where $B$ y $S$ are the polarization and scale parameters respectively.
-Replacing eq. (\ref{eq:newvariables}) in (\ref{eq:loreuler}) it is obtained:
+donde $ B $ y $ S $ son los parámetros de polarización y escala, respectivamente.
+Reemplazando la eq. \ref {eq:newvariables} en \ref{eq:loreuler} se obtiene:
 %
 \begin{eqnarray}\label{eq:Lorenz2}
-{X}_{t+\Delta t}&=& {X}_{t} + \Delta t \ \delta~\left( {Y}_{t} - {X}_{t} \right) \, \nonumber \\
-{Y}_{t+\Delta t}&=&(1- \Delta t )~{Y}_{t}+ \Delta t \(B+\Gamma)~{X}_{t}~+~ \Delta t ~B~{Z}_{t} \nonumber\\
-				&~&-{\frac{\Delta t}{S}}{X}_{t}{Z}_{t}+ \Delta t \ BS(1-\Gamma-B) \ ,\\
-{Z}_{t+\Delta t}&=&(1-\Delta t b){Z}_{t}-\Delta t B\left( {X}_{t} + {Y}_{t} \right)\nonumber \\
-				&&+{\frac{\Delta t}{S}}{X}_{t}{Y}_{t}+ \Delta t \ BS(B-b) \. \nonumber
+{X}_{t+\Delta t}&=& {X}_{t} + \Delta t \ \delta~\left( {Y}_{t} -
+{X}_{t} \right)
+\ ,\nonumber \\
+{Y}_{t+\Delta t}&=&(1- \Delta t )~{Y}_{t}+ \Delta t \
+(B+\Gamma)~{X}_{t}~+~
+\Delta t ~B~{Z}_{t} \nonumber\\
+&~&-{\frac{\Delta t}{S}}{X}_{t}{Z}_{t}+ \Delta t \ BS(1-\Gamma-B) \ ,\\
+{Z}_{t+\Delta t}&=&(1-\Delta t b){Z}_{t}-\Delta t B\left( {X}_{t}
++
+{Y}_{t} \right)\nonumber \\
+&&+{\frac{\Delta t}{S}}{X}_{t}{Y}_{t}+ \Delta t \ BS(B-b) \ .
+\nonumber
 \end{eqnarray}
 %
-In this case it was adopted: $\delta=8$, $\Gamma=24$, $b=2$, $\Delta t \ =2^{-n}$, $B=40$, $S=512$.
+En este caso, fue adoptado: $\delta=8$, $\Gamma=24$, $b=2$, $\Delta t \ =2^{-n}$, $B=40$, $S=512$.
 
-Some care must be taken when the system parameters are chosen, in this case integer coefficients were selected and an analysis of stability was done in order to ensure that the system do not converge to a fixed point or to a low period orbit.
-%
-The final system is:
-\begin{eqnarray}
-\label{eq:Lorenz3}
-{X}_{t+\Delta t}&=&{X}_{t}+floor\left[ {\frac{{Y}_{t}}{2^{{n-3}}}} \right] -floor\left[{\frac{{X}_{t}}{2^{{n-3}}}}\right] \, \nonumber \\
-{Y}_{t+\Delta t}&=&{Y}_{t}-floor\left[ {\frac{{Y}_{t}}{2^n}}\right] + floor\left[{\frac{{X}_{t}}{2^{{n-6}}}}\right]\nonumber \\
-				&& +floor\left[ {\frac{{Z}_{t}}{2^{{n-3}}}}\right] + floor\left[{\frac{{Z}_{t}}{2^{{n-5}}}}\right]\nonumber \\
-				&& -floor\left[ {\frac{{X}_{t}}{2^{( 22+floor\left[ {\frac{n}{2}+1}\right] )}}}\right] \nonumber \\
-				&& floor\left[ {\frac{{Z}_{t}}{2^{( 22+floor\left[ {\frac{n}{2}}\right] )}}}\right] -2^{(44-n)}2520 \, \\
-{Z}_{t+\Delta t}&=&{Z}_{t}-floor\left[ {\frac{{Z}_{t}}{2^{n-1}}}\right] -floor\left[ {\frac{({X}_{t}+{Y}_{t})}{2^{n-3}}}\right]\nonumber \\
-				&& -floor\left[ {\frac{({X}_{t}+{Y}_{t})}{2^{n-5}}}\right] +floor\left[ {\frac{{X}_{t}}{2^{( 22+floor\left[ {\frac{n}{2}+1}\right] )}}}\right] \nonumber \\
-				&& floor\left[ {\frac{{Y}_{t}}{2^{( 22+floor\left[ {\frac{n}{2}}\right] )}}}\right]+2^{44-n}1680 \. \nonumber
-\end{eqnarray}
-%
-This discrete system has a chaotic behavior (in fact pseudochaotic) and all the divisors are a power of $2$.
-All the preprocessing procedure of the equations minimizes the required hardware resources (as it will be shown later).
+Debe tenerse cuidado cuando se elijen los parámetros del sistema, en este caso se seleccionaron coeficientes enteros y se realizó un análisis de estabilidad para garantizar que el sistema no converja a un punto fijo o a una órbita de período bajo.
 
-\subsection{Some issues on chaotic PRNG}
+El sistema final es:
+%
+\begin{eqnarray}\label{eq:Lorenz3}
+{X}_{t+\Delta t}&=&{X}_{t}+floor\left[ {\frac{{Y}_{t}}{2^{{n-3}}}}
+\right] -floor\left[{\frac{{X}_{t}}{2^{{n-3}}}}\right] \ , \nonumber \\
+{Y}_{t+\Delta t}&=&{Y}_{t}-floor\left[
+{\frac{{Y}_{t}}{2^n}}\right]
++floor\left[{\frac{{X}_{t}}{2^{{n-6}}}}\right]\nonumber \\
+&& +floor\left[ {\frac{{Z}_{t}}{2^{{n-3}}}}\right] +
+floor\left[{\frac{{Z}_{t}}{2^{{n-5}}}}\right]\nonumber \\
+&&-floor\left[ {\frac{{X}_{t}}{2^{( 22+floor\left[
+			{\frac{n}{2}+1}\right] )}
+	}}\right] \nonumber \\
+	&& floor\left[ {\frac{{Z}_{t}}{2^{( 22+floor\left[
+				{\frac{n}{2}}\right] )}}}\right] -2^{(44-n)}2520 \ , \\
+	{Z}_{t+\Delta t}&=&{Z}_{t}-floor\left[
+	{\frac{{Z}_{t}}{2^{n-1}}}\right] -floor\left[
+	{\frac{({X}_{t}+{Y}_{t})}{2^{n-3}}}\right]\nonumber \\
+	&& -floor\left[ {\frac{({X}_{t}+{Y}_{t})}{2^{n-5}}}\right]
+	+floor\left[ {\frac{{X}_{t}}{2^{( 22+floor\left[
+				{\frac{n}{2}+1}\right]
+				)}}}\right] \nonumber \\
+	&& floor\left[ {\frac{{Y}_{t}}{2^{( 22+floor\left[
+				{\frac{n}{2}}\right] )}}}\right]+2^{44-n}1680 \ . \nonumber
+	\end{eqnarray}
+%
+Este sistema discreto tiene un comportamiento caótico (de hecho pseudocaótico) y todos los divisores tienen un poder de $2$.
+Todo el procedimiento de preprocesamiento de las ecuaciones minimiza los recursos de hardware necesarios (como se mostrará más adelante).
+
+\subsection{PRNGs caóticos}
 \label{sec:PRNG}
 
-PRNGs are widely used in physics and engineering.
-Some applications are: Monte Carlo simulations \cite{Mertens2004}, cryptography \cite {Carlisle2007}, communications theory \cite{Kocarev2001} and some aspects of nanotechnology \cite{Popescu2000}.
+Los PRNGs son ampliamente utilizados en física e ingeniería.
+Algunas aplicaciones son: simulaciones de Monte Carlo \cite{Mertens2004}, criptografía \cite{Carlisle2007}, teoría de las comunicaciones \cite{Kocarev2001} y algunos aspectos de la nanotecnología \cite{Popescu2000}.
 
-In some applications it is required that the chaotic system replaces an stochastic system.
-This is the case for example in masking applications \cite{Fernandez2003}, generation of sequences for spread spectrum technique \cite{Setti2004,DeMicco2007B} and electromagnetic compatibility improvement \cite{Callegari2003A}, pseudo-random number generators \cite{Kocarev2003,Larrondo2006,DeMicco2009}, etc.
+En algunas aplicaciones, se requiere que el sistema caótico reemplace a un sistema estocástico.
+Este es el caso, por ejemplo, en aplicaciones de enmascaramiento \cite{Fernandez2003}, generación de secuencias para técnica de espectro esparcido \cite{Setti2004, DeMicco2007B}, mejora de compatibilidad electromagnética \cite{Callegari2003A} y generadores de números pseudoaleatorios \cite {Kocarev2003, Larrondo2006 , DeMicco2009}, etc.
 
-Chaotic dynamical systems have been employed as PRNGs \cite{Kocarev2003,Larrondo2006,DeMicco2009}, because they are able to generate stochastic-like signals out of underlying simple models that are easy to implement via appropriate software or hardware.
-Usually, a suitable manipulation of the time-series that these models generate is required to improve their statistical properties.
+Los sistemas dinámicos caóticos se han empleado como PRNGs \cite{Kocarev2003, Larrondo2006, DeMicco2009}, ya que pueden generar señales estocásticas a partir de modelos simples subyacentes que son fáciles de implementar a través del software o hardware apropiado.
+Por lo general, se requiere una manipulación adecuada de las series de tiempo que generan estos modelos para mejorar sus propiedades estadísticas.
 
-To eliminate or mitigate the inner correlational structures that are not desirable here, two solutions, that do not require a larger hardware, are analyzed:
+Para eliminar o mitigar las estructuras de correlación internas que no son deseables aquí, se analizan dos soluciones, que no requieren un hardware más grande:
 \begin{enumerate}
-\item \textit{discarding}: form a new sequence whose elements are integer numbers formed by the $32$ less significant bits of each data item (named $x_{disc}$, $y_{disc}$ and $z_{disc}$ respectively);
-\item \textit{concatenating}: form new $32$ bits integers by concatenating the least significant bits of each variable ($11$ bits of $z$, $10$ bits of $y$ and $10$ bits of $x$, note that this is one of many possibilities).
-Named $zyx$.
+\item \textit{descartar}: se forma una nueva secuencia cuyos elementos son números enteros formados por los $32$ bits menos significativos de cada elemento de datos (llamado $x_{disc}$, $y_{disc}$ y $z_{disc}$ respectivamente);
+\item \textit{concatenar}: se forman nuevos enteros de $32$ bits al concatenar los bits menos significativos de cada variable ($11$ bits de $z$, $10$ bits de $y$ y $10$ bits de $x$, se debe tener en cuenta esta es una de las muchas posibilidades), llamado $zyx$.
 \end{enumerate}
 
-These procedures were applied to the output sequences generated by all the implementations described in the previous sections.
-In addition, we varied $\Delta t$ to find its optimal value.
+Estos procedimientos se aplicaron a las secuencias de salida generadas por todas las implementaciones descritas en las secciones anteriores.
+Además, variamos $\Delta t$ para encontrar su valor óptimo.
 
-There are several basic properties any good PRNG must fit: long cycle length, randomness, speed, reproducibility and portability.
-Several test suites \cite{Soto} are readily available to researchers in academia and industry who wish to analyze their newly developed PRNG.
-Some general purpose test suites are DIEHARD by George Marsaglia \cite{Marsaglia1995}, Crypt-XS by Helen Gustafson of the Queensland University of Technology \cite{Gustafson1994}, the National Institute of Standards and Technology (NIST) statistical test suite \cite{Rukhin2000}, Test U01 by L'Ecuyer and R. Simard \cite{Lecuyer2007}  and DIEHARDER \cite{Brown2012}.
-In this paper we used the $15$ most stringent tests of DIEHARD \cite{Marsaglia1995} to measure the stochasticity of each implementation but if the specific application is a PRNG the use of all the above mentioned tests is recommended, specially NIST 800/22 and Test U01.
+Hay varias propiedades básicas que debe tener un buen PRNG: longitud de ciclo larga, aleatoriedad, velocidad, reproducibilidad y portabilidad.
+Varias suites de prueba \cite{Soto} están disponibles para los investigadores académicos y la industria que deseen analizar su PRNG recientemente desarrollado.
+Algunas suites de pruebas de propósito general son DIEHARD de George Marsaglia \cite{Marsaglia1995}, Crypt-XS de Helen Gustafson de la Universidad Tecnológica de Queensland \cite{Gustafson1994}, la suite de pruebas estadísticas del Instituto Nacional de Estándares y Tecnología (NIST) \cite{Rukhin2000}, el Test U01 por L'Ecuyer y R. Simard \cite{Lecuyer2007} y DIEHARDER \cite{Brown2012}.
+En este documento usamos las $15$ pruebas más estrictas de DIEHARD \cite{Marsaglia1995} para medir la estocasticidad de cada implementación, pero si la aplicación específica es un PRNG, se recomienda el uso de todas las pruebas mencionadas anteriormente, especialmente NIST 800/22 y Prueba U01.
 
-For each PRNG a file with more than $80 \times 10^6$ bits is required.
-Each run of each test in DIEHARD returns a $p$-value, which should be uniform on $[0,1)$ if the input file contains truly independent random bits.
-Those $p$-values must be $p < 0.025$ or $p> 0.975$ for us to consider the test has been passed.
-Each test runs several times giving a $p$ value for each run.
-Combining all these $p$-values ($229$ for each PRNG) we obtained an overall $p$-value  by means of the KStest.
-Only if all the individual $p's$ and also the global $p$ are in the range pointed above we put ``yes" in Table \ref{tabla:Tabla2}.
+Para cada PRNG se requiere un archivo con más de $80 \times 10^6$ bits.
+Cada ejecución de cada prueba en DIEHARD devuelve un valor $p$, que debe ser uniforme en $[0,1)$ si el archivo de entrada contiene bits aleatorios verdaderamente independientes.31
+Esos valores $p$ deben ser $p < 0.025$ o $p > 0.975$ para que consideremos que la prueba ha sido aprobada.
+Cada prueba se ejecuta varias veces dando un valor $p$ por cada ejecución.
+Combinando todos estos $p$ - valores ($229$ por cada PRNG) obtuvimos un valor general de $p$ por medio de KStest.
+Solo si todos los $p$ individuales y también los $p$ globales están en el rango apuntado arriba, colocamos ``si'' en la tabla \ref{tabla:Tabla2}.
 
-\subsection{Results}
+\subsection{Resultados}
 \label{sec:resultados}
 
-The implementations presented here were fully developed with $Quartus$ II $7.2^\copyright$ software.
-The physical implementations were made on $Altera^\copyright$ Cyclone III $EP3C120$ development kit.
+Las implementaciones presentadas aquí se desarrollaron completamente con el software \textit{Quartus II  7.2 \textsuperscript{\copyright}}.
+Las implementaciones físicas se realizaron en el kit de desarrollo \textit{Altera \textsuperscript{\copyright} Cyclone III EP3C120}.
 
 $SignalTap$ $II$ Embedded Logic Analyzer was used to make the hardware evaluation for each design.
 This is a system-level debugging tool, provided by $Altera$,  that captures and displays the real-time signal behavior.
 It allows  one to observe interactions between hardware and software in system designs.
 After capturing the data and saving it to a $SignalTap$ $II$ file, it can be analyzed and viewed as a waveform \cite{QUARTUS}.
 
-Figs. \ref{fig:tiempo} and \ref{fig:atractor} show respectively the temporal series and attractor, obtained by the hardware implementation with $\Delta t=0.0045$ and floating point single precision (figures with the other numerical representation are very similar).
+Se utilizó  \textit{SignalTap II Embedded Logic Analyzer} para realizar la evaluación de hardware para cada diseño.
+Esta es una herramienta de depuración a nivel de sistema, proporcionada por $Altera$, que captura y muestra el comportamiento de la señal en tiempo real.
+Le permite a uno observar las interacciones entre el hardware y el software en los diseños del sistema.
+Después de capturar los datos y guardarlos en un archivo \textit{SignalTap II}, se pueden analizar y visualizar como una forma de onda \cite{CUARTO}.
+
+Las figuras \ref{fig:tiempo} y \ref{fig:atractor} muestran respectivamente la serie temporal y el atractor, obtenidos por la implementación del hardware con $\Delta t = 0.0045$ y precisión simple de coma flotante (las cifras con la otra representación numérica son muy similares).
 %
 \begin{figure}
 	\centering
@@ -252,94 +264,76 @@ Figs. \ref{fig:tiempo} and \ref{fig:atractor} show respectively the temporal ser
 	\caption{Lorenz attractor.}\label{fig:atractor}
 \end{figure}
 
-In Table \ref{tabla:Tabla1} a comparison between the compilation results in the three numeric representations studied here:
+El hardware requerido se muestra en la tabla \ref{tabla: Tabla1}. Aquí se muestra una comparación entre los resultados de la compilación en las tres representaciones numéricas estudiadas:
 \begin{itemize}
-\item \textit{floating point arithmetics}: two cases, single and double precision (Float($32$bits) and Float($64$bits) respectively),
-\item \textit{integer arithmetics} (Integer($54$bits)) and
-\item \textit{fixed point arithmetics}: two cases, both with   $9$ bits for the integer part plus $1$ bit for the sign plus $22$ bits  (Fixed point($32$bits) or $54$ bits (Fixed point($64$bits)) respectively, for the fractional part.
+\item \textit{aritmética de punto flotante}: los dos casos, precisión simple y doble (Flotante($32$bits) y Flotante($64$bits) respectivamente),
+\item \textit{aritmética entera} (Enteros($54$bits)) y
+\item \textit{aritmética de punto fijo}: los dos casos, ambos con $9$ bits de parte entera más $1$ bit de signo más los bits para la parte decimal, $22$ bits para Punto fijo($32$bits) o $54$ bits para Punto fijo($64$bits) respectivamente.
 \end{itemize}
-
-The hardware required is shown in Table \ref{tabla:Tabla1}.
-The integer arithmetic implementation is the one that employs minimum resources and supports a higher $f_{max}$, the reason for this is that the equations implemented were previously optimized for this particular application.
-In the case of floating point representation optimization was made to diminish the area but other optimization techniques may be applied to improve frequency, or power consumption \cite{Giri2012,Gokul2004}.
-
+%
 \begin{table*} [tb]
 \begin{center}
-\caption{Compilation results CYCLONE III  EP3C120F780C7.}
+\caption{Resultados de compilación en \textit{CYCLONE III EP3C120F780C7}.}
 \begin{tabular}{|c|c|c|c|c|c|c|c|}
-\hline\hline
-									&Fixed point($32$bits)	&Fixed point($64$bits)	&Float($32$bits)	&Float($64$bits)	&Integer($54$bits)  \\
-\hline\hline
-Total logic elements				&$2,392$    			&$6,104$     			&$8,176$   			&$17,532$  			&$1,297$			\\
-\hline
-Percentage of logic elements [\%] 	&$2.00$					&$5.12$     			&$6.86$            	&$14.72$          	&$1.08$   			\\
-\hline
-Total registers                  	&$1,658$            	&$1,754$       			&$4,753$     		&$8,532 $        	&$159$ 				\\
-\hline \hline
-clk $f_{max}$ [MHz]         		&$37.82$         		&$20.51$      			&$7.48$          	&$5.42$     		&$55.38$ 			\\
-\hline
-Throughput [Mbs]       				&$1,210.24$ 			&$656.32$         		&$14.96$          	&$173.44$          	&$1,772.16$   		\\
-\hline\hline
+	\hline\hline
+	                                     & Punto fijo($32$bits) & Punto fijo($64$bits) & Flotante($32$bits) & Flotante($64$bits) & Enteros($54$bits) &  \\ \hline\hline
+	     Total de elementos lógicos      &       $2,392$        &       $6,104$        &      $8,176$       &      $17,532$      &      $1,297$      &  \\ \hline
+	Porcentaje de elementos lógicos [\%] &        $2.00$        &        $5.12$        &       $6.86$       &      $14.72$       &      $1.08$       &  \\ \hline
+	         Total de registros          &       $1,658$        &       $1,754$        &      $4,753$       &      $8,532 $      &       $159$       &  \\ \hline\hline
+	       Reloj $f_{max}$ [MHz]         &       $37.82$        &       $20.51$        &       $7.48$       &       $5.42$       &      $55.38$      &  \\ \hline
+	          Throughput [Mbs]           &      $1,210.24$      &       $656.32$       &      $14.96$       &      $173.44$      &    $1,772.16$     &  \\ \hline\hline
 \end{tabular}\end{center}
 \label{tabla:Tabla1}
 \end{table*}
 
-In order to employ this system as a hardware PRNG output data are processed with \textit{discarding} and \textit{concatenating} techniques. 
-Both techniques keep the least significant bits because they present the more variable behavior.
-In the case of \textit{concatenating} technique, the noisiest part of each state variable is kept and recombined, and a $32$-bits sequence output is obtained in each iteration.
+La implementación aritmética de enteros es la que emplea recursos mínimos y admite un $f_{max}$ más alto, la razón de esto es que las ecuaciones implementadas fueron optimizadas previamente para esta aplicación en particular.
+En el caso de la representación de punto flotante, la optimización se realizó para disminuir el área, pero se pueden aplicar otras técnicas de optimización para mejorar la frecuencia o el consumo de energía \cite{Giri2012, Gokul2004}.
 
-For the stochasticity analysis data files with $3,000,000$ $32$-bits words each were generated for $\Delta t=2^{-n}$, with $n=6$,$7$,$8$,$9$ and $10$.
-DIEHARD tests were calculated for all the files generated.
-In Table \ref{tabla:Tabla2} some of the most relevant results are reported.
-$x_{disc}$, ( $y_{disc}$, $z_{disc}$) means $x$-time series ($y$, $z$) after the discarding randomization technique is applied.
-$xyz$ means the time series obtained by means of the \textit{concatenating} randomization technique.
-This Table \ref{tabla:Tabla2} shows that in the cases of integer and fixed point implementations the discarding randomization technique works better as $\Delta t$ increases because, for lower $\Delta t$ consecutive elements in the time series are more correlated and this randomization technique does not mix them enough.
-In order to use lower values of  $\Delta t$ more bits should be discarded to obtain good PRNGs.
-On the other hand the concatenating randomization technique performs well regardless of the value of $\Delta t$ (within the analyzed range).
+Para utilizar este sistema como PRNG, los datos de salida se procesan con las técnicas \textit{descarte} y \textit{concatenado}.
+Ambas técnicas mantienen los bits menos significativos porque presentan el comportamiento más variable.
+En el caso de la técnica de \textit{concatenado}, la parte más ruidosa de cada variable de estado se mantiene y se recombina, y se obtiene una salida de secuencia de $32$-bits en cada iteración.
 
+Se generaron archivos de datos de análisis estocástico con $3.000.000$ palabras de $32$-bits cada uno, para $\Delta t = 2^{-n}$, con $n = 6$, $7$, $8$, $9$ y $10$.
+Se calcularon las pruebas DIEHARD para todos los archivos generados.
+En la tabla \ref{tabla:Tabla2} se informan algunos de los resultados más relevantes.
+Definimos los valores $x_ {disc}$, ($ y_{disc}$, $z_{disc}$) como la serie temporal $x$ ($ y $, $ z $) después de aplicar la técnica de randomización por \textit{descarte}.
+La variable $xyz$ es la serie de tiempo obtenida mediante la técnica de aleatorización de \textit{concatenado}.
 \begin{table*} [tb]
 \begin{center}
 \caption{DIEHARD tests results.}
 \begin{tabular}{|c|c|c|c|c|c|c|}
-\hline\hline
-						& $\Delta t=1/2^n$	&0,015625	&0,0078125	&0,00390625	&0,001953125	&0,0009765625	\\
-\hline\hline
-Float ($64$ bits)		&$x_{disc}$			&no    		&no    		&yes  		&yes 			&no  			\\
-\hline
-						&$y_{disc}$    	 	&no      	&no       	&yes    	&yes  			&no 			\\
-\hline
-						&$z_{disc}$   		&yes     	&yes       	&yes    	&no 			&no				\\
-\hline
-						&$zyx$             	&no   		&no      	&no        	&no 			&yes 			\\
-\hline\hline
-Fixed Point ($64$ bits)	&$x_{disc}$       	&yes    	&yes      	&no    		&no  			&no    			\\
-\hline
-						&$y_{disc}$        	&yes       	&yes    	&no     	&no  			&no    			\\
-\hline
-						&$z_{disc}$      	&yes     	&yes    	&no    		&no  			&no    			\\
-\hline
-						&$zyx$            	&yes    	&yes    	&yes   		&no  			&no    			\\
-\hline\hline
-Integer ($54$ bits)		&$x_{disc}$     	&yes   		&yes  		&no  		&no  			&no    			\\
-\hline
-						&$y_{disc}$       	&yes   		&yes     	&no  		&no  			&no    			\\
-\hline
-						&$z_{disc}$  		&yes 		&yes    	&no			&no  			&no    			\\
-\hline
-						&$zyx$       		&yes  		&yes 		&yes  		&yes 			&yes  			\\
-\hline
+	\hline\hline
+	                        & $\Delta t=1/2^n$ & 0,015625 & 0,0078125 & 0,00390625 & 0,001953125 & 0,0009765625 \\ \hline\hline
+	   Float ($64$ bits)    &    $x_{disc}$    &    no    &    no     &     si     &     si      &      no      \\ \hline
+	                        &    $y_{disc}$    &    no    &    no     &     si     &     si      &      no      \\ \hline
+	                        &    $z_{disc}$    &    si    &    si     &     si     &     no      &      no      \\ \hline
+	                        &      $zyx$       &    no    &    no     &     no     &     no      &      si      \\ \hline\hline
+	Fixed Point ($64$ bits) &    $x_{disc}$    &    si    &    si     &     no     &     no      &      no      \\ \hline
+	                        &    $y_{disc}$    &    si    &    si     &     no     &     no      &      no      \\ \hline
+	                        &    $z_{disc}$    &    si    &    si     &     no     &     no      &      no      \\ \hline
+	                        &      $zyx$       &    si    &    si     &     si     &     no      &      no      \\ \hline\hline
+	  Integer ($54$ bits)   &    $x_{disc}$    &    si    &    si     &     no     &     no      &      no      \\ \hline
+	                        &    $y_{disc}$    &    si    &    si     &     no     &     no      &      no      \\ \hline
+	                        &    $z_{disc}$    &    si    &    si     &     no     &     no      &      no      \\ \hline
+	                        &      $zyx$       &    si    &    si     &     si     &     si      &      si      \\ \hline
 \end{tabular}\end{center}
 \label{tabla:Tabla2}
 \end{table*}
 
+Esta tabla muestra que en los casos de implementaciones de enteros y punto fijo la técnica de aleatorización de \textit{descarte} funciona mejor a medida que $\Delta t$ aumenta porque, para elementos $\Delta t$ inferiores, las series temporales son más correlacionadas y esta técnica de aleatorización no los mezcla lo suficiente.
+Para utilizar valores de $\Delta t$ más bajos, más bits deben descartarse para obtener buenos PRNG.
+Por otro lado, la técnica de aleatorización de \textit{concatenación} funciona bien independientemente del valor de $\Delta t$ (dentro del rango analizado).
+
 \subsection{Conclusions}
-\label{sec:conclusions} From the results presented herein, it is possible to conclude that to obtain a PRNG optimum results correspond to the integer arithmetics representation in both hardware (resources and frequency) and statistical properties.
-The \textit{concatenating} randomization technique makes the quality independent of $\Delta t$ for this numeric representation.
-For \textit{discarding} randomization technique good results are obtained  only for big values of $\Delta t$.
-The same happens for fixed point implementations with both randomization techniques.
+\label{sec:conclusions}
 
-In terms of usage resources and frequency limitations integer arithmetics performance is considerable better than floating point and fixed point.
-Let us remark that to minimize resources preprocessing of the chaotic system is required (scaling and polarization) to get dividers that are a power of $2$, as explained in subsection \ref{sec:impleInt}.
+A partir de los resultados presentados aquí, es posible concluir que para obtener un PRNG, los mejores corresponden a la representación de aritmética entera tanto en hardware (recursos y frecuencia) como en propiedades estadísticas.
+La técnica de aleatorización de \textit{concatenado} hace que la calidad sea independiente de $\Delta t$ para esta representación numérica.
+Para la técnica de aleatorización de \textit{descarte} se obtienen buenos resultados solo para valores grandes de $\Delta t$.
+Lo mismo ocurre con las implementaciones de punto fijo con ambas técnicas de aleatorización.
 
-On the other hand, for the floating point arithmetic's case the exponent is discarded in all the used randomization techniques and consequently the dynamics is highly perturbed by the randomization process.
-Then, as shown in Table \ref{tabla:Tabla2} $\Delta t$ is not the relevant variable to predict a good or a bad PRNG.
+En términos de uso de recursos y limitaciones de frecuencia, el rendimiento en aritmética de enteros es considerablemente mejor que en punto flotante y punto fijo.
+Observemos que para minimizar los recursos, se requiere un preprocesamiento del sistema caótico (escalado y polarización) para obtener divisores con una potencia de $2$, tal como se explica en la subsección \ref{sec:impleInt}.
+
+Por otro lado, para el caso de la aritmética de punto flotante, el exponente se descarta en todas las técnicas de aleatorización utilizadas y, en consecuencia, la dinámica se ve muy perturbada por el proceso de aleatorización.
+Entonces, como se muestra en la Tabla \ref{tabla: Tabla2} $\Delta t $ no es la variable relevante para predecir si un PRNG será bueno o malo.

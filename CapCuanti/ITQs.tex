@@ -1,5 +1,53 @@
 \section{Cuantificadores de la teoría de la información}
 
+%ESTO VIENE DE OTRO LADO
+La entropía de Shannon normalizada se deriva de la Teoría de la Información, y es un funcional de la PDF.
+Una vez que se determina el PDF, la entropía se define por la muy conocida expresión de Shannon normalizada:
+%
+\begin{equation}
+H=-\frac{\sum_{i=1}^{M}{p_i~log~p_i}}{log(M)}, \label{eq:shannon}
+\end{equation}
+%
+donde $ M $ es la cantidad de elementos del alfabeto.
+
+Desde un punto de vista estadístico, un sistema caótico es la \textit{fuente} de una serie temporal simbólica con un alfabeto de símbolos $M$.
+Para evaluar la entropía, primero se necesita definir una función de distribución de probabilidad de la serie temporal.
+Cabe señalar que la distribución de probabilidad clásica, aquí denominada PDF basada en histogramas, solo tiene en cuenta la ocurrencia de valores, pero no es capaz de detectar el orden de aparición de los mismos.
+Por ejemplo, una secuencia de valores aleatorios generados por cualquier generador de ruido exhibirá un PDF constante entre 0 y 1.
+Por otro lado, una secuencia tipo diente de sierra también presentará un PDF constante entre 0 y 1.
+En ambos casos, los valores aparecen en la serie el mismo número de veces, pero en un orden diferente.
+Esta característica es crucial porque diferencia una señal aleatoria de una completamente predecible.
+
+There exist different procedures to obtain a PDF \cite{Rosso2009,DeMicco2008,Mischaikow1999,Powell1979,Rosso2001,Pompe2002} and the determination of the best PDF $P$ is a fundamental problem because $P$ and the sample space are inextricably linked. Their applicability depends on particular characteristics of the data, such as stationarity, time series length, variation of the parameters, level of noise contamination, etc. In previous work devoted to PRNGs, the use of two
+PDFs was successful for the comparison between different systems. One PDF is the
+normalized histogram, and its normalized Shannon
+entropy is denoted here $H_{hist}$. The other one is the ordering PDF
+proposed by Bandt \& Pompe \cite{Pompe2002} and its  normalized Shannon entropy is  here denoted as $H_{BP}$. By this selection of the PDFs it is possible to cover the two mentioned properties, namely, (1) the probability of occurrence of each element of the alphabet (PDF based on histograms), and (2) the order of the items in the time series (PDF based on Bandt-Pompe technique).
+One may consider the statistics of individual symbols or the statistics of sequences of $d$ consecutive symbols. In the first case $P$ is \textsl{non-causal} because it does not change if the outcomes are mixed up and the number of different possible outcomes is $M$. In the second case, the outcome changes if the output is mixed and then one says that $P$ is \textsl{causal}. In the second case the number of different outcomes is equal to $M^d$ and increases rapidly with $d$. Bandt and Pompe made a proposal in \cite{Pompe2002} that is computationally efficient, because it limits the outcomes to $d!$, but retains causal effects.
+
+Existen diferentes procedimientos para obtener una PDF \cite{Rosso2009, DeMicco2008, Mischaikow1999, Powell1979, Rosso2001, Pompe2002} y la determinación de la mejor PDF $P$ es un problema fundamental porque $P$ y el espacio de muestra están inextricablemente vinculados.
+Su aplicabilidad depende de las características particulares de los datos, tales como estacionariedad, duración de la serie temporal, variación de los parámetros, nivel de contaminación de ruido, etc.
+En trabajos previos dedicados a los PRNG, el uso de dos PDFs fue exitoso para la comparación entre diferentes sistemas.
+Una PDF es el histograma normalizado, y su entropía de Shannon normalizada se denota aquí $H_{hist}$.
+La otra PDF es la propuesta por por Bandt \& Pompe \cite{Pompe2002} y su entropía de Shannon normalizada se denota aquí como $H_{BP}$.
+Mediante esta selección de PDFs, es posible cubrir las dos propiedades mencionadas, a saber, (1) la probabilidad de que ocurra cada elemento del alfabeto (PDF basado en histogramas) y (2) el orden de los elementos en el tiempo serie (PDF basado en la técnica de Bandt-Pompe).
+Se pueden considerar las estadísticas de símbolos individuales o las estadísticas de secuencias de símbolos consecutivos $d$.
+En el primer caso $P$ es \textit{no causal} porque no cambia si los resultados están mezclados y el número de resultados posibles diferentes es $M$.
+En el segundo caso, el resultado cambia si el resultado está mezclado, por lo que $P$ es \textit{causal}.
+
+The representation plane $H_{BP}$ vs $H_{hist}$ is considered in \cite{DeMicco2008}.
+A higher value in any of the entropies, $H_{BP}$ and $H_{hist}$, implies an
+increase in the uniformity of the involved PDFs. The point
+$(1,1)$ represents the ideal point for a system with uniform histogram and
+uniform distribution of ordering patterns.
+A discussion about the convenience of using these quantifiers is beyond the scope of this paper but there is an extensive literature  \cite{DeMicco2008,Rosso2007C,Martin2006}.
+
+El plano de representación $H_{BP}$ vs $H_{hist}$ se considera en \cite{DeMicco2008}.
+Un valor más alto en cualquiera de las entropías, $H_{BP}$ y $H_{hist}$, implica un aumentO la uniformidad de los archivos PDF involucrados.
+El punto $(1,1)$ representa el punto ideal para un sistema con histograma uniforme y distribución uniforme de patrones de orden.
+Una discusión sobre la conveniencia de usar estos cuantificadores está más allá del alcance de este documento, pero hay una extensa literatura \cite{DeMicco2008, Rosso2007C, Martin2006}.
+%FIN DE ESTO VIENE DE OTRO LADO
+
 Los sistemas dinámicos son sistemas que evolucionan en el tiempo.
 En la práctica, solo es posible medir una serie de tiempo escalar $X(t)$ la cual puede ser función de las variables $V=\{ v_1, v_2,\cdots, v_k\}$ que describe la dinámica subyacente (por ejemplo $dV/dt=f(V)$).
 Tratamos de inferir propiedades de un sistema no conocido a partir del análisis de los datos guardados de datos observacionales.
