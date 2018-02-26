@@ -1,6 +1,7 @@
 \section{Caos en redes neuronales}
+\label{sec:RNA}
 
-El problema de el caos en las redes neuronales ha recibido mucha atención recientemente.
+El problema del caos en las redes neuronales ha recibido mucha atención recientemente.
 Las actividades en este campo pueden ser divididas en tres categorías:
 \begin{itemize}
 	\item Intentos por explicar experimentalmente el comportamiento aperiódico observado en una sola neurona perturbada o en un pequeño ensamble de neuronas.
@@ -54,7 +55,7 @@ El grafo de la red cambia con respecto al perceptrón multicapa, la representaci
 	\caption{Red de Hopfield. Ahora, la matriz de pesos tiene todos sus valores permitidos.}\label{fig:RedHopfield}
 \end{figure}
 
-\subsection{Un caso de estudio}
+\subsection{Estudio de la RNA en función de un parámetro}
 
 La red neuronal usada tiene el modelo de tiempo contínuo
 \begin{eqnarray}\label{eq:ModTiempCont}
@@ -84,13 +85,12 @@ f =
 \end{array} \right)
 \end{eqnarray}
 
-
 Ecuaciones que se corresponden con el diagrama de la figura \ref{fig:RedHopfield}.
 Vemos de la ecuación que se corresponde con una red de Hopfield de memoria diferencial.
 No disponemos de computadoras analógicas, por lo que el sistema debe ser convertido a tiempo discreto.
-Aunque el paquete de programas Matlab incluye rutinas para el cálculo de ecuaciones diferenciales, perdemos el control de paso de tiempo necesario para calcular el
-exponente de Lyapunov con el método descripto en la sección \ref{sec:MLE}, además lo necesitamos para una futura implementación en hardware.
+Aunque el paquete de programas Matlab incluye rutinas para el cálculo de ecuaciones diferenciales, perdemos el control de paso de tiempo necesario para calcular el exponente de Lyapunov con el método descripto en la sección \ref{sec:MLE}, además lo necesitamos para una futura implementación en hardware.
 Usamos para esto una aproximación de Euler de primer orden, en donde la derivada se aproxima con un trapecio de base $\Delta t$.
+%
 \begin{eqnarray}\label{eq:EulerRNA}
 	\dfrac{u_{n+1}-u_n}{\Delta t} \approx \dot{u}_n &=& -u + W \cdot f(u_n) \Rightarrow\\ \nonumber
 	\Rightarrow u_{n+1} &=& (1 - \Delta t)u_n + \Delta t W \cdot f(u_n)\\ \nonumber
@@ -101,17 +101,25 @@ En la figura \ref{fig:EulerRNA} se muestra nuestra nueva red neuronal en tiempo 
 Sus coeficientes dependen del paso de tiempo.
 Este sistema se aproxima al de tiempo continuo en el límite $\Delta t \rightarrow 0$, en nuestro caso se verificó que el sistema converge al planteado.
 Pudo verse que con $\Delta t = 1$ y $\Delta t = 0,1$ las soluciones en el espacio de fases fueron las mismas, para hacer los cálculos utilizamos $\Delta t = 0,01$.
+%
 \begin{figure}
 	\centering
-	\includegraphics[width=1\columnwidth]{EulerRNA}\\
+	\includegraphics[width=1\textwidth]{EulerRNA}\\
 	\caption{Red utilizada. Se trata de una red de Hopfield tridimensional de memoria diferencial, el diseño está orientado a una posterior implementación en FPGA.}\label{fig:EulerRNA}
 \end{figure}
 
 Se barrió un parámetro (peso de un axón) para identificar la existencia de caos en función de éste.
 Siguiendo a \cite{Yang2003} en donde se reporta una transición al caos en torno a un juego de parámetros, utilizamos la siguiente matriz de pesos:
-%\begin{eqnarray}\label{eq:matrizW}
-%W = \( &2 &-1,2 &0\\ &1,9+p &1,71 &1,15\\ &-4,75 &0 &1,1 \)
-%\end{eqnarray}
+%
+\begin{eqnarray}\label{eq:matrizW}
+W =
+\left( \begin{array}{ccc}
+2 & -1,2 & 0\\
+1,9+p & 1,71 & 1,15\\
+-4,75 & 0 &1,1
+\end{array} \right)
+\end{eqnarray}
+%
 en donde $p$ es el parámetro a barrer entre $-0,35$ y $0,55$ en pasos de $9\times 10^{-5}$.
 
 Para cada valor del parámetro se le da condiciones iniciales al sistema $[1,68; -0,292; -3,47]$ y se lo deja evolucionar $800s$, esto es $200s$ más que el transitorio más largo reportado en \cite{Yang2003}, con esto nos aseguramos de descartar el transitorio y que el sistema se encuentra en régimen permanente.

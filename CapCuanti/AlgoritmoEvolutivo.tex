@@ -1,7 +1,7 @@
 \subsection{Algoritmo evolutivo para la búsqueda de caos}
 
-Propusimos emplear un método eurístico para buscar parámetros del sistema implementado de tal forma que se maximice la caoticidad de su salida.
-Nuestro trabajo tiene la ventaja que realiza una búsqueda inteligente mediante el empleo de un algoritmo genético, lo que minimiza el tiempo de cómputo.
+Se propuso emplear un método eurístico para buscar parámetros del sistema implementado de tal forma que se maximice la caoticidad de su salida.
+Este algoritmo tiene la ventaja que realiza una búsqueda inteligente mediante el empleo de un algoritmo genético, lo que minimiza el tiempo de cómputo.
 
 Un algoritmo evolutivo es un método de búsqueda dirigido basado en la probabilidad.
 Un juego de entidades que representan posibles soluciones compite con otros, evolucionando en mejores soluciones \cite{Weise2009}.
@@ -20,20 +20,21 @@ Este es el caso si la función a maximizar es el MLE y el espacio de exploració
 
 Para evaluar la viabilidad del método, se generó el siguiente algoritmo y se probó sobre el mapa logístico.
 
-En la figura \ref{fig:digramaflujo1} podemos ver el diagrama de flujo principal.
+En la figura \ref{fig:diagramaflujo1} podemos ver el diagrama de flujo principal.
 El bloque \textit{Evolution} fue descompuesto en otro sub-diagrama para simplificar la descripción.
-Este segundo diagrama puede verse en la figura \ref{fig:digramaflujo2}, esta surutina maneja la evolución de los parámetros.
+Este segundo diagrama puede verse en la figura \ref{fig:diagramaflujo2}, esta surutina maneja la evolución de los parámetros.
 %
 \begin{figure}
 	\centering
-	\includegraphics[width=0.9\columnwidth]{main_flowchart.pdf}\\
-	\caption{Main flow chart.}\label{fig:diagramaflujo1}
+	\includegraphics[width=0.9\columnwidth]{main_flowchart}\\
+	\caption{Diagrama de flujo principal.}
+	\label{fig:diagramaflujo1}
 \end{figure}
 %
 \begin{figure}
 	\centering
 	\includegraphics[width=0.56\columnwidth]{evolution_flowchart.pdf}\\
-	\caption{Evolution flow chart.}\label{fig:diagramaflujo2}
+	\caption{Diagrama de flujo del bloque \textit{Evolution}.}\label{fig:diagramaflujo2}
 \end{figure}
 
 El algoritmo inicia con una inicialización general de parámetros como el número máximo de generaciones $max\_gen$, el número máximo de mutaciones $max\_mut$ y el número máximo de cambios en cada mutación $max\_stem$.
@@ -59,7 +60,7 @@ La línea contínua muestra el $MLE$ en pasos continuos de $r$, mientras que los
 \begin{figure}
 	\centering
 	\includegraphics[width=1\columnwidth]{EvolutivoVSExaustivo.jpg}\\
-	\caption{Algorithm results.}\label{fig:resultadoAlgorithm}
+	\caption{Resultados del algoritmo evolutivo para el mapa logístico, los puntos son los resultados del algoritmo.}\label{fig:resultadoAlgorithm}
 \end{figure}
 
 El bloque que calcula el $MLE$ fue sintetizado y verificado experimentalmente en un Altera CYCLONE III FPGA y los resultados de la compilación mostrados en la figura \ref{fig:compilacion}.
@@ -81,38 +82,31 @@ El valor del MLE en la iteración $250000$ es $0.1415$, lo que es consistente co
 %
 \begin{figure*}
 	\centering
-	\includegraphics[width=0.9\columnwidth]{st.pdf}\\
-	\caption{Signal Tap output.}\label{fig:st}
+	\includegraphics[width=1\columnwidth]{st.pdf}\\
+	\caption{Salida del Signal Tap.}\label{fig:st}
 \end{figure*}
 %
 \begin{figure}
 	\centering
 	\includegraphics[width=1\columnwidth]{Lyap_MATLAB.jpg}\\
-	\caption{Lyapunov curve}\label{fig:lyapu}
+	\caption{Convergencia del algoritmo que calcula el MLE.}\label{fig:lyapu}
 \end{figure}
 
 
 \subsubsection{Estado actual del avance}
 
 Actualmente estamos en etapa de desarrollo de la implementación en hardware de este algoritmo.
-En este segundo caso, el sistema bajo prueba es la familia de mapas cuadráticos bidimensionales descriptos en el capítulo \ref{subsubsec:QMaps} y cuya ecuación es \ref{[eq:QMapsMLE]}.
-
-\begin{eqnarray}\label{eq:QMapsMLE}
-&x_{(i+1)}=a_0 + a_1 x_{(i)} + a_2 x_{(i)}^2 +\\ \nonumber
-&+ a_3 x_{(i)} y_{(i)} + a_4 y_{(i)}^2 + a_5 y_{(i)}\\ \nonumber
-&y_{(i+1)}=b_0 + b_1 x_{(i)} + b_2 x_{(i)}^2 +\\ \nonumber
-&+ b_3 x_{(i)} y_{(i)} + b_4 y_{(i)}^2 + b_5 y_{(i)}\nonumber
-\end{eqnarray}
+En este segundo caso, el sistema bajo prueba es la familia de mapas cuadráticos bidimensionales descriptos en el capítulo \ref{sec:QMaps}.
 
 La población inicial es de $12$ coeficientes iniciales del mapa caótico empleado.
 En la figura \ref{bloques} puede verse un diagrama en bloques general del sistema.
 Este consiste en dos bloques principales conectados al sistema caótico bajo prueba a través de una interface wishbone.
 Esto independiza el sistema del cuantificador y permite cambiar fácilmente el sistema bajo prueba.
-
+%
 \begin{figure}
 	\centering
 	\includegraphics[width=0.85\columnwidth]{bloques.jpg}\\
-	\caption{Enabling flow of the System.}\label{bloques}
+	\caption{Diagrama en bloques del sistema implementado en FPGA.}\label{bloques}
 \end{figure}
 
 El sistema caótico es duplicado en dos bloques, $System A$ y $System B$.
@@ -134,26 +128,26 @@ Las operaciones de punto flotante como las sumas, multiplicaciones, valores abso
 La figura \ref{D1} muestra la implementación del bloque $D1$ en el entorno gráfico Quartus
 Los puntos de salida y entrada $a$ y $b$, son tomados luego de que la señal \textit{habilita} se pone en cero.
 Entonces, las señales son procesadas de acuerdo a la ecuación \ref{eq:D0D1} para calcular la distancia euclideana $d_1$.
-
+%
 \begin{figure*}
 	\centering
-	\includegraphics[width=2\columnwidth]{D1.pdf}\\
-	\caption{$D_1$ Block.}\label{D1}
+	\includegraphics[width=1\columnwidth]{D1.pdf}\\
+	\caption{Bloque $D_1$.}\label{D1}
 \end{figure*}
 
 La lógica del algoritmo genético fue implementada en lenguaje VHD.
 Esta lógica junto con el registro de los $12$ coeficientes se muestran en la figura \ref{fig:evolutivecircuit}.
 También se muesran los resultados de la compilación en la figura \ref{fig:alg_comp}.
 Puede verse que esta implementación ocupa pocos recursos del dispositivo.
-
+%
 \begin{figure*}
 	\centering
-	\includegraphics[width=2.1\columnwidth]{evolutive.png}\\
-	\caption{Circuit of the evolutive algorithm.}\label{fig:evolutivecircuit}
+	\includegraphics[width=1\columnwidth]{evolutive.png}\\
+	\caption{Circuito del algoritmo evolutivo. Cada uno de los $12$ bloques ADD\_SUB guarda el valor de uno de los coeficientes $a_i$.}\label{fig:evolutivecircuit}
 \end{figure*}
-
+%
 \begin{figure}
 	\centering
 	\includegraphics[width=1\columnwidth]{compilationreportalgoritmo.png}\\
-	\caption{Compilation report of the evolutive algorithm.}\label{fig:alg_comp}
+	\caption{Compilation report del algoritmo evolutivo.}\label{fig:alg_comp}
 \end{figure}

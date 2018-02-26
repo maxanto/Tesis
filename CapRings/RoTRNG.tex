@@ -2,306 +2,222 @@
 
 \subsection{Resumen}
 
-This paper deals with the use of Ring Oscillators (\emph{RO}s) as
-pseudo random number generators (\emph{PRNG}).
-The design, made for \emph{ALTERA Cyclone} III $^{\copyright} $, using low level primitives is explained.
-Two relevant characteristics of a \emph{PRNG} are considered to validate the design: 1) the
-equiprobability of all possible outcomes and 2) the statistical
-independence of consecutive values. In this work these properties are measured via Information Theory Quantifiers.
-A dual entropy plane is used to represent the time series and easily visualize the results obtained with different configurations.
-The quality is also compared with other available  \emph{PRNG}s by means of the dual entropy plane.
- Our method constitutes an effective reduction of the complete analysis made with test
-suites like \emph{DIEHARD} or \emph{NIST}.
+Este capítulo sobre el uso de los osciladores en anillo (\emph{RO}s) como generadores de números aleatorios (\emph{TRNG}).
+Se explica el diseño, hecho para \emph{ALTERA Cyclone} III $^{\copyright}$, usando primitivas de bajo nivel.
+Se consideran dos características relevantes de un \emph{PRNG} para validar el diseño: 1) el equiprobabilidad de todos los resultados posibles y 2) la estadística independencia de valores consecutivos En este trabajo, estas propiedades se miden a través de Cuantificadores de teoría de la información.
+Un plano de doble entropía se usa para representar las series de tiempo y visualizar fácilmente los resultados obtenidos con diferentes configuraciones.
+La calidad también se compara con otros \emph{RNG} disponibles por medio del plano de entropía dual.
+Nuestro método constituye una reducción efectiva del análisis completo realizado con la prueba suites como \emph{DIEHARD} o \emph{NIST}.
 
 \subsection{Introducción}
 \label{sec:Intro}
 
-The jitter and phase noises present in ring oscillators, are not
-convenient in several applications of \emph{RO}s, for example in the implementation of \emph{on-chip oscillators} to generate clocks in high-speed circuits\cite{Hajimiri1999,Mandal2010,Gupta2011}. However they are the source of randomness for \emph{RO}-based \emph{PRNG} \cite{Sunar2007,Wold2009}. Furthermore \emph{RO}s can be implemented in a full-digital circuit like Field Programmable Gate Arrays (\emph{FPGA}s) as they  basically are just a string of inverters.
+El jitter y los ruidos de fase presentes en los osciladores en anillo no son convenientes en varias aplicaciones de \emph{RO}s, por ejemplo en la implementación de \emph{osciladores en el chip} para generar relojes en circuitos de alta velocidad \cite{Hajimiri1999, Mandal2010, Gupta2011}.
+Sin embargo, son la fuente de aleatoriedad para un \emph{TRNG} basado en \emph{RO}s \cite{Sunar2007, Wold2009}.
+Además, un \emph{RO} se puede implementar en un circuito totalmente digital como arreglos de compuertas programables por campo (\emph{FPGA}s) ya que básicamente son solo una serie de inversores.
 
+En \cite{Sunar2007}, Sunar et al. presentó un \emph{PRNG} usando jitter estocástico combinando varios \emph{RO}s.
+Ellos requerían un procesamiento posterior del flujo de bits basado en funciones resilientes, para enmascarar imperfecciones en la fuente de entropía y para aumentar inmunidad contra los cambios en las condiciones ambientales.
+En ese trabajo se utilizó la entropía del flujo de bits para validar los resultados en.
 
-In \cite{Sunar2007}, Sunar et al. presented a \emph{PRNG} using
-stochastic jitter by combining several \emph{RO}s. They required a
-post processing of the bit stream, based on resilient functions,
-to mask imperfections in the entropy source and to increase
-immunity against changes in environmental conditions. The entropy of the bit stream was used to
-validate the results in \cite{Sunar2007}.
+Wold et al. \cite{Wold2009} propuso una versión mejorada con mejores características aleatorias y sin un procesamiento posterior.
+Ellos solo agregaron un flip-flop D adicional en cada salida de anillo.
+La efectividad de su propuesta fue probada por medio de suites de prueba disponibles en la literatura abierta \cite{NIST2000, marsaglia1995, NIST2000a}.
 
+En este capítulo se realiza una descripción detallada de una implementación de hardware muy compacta de \emph{TRNG}s basados en \emph{RO}s propuesto en \cite{Wold2009}.
+Para validar la aleatoriedad de las secuencias de ruido generadas, se usan dos cuantificadores derivados de la teoría de la información y el plano de doble entropía $H_{BP} \times H_{hist}$ propuestos en la sección \ref{sec:itqs}.
+Según lo explicado arriba, $H_{hist}$ es una medida de la equiprobabilidad entre todos los valores posibles y $H_{BP}$ es una medida de la independencia entre valores consecutivos.
 
-Wold et al. \cite{Wold2009} proposed an enhanced version with
-better random characteristics and without a post processing. They only
-added an extra D flip-flop at each ring output. The
-effectiveness of their proposal was tested by means of test suites available
-in the open literature \cite{NIST2000,marsaglia1995,NIST2000a}.
-
-In this paper a detailed description of a very compact hardware implementation of the \emph{RO}-based \emph{PRNG} proposed in \cite{Wold2009} is done.
-In order to validate the randomness of the noise sequences generated, two quantifiers derived from the information theory are used. They define a dual entropy plane $H_{BP}$ vs $H_{hist}$.
-$H_{hist}$ is a measure of the first characteristic of a \emph{PRNG} pointed in the abstract, the equiprobability among all possible values. $H_{BP}$ is a measure of the second characteristic pointed in the abstract, the independence between consecutive values. This methodology was successful to evaluate randomizing
-techniques applied to chaos-based \emph{PRNG} \cite{DeMicco2008}. A comparison with other options both physical and algorithmic, proposed in the literature is made showing that, in spite of their simplicity, \emph{RO}  are good candidates as \emph{PRNG}.
-
-Organization of the paper is as follows: section \ref{sec:hardware} describes the
-hardware implementation of the \emph{RO}s mapped in
-\emph{FPGA} Cyclone III. Section \ref{sec:method} shows how the normalized entropies are
-determined (to keep this paper short we do not detail already
-published results); \ref{sec:results} presents the
-results obtained for different configurations of the same
-\emph{PRNG}s proposed in \cite{Wold2009}, and the statistical comparison with other utilized \emph{PPRNG}s.
-Finally we present our conclusions in Sec. \ref{sec:conclusions}.
-
+A continuación se muestra la implementación de hardware del \emph{RO}s mapeado en \emph{FPGA} Ciclone III y los resultados obtenidos para diferentes configuraciones, comparando estos resultados con los arrojados por otros generadores.
 
 \subsection{Implementación en Hardware}
-\label{sec:hardware}
 
-The implemented \emph{PRNG}'s consist of  several \emph{RO}s
-with their outputs XORed together and sampled by a \emph{D} flip flop,
-The flip flop latches the output at a selected frequency (here $100$MHz)\cite{Wold2009}.
-The physical implementation is made on \emph{ALTERA}$^{\copyright}$  \emph{Cyclone} III \emph{EP3C120}
-development kit with a \emph{EP3C120F780C7N} \emph{FPGA}. The design is made with \emph{Quartus}$^{\copyright}$  II 13.1 software.
+Los \emph{TRNG} implementados consisten en varios \emph{RO}s con sus salidas XOR juntas y muestreadas por un flip flop \emph{D}.
+El flip flop latchea la salida a una frecuencia seleccionada (aquí $ 100 $ MHz) \cite{Wold2009}.
+La implementación física se realiza en el kit de desarrollo con \emph{EP3C120F780C7N} \emph{FPGA} cuyo dispositivo principal es una  \emph{ALTERA} $^{\ copyright}$ \emph{Cyclone} III \emph{EP3C120}.
+El diseño está hecho con el software \emph{Quartus} $^{\ copyright}$ II 13.1.
 
 \subsubsection{Reseña del Chip}
 
-\emph{FPGA}s consist of a large number of logic array blocks (\emph{LAB}s), with groups of logic elements (\emph{LE}s) for implementing sequential as well as
-combinatorial circuits. In the \emph{Cyclone} III family architecture
-each \emph{LAB} contains $16$ \emph{LE}s.
-Basically, each \emph{LE} is a Flip Flop (\emph{FF}) with a
-four-input look-up table (\emph{LUT})  (see Fig. \ref{fig:LE}). Each
-\emph{LUT} can implement any function of
-four variables. The \emph{FF} and the \emph{LUT} can be used together or independently, \cite{Altera}.
+Las \emph{FPGA}s consisten en una gran cantidad de bloques de matriz lógica (\emph{LAB} s), con grupos de elementos lógicos (\emph{LE} s) para implementar circuitos tanto secuenciales como combinatorios \ref{apendA}.
+En la arquitectura de la familia \emph{Cyclone} III cada \emph{LAB} contiene $16$ \emph{LE}s.
+Básicamente, cada \emph{LE} es un Flip Flop (\emph{FF}) con una (\emph{LUT}) de cuatro entradas(ver Fig. \ref{fig:LE}).
+Cada \emph{LUT} puede implementar cualquier función de vcuatro variables.
+El \emph{FF} y el \emph{LUT} se pueden usar juntos o independientemente, \cite{Altera}.
 
 %=========================================
  % FIGURA
 \begin{figure}
 \begin{center}
 \includegraphics[ width=0.5\textwidth]{NOTenLEmasFF}
-\caption{\emph{LE} implementing an inverter and a Flip Flop, Chip Planner
-view.} \label{fig:LE}
+\caption{Imagen del Chip Planner que muestra la implementación de un inversor y un Flip Flop.} \label{fig:LE}
 \end{center}
 \end{figure}
 %=========================================
 
-Usually, the logic synthesis software assigns \emph{LE}'s
-resources without the designer intervention. But in the design of
-\emph{RO}-based \emph{PRNG}s it is necessary to control the exact location of
-each individual component for two reasons: 1) to avoid the
-simplification of the inverters performed by the synthesis tool; 2) to locate
-each \emph{RO} in the desired place. In \emph{Altera} the use of low-level primitives enables one to
-control the hardware implementation for each \emph{cone of logic} \cite{LowLevel}. Consequently
-low-level primitives and assignments are employed inside the \emph{HDL} (hardware description language) code employed in our design.
+Por lo general, el software de síntesis asigna recursos sin la intervención del diseñador.
+Pero en el diseño de \emph{PRNG}s basados en \emph{RO}s es necesario controlar la ubicación exacta de cada componente individual  para evitar la simplificación de los inversores realizada por la herramienta de síntesis.
+En \emph{Altera} el uso de primitivas de bajo nivel permite controlar la implementación.
+Por consiguiente, estas primitivas y asignaciones de bajo nivel se emplean dentro del código \emph{HDL} empleado en nuestro diseño.
+Además, se debe configurar la herramienta de síntesis para evitar que la herramienta de síntesis elimine los búferes redundantes.
 
-Strings of \emph{RO}s can be programmed on the chip by
-instantiating the \emph{LUT}s as inverters.
-In the case of \emph{RO}s it is necessary to prevent the \emph{Quartus} II synthesis engine to merge two \emph{NOT} gates in series, by using a primitive called \emph{LCELL}.
- A \emph{LCELL} always consumes one logic cell and it is not
-removed from the project during logic synthesis.
-
-These primitives allow one to break up the design into manageable parts. Each cone is as small as a \emph{LCELL} instantiation.
-To create a \emph{RO}, \emph{LCELL}s are programmed as inverter-buffers. Figs. \ref{fig:RTL1ring} and \ref{fig:postMap1ring} show how this primitive is implemented by the Quartus II compiler.
-
+Las cadenas de \emph{RO}s se pueden programar en el chip instanciando los \emph{LUT}s como inversores.
+Es necesario evitar que el motor de síntesis \emph{Quartus} II fusione dos compuertas \emph{NOT} en serie, utilizando una primitiva llamada \emph{LCELL}.
+Una \emph{LCELL} siempre consume una celda lógica y no es eliminada del proyecto durante la síntesis lógica.
+Para crear un \emph{RO}, se programan \emph{LCELL}s como búferes de inversor.
+Las Figs. \ref{fig:RTL1ring} y \ref{fig:postMap1ring} muestran cómo esta primitiva es implementada por el compilador Quartus II.
+%
 \begin{figure*}
 \begin{center}
-\includegraphics[ width=0.7\textwidth]{RTL_view_1ring}
-\caption{RTL view one ring with $3$ inverters.}
+\includegraphics[width=0.7\textwidth]{RTL_view_1ring}
+\caption{Vista RTL de un ring con $3$ inversores.}
 \label{fig:RTL1ring}
 \end{center}
 \end{figure*}
-
-%=========================================
- % FIGURA
+%
 \begin{figure*}
 \begin{center}
 \includegraphics[ width=0.7\textwidth]{tech_map_viewer_post_mapping}
-\caption{Technology map viewer (post mapping), one ring with $3$
-inverters.} \label{fig:postMap1ring}
+\caption{Technology map viewer (post mapping) de un ring con $3$ inversores.} \label{fig:postMap1ring}
 \end{center}
 \end{figure*}
-%=========================================
 
-Furthermore, to avoid the synthesis tool to optimize removing the redundant buffers away,
-the \empty{Ignore \emph{LCELL} Buffers} must be set in
-\emph{OFF} in the \emph{More Analysis \& Synthesis
-Settings} dialog box. Also \emph{Remove Redundant Logic Cells}
-must be set to \emph{OFF}.
+Para lograr que cada \emph{RO} tenga comportamientos distintos, cada uno debe ser ubicado en posiciones distintas en el chip.
+Para esto debe asignarse a una \emph{LogicLock region} definida previamente.
 
-In order to place each \emph{RO} at a desired position, it
-must be assigned to a previously defined \emph{LogicLock region}. In this way the \emph{fitter} will keep all the elements of each ring inside the same region,
-\cite{LogicLockRegions}. The process of mapping all the elements to a particular location on the chip
-(\emph{LogicLock} region) is achieved by the \emph{Assignment
-Editor} tool, that also allows one to verify
-that the placements are actually still there, after the  \emph{Synthesis} and \emph{Place \& Route} processes.
-
-Fig. \ref{fig:fpgaplan} shows the $50$ \emph{LogicLock} regions used in this paper as they are
-established in the die. One \emph{RO} is assigned to each region.
-Regions are spread over the die for a future analysis of location importance. Each region has  $16$ \emph{LAB}s, to allow us to increase the number of inverters of each ring, an issue to be considered in future work.
-
+La Fig. \ref{fig:fpgaplan} muestra las $50$ regiones \emph{LogicLock}s utilizadas para este trabajo.
+Se asigna un \emph{RO} a cada región.
+Las regiones se distribuyen sobre el chip para un análisis futuro de la importancia de la ubicación.
+Cada región tiene $16$ \emph{LAB}s, lo que nos permite aumentar el número de inversores de cada anillo, este es un problema a estudiar en futuros trabajos.
 
 %=========================================
  % FIGURA
 \begin{figure*}
 \begin{center}
 \includegraphics[ width=0.5\textwidth]{fpgaplan}
-\caption{\emph{Chip Planner} view \emph{LogicLock} regions.}
+\caption{Vista de las regiones \emph{LogicLock} del \emph{Chip Planner}.}
 \label{fig:fpgaplan}
 \end{center}
 \end{figure*}
-%=========================================
 
- $3-$inverters, employed in a \emph{RO} and the \emph{FF} were all mapped onto a  \emph{LE} each, meaning that the block
-utilization is $4$ of $16$ \emph{LE}s for any \emph{LAB}.
-
-
-Fig. \ref{fig:LE} displays a single \emph{LE}, there an inverter is
-implemented in the \emph{LUT} and it can be seen the exact
-\emph{LUT} input that is used. Also the output \emph{FF} of
-the ring is mapped there.
-
-
-There are many factors that determine the frequency of each
-\emph{RO}, and contributes to the unpredictability of the output:
+Hay muchos factores que determinan la frecuencia de cada \emph{RO}, y contribuye a la imprevisibilidad de la salida:
 \begin{enumerate}
-\item Placement within the \emph{LAB}: different placements between rings could result in timing differences.
-\item Connections: even having exactly
-identical placement of the \emph{LUT}s with respect to each other
-in a given ring, it is not possible to have exactly the same
-\emph{routing resource usage} in the connections. A small difference in
-\emph{routing resource usage} could affect the ring delay.
-\item Input selection:  the \emph{fitter} will choose which
-\emph{LUT} input is utilized during the routing stage. But the delay through the \emph{LUT}
-depends on which of the four inputs is used and consequently the rings could
-also have different delays.
-\item Neighborhood: even if the design locks down all the placement and routing of a
-section  and everything is
-physically locked, the timing can change by a few picoseconds
-depending on what is placed and routed around the ring.\end{enumerate}
-%
-In Fig. \ref{fig:RTL3rings} (RTL view) it is shown a \emph{PRNG} using $3$ \emph{RO}s
-followed by a XOR gate.
 
-% FIGURA
+\item Ubicación dentro de \emph{LAB}: las diferentes ubicaciones entre los anillos pueden dar como resultado diferencias de tiempo.
+\item Conexiones: incluso teniendo exactamente colocación idéntica de una \emph{LUT} con respecto a la otra en un anillo dado, no es posible tener exactamente el mismo \emph{uso de recursos de enrutamiento} en las conexiones.
+\item Selección de entrada: durante la etapa de enrutamiento el \emph{fitter} elegirá qué entrada del \emph{LUT} se utiliza. Como el retraso a través del \emph{LUT} depende de cuál de las cuatro entradas se utiliza, los anillos tienen diferentes retardos.
+\item Neighborhood: incluso si todo es bloqueado físicamente, el retardo puede cambiar dependiendo de lo que se coloca y enruta alrededor del anillo.
+\end{enumerate}
+
+
+En la Fig. \ref{fig:RTL3rings} (vista RTL) se muestra un \emph{PRNG} usando $3$ \emph{RO}s seguido por una puerta XOR.
+%
 \begin{figure}
 \begin{center}
 \includegraphics[ width=0.5\textwidth]{RTL_view_3ROs}
-\caption{\emph{RTL} view of \emph{PRNG} with $3$ \emph{RO}s.}
+\caption{\emph{RTL} de \emph{PRNG} con $3$ \emph{RO}s.}
 \label{fig:RTL3rings}
 \end{center}
 \end{figure}
 
-%=========================================
-
-Finally, Table \ref{compilation} shows the compilation report of the \emph{PRNG}  using $15$ \emph{RO}s each with $3$ inverters.
-
-
-%=========================================
+Para tener una idea de la ocupación en el dispositivo, la tabla \ref{table:compilation} muestra el informe de compilación de un \emph{TRNG} usando $15$ \emph{RO}s cada uno con $3$ inverters.
 \begin{table}
 \begin{center}
 \begin{tabular}{| l | c  c | }
- \hline
- 
-\footnotesize{Total logic elements} & $847/119,088$ & $ ( < 1 \%)$\\
-
- \hline
- 
-\footnotesize{Total combinational functions} &  $629/119,088$ & $( < 1 \%)$ \\
-
- \hline
- 
-\footnotesize{Dedicated logic registers} & $617/119,088$ & $( < 1 \%)$ \\
-
- \hline
- 
-\footnotesize{Total registers} &  $617$ &   \\
-
- \hline
- 
-\footnotesize{Total memory bits} &  $131,072/3,981,312$ & $( 3 \%)$ \\
-
- \hline
- 
+	\hline
+	\footnotesize{Total logic elements}          & $847/119,088$       & $( < 1 \%)$  \\ \hline
+	\footnotesize{Total combinational functions} & $629/119,088$       & $( < 1 \%)$  \\ \hline
+	\footnotesize{Dedicated logic registers}     & $617/119,088$       & $( < 1 \%)$  \\ \hline
+	\footnotesize{Total registers}               & $617$               &  \\ \hline
+	\footnotesize{Total memory bits}             & $131,072/3,981,312$ & $( 3 \%)$    \\ \hline
 \end{tabular}
 \end{center}
 \caption{Compilation Report, \emph{RO}-based \emph{PRNG} using $15$ \emph{RO}s and $3$ inverters each.}
-\label{compilation}
-
+\label{table:compilation}
 \end{table}
-
-
-
-
-
-In this paper we adopt plane $H_{BP}$ vs $H_{hist}$ \cite{DeMicco2008}  to represent each \emph{PRNG}. A higher
-value in any of the entropies, $H_{BP}$ and $H_{hist}$, implies an
-increase in the uniformity of the involved \emph{PDF}'s. The point
-$(1,1)$ represents the ideal point for a \emph{PRNG} with uniform histogram and
-uniform distribution of ordering patterns.
 
 \subsection{Resultados}
 \label{sec:results}
 
-The  \emph{Embedded Logic Analyzer} tool is utilized for collecting the random sequences generated.
-It constitutes a \emph{system-level debugging tool}, provided by $Altera$  \cite{QUARTUS}, that captures and storages the real-time signal behavior and allows one to observe interactions between hardware and software in system designs. After acquiring
-the data and  save them into a \emph{SignalTap} II file, they can be
-analyzed or viewed as a waveform. With this procedure nor extra jitter neither distortion are introduced in the measured signal from the data acquisition chain.
+La herramienta \emph{Embedded Logic Analyzer} se utiliza para recopilar las secuencias aleatorias generadas.
+Constituye una \emph{herramienta de depuración a nivel de sistema}, proporcionada por $ Altera $ \cite{CUARTO}, que captura y almacena el comportamiento de la señal en tiempo real y permite observar las interacciones entre el hardware y el software en los diseños del sistema.
+Después de adquirir los datos y guardarlos en un archivo \emph{SignalTap} II, pueden ser analizado o visto como una forma de onda.
+Con este procedimiento ni jitter adicional, ni la distorsión se introducen en la señal medida de la cadena de adquisición de datos.
 
-In the case of \emph{RO} based \emph{PRNG}
-data files with $917504$ bits each were generated for each \emph{RO} based \emph{PRNG}.
-We consider sets of $N_{RO}$ rings, each with $3$ inverters; $N_{RO}=2$, $3$, $4$, $5$, $6$, $7$, $15$, $25$ and $50$.
+Se utilizaron archivos de datos con $917504$ bits cada uno para cada \emph{TRNG}.
+Consideramos conjuntos de $N_ {RO}$ anillos, cada uno con $3$ inversores; $N_{RO}=2$, $3$, $4$, $5$, $6$, $7$, $15$, $25$ y $50$.
 
 Data from $SignalTap$ were  processed using \emph{Matlab}$^\copyright$. Binary data were grouped in $6$-bits words without
 superposition, so files with $152917$ data each were generated. Quantifiers described in section \ref{sec:method} were calculated
 for all generated files.
 
-We also evaluated other known noises generators to compare their quality with that of  the \emph{RO}-based \emph{PRNG}.
-The noises analyzed are:
+Los datos de $SignalTap$ se procesaron usando \emph{Matlab} $^\copyright$.
+Se agruparon los datos en pañabras de $6$ bits sin superposición, por lo que se generaron archivos con $152917$ datos cada uno.
+Se calcularon los cuantificadores descritos en la sección \ref{sec: ITQs} para todos los archivos generados
+
+También evaluamos otros generadores de ruidos conocidos para comparar su calidad con la de los \emph{PRNG} basados en \emph{RO}.
+Los ruidos analizados son:
 
 \begin{itemize}
   \item Mersenne Twister pseudo-random number generator, \cite{Matsumoto1998}.
-  \item Two algorithms employed for generate random data by Matlab (Multiplicative Congruential method) \cite{Matlab} and Excel \cite{McLeod1985}.
-  \item Two \emph{physical noises}: radioactive decay noise \cite{Walker2001} and atmospheric noise \cite{Haahr}.
-  Data files for these noises are available from the referred \emph{websites}.
-  \item Two chaotic map $M^1$ and their iterated versions $M^2$ to $M^8$ \cite{DeMicco2008} for the logistic map (\emph{LOGISTIC}) and the \emph{three way Bernoulli map} (\emph{TWBM}).
+  \item Dos algoritmos empleados para generar datos aleatorios por Matlab (método congruente multiplicativo) \cite{Matlab} y Excel \cite{McLeod1985}.
+  \item Dos \emph{ruidos físicos}: ruido de decaimiento radiactivo \cite{Walker2001} y ruido atmosférico \cite{Haahr}.
+  Los archivos de datos para estos ruidos están disponibles en los online en los sitios referidos.
+  \item Dos mapas caóticos $M^1$ y sus versiones iteradas $M^2$ a $M^8$ \cite{DeMicco2008} para el mapa logístico (\emph{LOGISTIC}) y el \emph{three way Bernoulli map} (\emph{TWBM}).
 \end{itemize}
 
 Fig. \ref{fig:HBPvsHhis_all} shows the results in the dual entropy plane $H_{BP}$ vs $H_{hist}$ for all these noises.
 It can be seen that the \emph{physical noises}, the algorithmic \emph{Mersenne Twister}, and the \emph{PRNG}s used in \emph{Matlab} $^\copyright$(\emph{rand} function) and \emph{Excel}$^\copyright$ (\emph{RAND} function), have the  maximum value for $H_{BP}$, indicating that all the ordering patterns appear almost the same number of times. However these five noises present very different behavior with respect the $H_{hist}$ quantifier. The \emph{radioactive decay} is the worst, with a value of $H_{hist}$ about $0.5$ indicating that this sequence does not exhibit all possible values in the same proportion. In Fig. \ref{fig:HBPvsHhis_all} the numbers next to each marker for the chaotic sequences, indicate the number of iteration. The iterated maps have higher $H_{BP}$ because of their mixing property \cite{DeMicco2008}.
 
+La Fig. \ref{fig:HBPvsHhis_all} muestra los resultados en el plano de doble entropía $H_ {BP} \times H_{hist}$ para todos estos ruidos.
 
- % FIGURA
+Se puede ver que los ruidos físicos, el algoritmo \emph{Mersenne Twister} y los \emph{PRNG}s utilizados en \emph{Matlab} $^\copyright$ (función \emph{rand}) y en \emph{Excel} $^\copyright$ (\emph{RAND}), tienen el valor máximo para $H_{BP}$, lo que indica que todos los patrones de orden aparecen casi el mismo número de veces.
+Sin embargo, estos cinco ruidos presentan un comportamiento muy diferente con respecto al cuantificador $H_{hist}$.
+El \emph{decaimiento radiactivo} es el peor, con $H_ {hist} \sim 0,5$, que indica que esta secuencia no muestra todos los valores posibles en la misma proporción.
+Los números al lado de cada marcador para las secuencias caóticas, indican el número de iteraciones.
+Los mapas iterados tienen mayor $H_{BP}$ debido a su propiedad de mezcla \cite{DeMicco2008}.
+%
 \begin{figure*}
 \begin{center}
 \includegraphics[ width=0.8\textwidth]{HhistvsHBP_t}
-\caption{$H_{BP}$ vs $H_{hist}$ plane for several noises, numbers next to each square indicate the quantity of \emph{RO}s
-used in the \emph{RO} based \emph{PRNG}. Numbers next to each point in the  chaotic sequences labeled \emph{Logistic}
-and \emph{TWBM} indicate the number of iteration of the chaotic map (see the text for details).}
+\caption{Plano $H_{hist} \times H_{BP}$ para distintos RNGs. Los números que siguen a cada cuadrado indica la cantidad de \emph{RO}s utilizado en cada \emph{TRNG}.
+Los números al lado de cada punto en las secuencias caóticas \emph{Logistic} y \emph{TWBM} indican el número de iteración para el mapa caótico (ver texto).}
 \label{fig:HBPvsHhis_all}
 \end{center}
 \end{figure*}
-%=========================================
 
-In the case of the \emph{RO}-based \emph{PRNG} sequences, numbers next to each square indicate the quantity of \emph{RO}s employed in that \emph{PRNG} (let us stress that the number of inverters is fixed to $3$). The dual entropy plane shows that  an increase in the number of \emph{RO}s improves both $H_{BP}$ and $H_{hist}$.
+El plano de entropía dual muestra que un aumento en el número de \emph{RO}s mejora tanto $H_ {BP}$ como $H_ {hist}$.
 
 Fig. \ref{HhistvsHBP_zoom} is a zoom of Fig. \ref{fig:HBPvsHhis_all}  around the ideal point $(1,1)$.
 
-
-%=========================================
+La Fig. \ref{HhistvsHBP_zoom} es una vista con más detalle de la Fig. \ref{fig:HBPvsHhis_all} alrededor del punto ideal $(1,1)$.
+%
  % FIGURA
 \begin{figure*}
 \begin{center}
 \includegraphics[ width=0.8\textwidth]{HhistvsHBP_z}
-\caption{Zoom of Fig. \ref{fig:HBPvsHhis_all}  around the ideal point $(1,1)$ of the $H_{BP}$ vs $H_{hist}$ plane. Numbers next to each square indicate the number of \emph{RO}s used in that rings-based \emph{PRNG}. Numbers next to each point in the chaotic sequences indicate the number of iteration of the chaotic map.} \label{HhistvsHBP_zoom}
+\caption{Detalle de la Fig. \ref{fig:HBPvsHhis_all} alrededor del punto ideal $(1,1)$.}
+\label{HhistvsHBP_zoom}
 \end{center}
 \end{figure*}
-%=========================================
-
-There, it is shown the evolution of the \emph{RO}-based \emph{PRNG} sequences when the quantity of \emph{RO}s increases from $5$ to $50$ (numbers next to each square). It can be seen that as the number of rings increases, data increase their mixture and also the histogram tends to be more uniform. So both properties are improved. Here a threshold in the number of rings can be determined, as the points saturate at about $(0.997,1)$, so this is the best \emph{PRNG} possible. Further, using more than $15$ \emph{RO}s presents no improvement.
-As it was previously said, $H_{hist}$ quantifier detects the histogram variation of the sequence, and the $H_{BP}$ quantifier reflects the improvement in the mixing of data.
-Finally, Mersenne Twister and Matlab sequences present identical value, ideal $H_{BP}$, and a high value of $H_{hist}$ nonetheless the histogram is not perfectly uniform (values are not equiprobable).
+%
+Allí, se muestra la evolución de las secuencias cuando la cantidad de \emph{RO}s aumenta de $5$ a $50$.
+Se puede observar que a medida que aumenta el número de anillos los datos aumentan su mezcla y también el histograma tiende a ser más uniforme, por lo tanto, ambas propiedades mejoran.
+Se puede determinar un umbral en el número de anillos, ya que los puntos se saturan en alrededor de $(0.997,1)$, por lo que este es el mejor \emph{PRNG} posible, usar más de $15$ \emph{RO}s no presenta ninguna mejora.
+Como se dijo anteriormente, el cuantificador $H_ {hist}$ detecta la variación del histograma de la secuencia, y el cuantificador $ H_ {BP} $ refleja la mejora en la mezcla de datos.
+Finalmente, las secuencias de Mersenne Twister y Matlab presentan un valor idéntico, ideal $H_ {BP}$ y un valor alto de $H_ {hist}$; no obstante, el histograma no es perfectamente uniforme (los valores no son equiprobables).
 
 \section{Conclusiones}
 \label{sec:conclusions}
-\emph{RO}-based \emph{PRNG} implemented here has demonstrated to satisfactorily meet the statistical properties desired by a \emph{PRNG}. They are comparable of other used \emph{PRNG}s and in some cases they are better. They employs few resources of the device and they are simply to implement in a digital platform.
+
+Los \emph{TRNG}s basados en \emph{RO} implementados aquí han demostrado satisfacer las propiedades estadísticas deseadas para un \emph{RNG}.
+Son comparables a otros \emph{RNG}s utilizados y en algunos casos son mejores.
+Emplean pocos recursos del dispositivo y se implementan de forma muy simple en una plataforma digital.
 
 It was demonstrated that for these architectures of \emph{PRNG} the quantity of
 \emph{RO}s establishes \emph{PRNG}'s statistical properties. It was seen that
 for $15$ \emph{RO}s both output's statistical properties, histogram
 and mixing, were almost ideal, making unnecessary the increase of the number of rings.
 
-The dual entropy plane proposed here has demonstrated to satisfactorily discern between the \emph{PRNG}'s two main desired properties, the equiprobability among all possible values and the statistical independence between consecutive values. Thus, it allows to clearly see what needs to be improved in a given sequence.
+Se demostró que para esta arquitectura la cantidad de \emph{RO}s establece las propiedades estadísticas del \emph{TRNG}.
+Se vio que para $15$ \emph{RO}s el histograma y la mezcla, eran casi ideales, haciendo innecesario el aumento de la cantidad de anillos.

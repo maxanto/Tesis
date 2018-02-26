@@ -1,5 +1,6 @@
 \subsection{Dinámica de los ITQ's con AWGN y banda limitada}
-
+\label{ssec:TDdS}
+	
 En esta sección exploramos la respuesta de un sistema de medición de entropías en presencia de ruido aditivo y señales filtradas.
 Esta inquietud surge como resultado de la implementación detallada en la sección \ref{sec:ImpFPGA}.
 El filtrado es inherente al ancho de banda del sistema de medición y las señales a medir siempre están contaminadas con ruido, por lo tanto es necesario caracterizar la respuesta de nuestro sistema de medición ante estos dos procesos.
@@ -37,9 +38,8 @@ Otra opción sería diseñar un filtro analógico y transformar su respuesta a f
 Aquí analizamos un sistema en el cual la respuesta es analizada en el dominio digital. Además, es necesario filtrar componentes espectrales de a una, lo que requiere una banda de transición muy estrecha, esto reduce el conjunto de filtros posibles. Por el lado del IIR probamos un filro elíptico, este filtro presenta una banda de transición muy estrecha en sacrificio de un ripple que aparece tanto en la banda de paso como en la de rechazo. Por el lado del FIR probamos un filtro ideal con una ventana rectangular que abarca toda la serie de valores, en la sección \ref{sec:resultados} se detalla como fue implementado.
 
 \subsubsection{Resultados}
-\label{sec:resultados}
 
-Para representar la dinámica en función del filtrado, se eligieron dos señales representativas (cuadrada y senoidal) y se les calcularon los cuantificadores descriptos en la sección \ref{sec:entropias} luego de ser filtrados por los filtros elegidos en la sección \ref{sec:filtrado}. Por otro lado, se calculan los mismos cuantificadores a una señal de ruido blanco gaussiano.
+Para representar la dinámica en función del filtrado, se eligieron dos señales representativas (cuadrada y senoidal) y se les calcularon los cuantificadores descriptos en la sección \ref{sec:ITQs} luego de ser filtrados por los filtros elegidos en la sección \ref{sec:filtrado}. Por otro lado, se calculan los mismos cuantificadores a una señal de ruido blanco gaussiano.
 
 En la figura \ref{fig:flowchart} se muestra el procedimiento utilizado. Primero se generó un vector de ruido blanco gaussiano de $N=50E3$ muestras, la desviación estándar $\sigma$ es variable y se logra multiplicando al vector inicial de $\sigma=1$ por la desviación estándar elegida.
 Luego se genera la señal determinística de $N=50E3$ muestras, período $T=100$ muestras y amplitud unitaria, que se sumó el ruido para lograr la señal contaminada.
@@ -329,21 +329,3 @@ En este segundo caso es más evidente la diferencia cuando cambia el nivel de ru
     \end{subfigure}
     \caption{Cuantificadores calculados sobre la salida del filtro ideal cuando se ingresa con cuadradas contaminadas con AWGN de con amplitudes de ruido $\sigma=[0~0.1~1]$.}\label{fig:HCuadradaRuidosa_Sigma}
 \end{figure}
-
-\subsubsection{Discusión}
-\label{sec:discusion}
-
-Este trabajo fue necesario para explorar las fuentes de error en un medidor de entropías implementado en FPGA.
-
-Para este primer análisis evaluamos que sucede aplicando un filtro abrupto, es por esto que elegimos para comparar un filtro elíptico y uno ideal. 
-Las respuestas del filtro elíptico y del ideal fueron muy similares en el rango de frecuencias en los que el elíptico tiene un buen comportamiento, sin embargo cuando la frecuencia de corte del elíptico se acerca a los extremos (es decir cuando $f_c \to 0$ o $f_c \to 1$) la salida del filtro diverge.
-El problema se debe a que el método numérico utilizado para calcular la salida del filtro diverge por la precisión finita utilizada.
-Como no necesitamos volver a la frecuencia contínua nos quedamos con los resultados del ideal para hacer las pruebas, sin tener que procuparnos por el ripple que aparece en las bandas de paso y rechazo cuando pasamos al mundo analógico.
-
-Cuando comparamos las respuestas de los cuantificadores con y sin ruido, vemos que las señales limpias tienen mesetas, es decir que se mantienen constantes hasta que el filtrado elimina la siguiente componente espectral.
-Sin embargo, cuando son contaminadas con ruido los cuantificadores cambian para parecerse más a los resultados que arroja el ruido blanco gaussiano sin ninguna señal determinística.
-En todos los casos se vio que estos cuantificadores son muy sensibles a la presencia de ruido, los que nos permite vincular a este hecho los errores en la medición.
-
-También vimos que los valores cambian a medida que se filtra la señal sin contaminar, lo que agrega una segunda fuente de error dada por el ancho de banda finito del sistema.
-
-Para continuar con este proyecto faltaría, por un lado caracterizar el sistema de medición en cuanto a su ancho de banda y su rechazo al ruido aditivo, y por otro lado probar con otros cuantificadores (como complejidad, desequilibrio, entropía diferencial, rate entropy, etc) o con variantes de los presentados aquí (Bandt \& Pompe pesada, amplitud promedio en el emmbedding, etc).

@@ -1,0 +1,31 @@
+\section{Conclusiones}
+
+En este capítulo presentamos las principales herramientas utilizadas para detectar caos y cuantificar la calidad estadística de los generadores de números aleatorios.
+Junto con la introducción tórica, se mostraron algunos avances en la implementación de dichas herramientas.
+
+El algoritmo evolutivo desarrollado detecta con precisión el máximo $ MLE $ del sistema en cada región en el espacio de parámetros del conocido oscilador Logístico.
+El siguiente paso es reemplazar el oscilador logístico por el sistema de multiatractores caótico descrito en la sección \ ref {caos}.
+La búsqueda exhaustiva de $ MLE $ barriendo todos los valores de parámetros se vuelve muy complicada cuando aumenta el número de parámetros.
+Esta es la razón por la cual se empleó un algoritmo genético en este trabajo.
+Este algoritmo heurístico permite encontrar las áreas de interés, p. $ MLE> 0 $, de una manera más rápida y simple.
+Hoy en día, estamos trabajando para finalizar la implementación de hardware de todo el sistema.
+En la implementación de hardware del cálculo $ MLE $, hemos explotado la naturaleza paralela de subrayado de las ecuaciones de cálculo $ MLE $ con el objetivo de optimizar el diseño de arquitectura propuesto, permitiendo su implementación concurrente basada en tecnología FPGA.
+
+Se desarrolló e implementó un sistema que permite medir con buena precisión las entropías causal y no-causal de señales analógicas provenientes del exterior de la FPGA y también internas generadas por código.
+Se logró medir señales y realizar cálculos complejos con un microcontrolador modesto como el 8051 instanciado en la FPGA AFS1500 de ACTEL.
+Este primer prototipo cumple con las especificaciones de precisión y cantidad de recursos requeridos establecidas en el diseño, el próximo paso será optimizar el sistema en cuanto a frecuencia de operación e inmunidad al ruido.
+Se prevé que el sistema permita modificar, en tiempo de ejecución, la frecuencia de muestreo, de forma de que sea adaptable a la señal de entrada, con el límite superior de 500~Ks/s fijado por el ADC.
+Deberá agregarse también un umbral a partir del cual un valor es considerado distinto de otro, de esta forma se solucionaría el problema que presenta el ruido aditivo en el cálculo de $H_{BP}$.
+El código de este sistema ocupa el 15,4\% del total de la memoria flash del micro instanciado, por lo que será posible agregar \textit{software} para implementar otros cuantificadores y funcionalidades.
+En cuanto a los recursos disponibles en la FPGA se utilizaron 7349 celdas lógicas, quedando casi el 80\% de los recursos de \textit{hardware} disponibles para implementar los sistemas bajo prueba en forma concurrente.
+
+También se exploraron las fuentes de error en un medidor de entropías implementado en FPGA.
+Para este primer análisis evaluamos que sucede aplicando un filtro abrupto, es por esto que elegimos para comparar un filtro elíptico y uno ideal. 
+Las respuestas del filtro elíptico y del ideal fueron muy similares en el rango de frecuencias en los que el elíptico tiene un buen comportamiento, sin embargo cuando la frecuencia de corte del elíptico se acerca a los extremos (es decir cuando $f_c \to 0$ o $f_c \to 1$) la salida del filtro diverge.
+El problema se debe a que el método numérico utilizado para calcular la salida del filtro diverge por la precisión finita utilizada.
+Como no necesitamos volver a la frecuencia contínua nos quedamos con los resultados del ideal para hacer las pruebas, sin tener que procuparnos por el ripple que aparece en las bandas de paso y rechazo cuando pasamos al mundo analógico.
+Cuando comparamos las respuestas de los cuantificadores con y sin ruido, vemos que las señales limpias tienen mesetas, es decir que se mantienen constantes hasta que el filtrado elimina la siguiente componente espectral.
+Sin embargo, cuando son contaminadas con ruido los cuantificadores cambian para parecerse más a los resultados que arroja el ruido blanco gaussiano sin ninguna señal determinística.
+En todos los casos se vio que estos cuantificadores son muy sensibles a la presencia de ruido, los que nos permite vincular a este hecho los errores en la medición.
+También vimos que los valores cambian a medida que se filtra la señal sin contaminar, lo que agrega una segunda fuente de error dada por el ancho de banda finito del sistema.
+Para continuar con este proyecto faltaría, por un lado caracterizar el sistema de medición en cuanto a su ancho de banda y su rechazo al ruido aditivo, y por otro lado probar con otros cuantificadores (como complejidad, desequilibrio, entropía diferencial, rate entropy, etc) o con variantes de los presentados aquí (Bandt \& Pompe pesada, amplitud promedio en el emmbedding, etc).

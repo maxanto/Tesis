@@ -1,15 +1,5 @@
 \section{Implementación de atractor Determinístico - Estocástico}
-
-\subsection{Introduction}
-
-En los últimos treinta años, los sistemas caóticos han producido una revolución en nuestra visión de la naturaleza ya que tienen dos características contrastantes:
-(1) son deterministas porque un modelo matemático determina su dinámica, pero
-(2) debido a su sensibilidad a las condiciones iniciales, se pierde la predicción a largo plazo y, en consecuencia, pueden incluirse en la clase de sistemas estocásticos que se estudian mediante herramientas estadísticas.
-En realidad, si los sistemas caóticos pudieran implementarse con una precisión infinita, serían deterministas en sentido estricto, pero la precisión infinita es un ideal imposible de alcanzar en la electrónica digital.
-
-Esta \emph{dualidad determinista-estocástica} hace que los sistemas caóticos sean especialmente interesantes para las aplicaciones de ingeniería, en la medida en que las señales generadas pueden usarse como ruidos controlados en una amplia gama de aplicaciones.
-Sin embargo, las secuencias caóticas realmente presentan correlaciones internas no lineales, lo que las hace inadecuadas para ser utilizadas como "buenas" PRNG.
-Es necesario utilizar técnicas de aleatorización para mejorar la aleatoriedad de la serie \cite{DeMicco2008}.
+\label{sec:AnalysisImpLorenz}
 
 En aplicaciones digitales, el tiempo y la variable de estado tienen valores discretos.
 La discretización de tiempo impone el uso de un algoritmo para aproximar las ecuaciones diferenciales de tiempo continuo que modelan el sistema.
@@ -18,34 +8,27 @@ Los algoritmos más elaborados, como los algoritmos de paso variable Runge-Kutta
 En consecuencia, deben usarse solo si la exactitud es un requisito de la aplicación específica.
 Este no es el caso en PRNG, donde la aleatoriedad es la característica principal que debe garantizarse.
 
-Para hacer los cálculos aritméticos, las computadoras deben representar internamente las señales por un número finito de bits, esto significa que los valores se describen usando aritmética de precisión finita.
-Esta restricción puede ser crítica para un sistema caótico ya que es extremadamente sensible a la aritmética empleada e incluso puede perder su comportamiento caótico.
+Se han propuesto varias estrategias para una selección correcta del número óptimo de bits en las implementaciones en hardware.
+Sin embargo, la mayoría de estos procedimientos están limitados a sistemas lineales \cite{Constantinides2002, Constantinides2003}.
+En los sistemas digitales caóticos, se puede obtener un comportamiento completamente diferente al variar la precisión.
+Este problema ha ganado interés recientemente, y se han propuesto varios esquemas nuevos \cite{Ding2007, Asseri2002, Azzaz2009}.
 
-En este capítulo, implementamos un oscilador discreto de Lorenz obtenido mediante el uso del algoritmo de primer orden de Euler y tres estándares de representación diferentes.
+En resumen, a pesar de la aritmética utilizada, ya sea de punto fijo o punto flotante, el conjunto de números que se pueden representar es limitado.
+Incluso utilizando una precisión extremadamente alta como lo hacen Liao y Wang \cite{Liao2013a}, las secuencias generadas por un sistema caótico que usa hardware digital siempre serán periódicas.
+
+En esta sección, implementamos un oscilador discreto de Lorenz obtenido mediante el uso del algoritmo de primer orden de Euler y tres estándares de representación diferentes.
 Además aplicamos técnicas de aleatorización a las variables de estado para obtener un PRNG en tiempo real.
 El objetivo de este trabajo es estudiar la influencia del procedimiento de discretización en la dinámica del sistema.
 En \cite{DeMicco2010} se estudió el grado de estocasticidad de un sistema caótico determinista mediante su implementación en coma flotante de precisión simple (32 bits).
 
-La determinación del grado de estocasticidad tiene como objetivo proporcionar una metodología de diseño optimizada para la utilidad prevista dada al sistema caótico.
-Así, por ejemplo, hay aplicaciones que requieren que el sistema caótico reemplace un sistema estocástico (criptografía \cite{Fernandez2003}, generadores de secuencia para difundir comunicaciones de espectro \cite{Setti2004, DeMicco2007B}, generadores de números pseudoaleatorios \cite{Kocarev2003, Larrondo2006, DeMicco2009}, reducción de la interferencia electromagnética \cite{Callegari2003A}, etc.).
-Por otro lado, algunas aplicaciones requieren previsibilidad a largo plazo, por ejemplo para reproducir el sistema caótico de la manera más precisa posible, este es el caso de las comunicaciones analógicas que usan portadores de sincronización caóticos \cite{Kocarev1995, Hidalgo2001}.
-
-Otro problema es la determinación exacta del período de la secuencia pseudoaleatoria.
-Para generadores que se basan en operaciones lineales, el problema se ha estudiado en profundidad y existen criterios de diseño bien conocidos para obtener dispositivos de ciclo máximo.
-Ejemplos de algoritmos lineales son: el algoritmo Mersenne Twister que es un generador de números aleatorios muy rápido de período $T = 2^{19937} - 1$ \cite{Matsumoto1998} y Multiply-With-Carry (MWC), un método inventado por George Marsaglia para la generación de secuencias de enteros aleatorios basados en un conjunto inicial de dos a muchos miles de valores de semilla elegidos al azar, presenta períodos inmensos, que van desde alrededor de $2 ^ {60}$ a $2 ^ {2000000}$ \cite{Marsaglia1991}.
-Sin embargo, desde el punto de vista criptográfico son débiles.
-Cuando se trata de aplicaciones criptográficas, no se recomiendan métodos lineales para generar secuencias pseudoaleatorias (como LFSR, LCG o sus combinaciones adecuadas), ya que algoritmos eficientes para predecir la secuencia sobre la base de una secuencia de observación relativamente corta están a disposición \cite{Boyar1989, Plumstead1982}.
-Por otro lado, para la mayoría de las familias de generadores no lineales, el problema parece ser intratable y, con pocas excepciones, no suele existir una evaluación analítica de sus períodos \cite{kocarev2011}.
-
 Elegimos el sistema caótico de Lorenz porque es un sistema ampliamente estudiado y también ha sido implementado por otros autores con diferentes metodologías \cite{Asseri2002, Azzaz2009, Azzaz2010}.
 Por ejemplo, en \cite{Asseri2002}, se implementó un oscilador caótico Lorenz mediante una toolbox del Generador de Sistemas Xilinx que funciona bajo \textit{MATLAB-Simulink\textsuperscript{\copyright}}.
-Esta toolbox convierte el modelo MATLAB-Simulink en el modelo de Xilinx System Generator.
-Luego se obtiene el código VHDL.
+Esta toolbox convierte el modelo MATLAB-Simulink en el modelo de Xilinx System Generator y luego se obtiene el código VHDL.
 Como es una operación automática, no permite ciertos cambios específicos y presenta algunas limitaciones.
 La operación de integración se aproximó con el algoritmo de Euler, utilizando bloques de suma y retardo.
 La implementación propuesta en \cite{Azzaz2009} y \cite{Azzaz2010} usa $RK4$ en una arquitectura de punto fijo de $32$ bits.
 
-En esta sección se utilizó el software \textit{QuartusII\textsuperscript{\copyright} 7.2} para generar el lenguaje de descripción de hardware VHDL y la implementación física se realiza en la placa de desarrollo \textit{Altera\textsuperscript{\copyright} Cyclone III EP3C12}.
+Se utilizó el software \textit{QuartusII\textsuperscript{\copyright} 7.2} para generar el lenguaje de descripción de hardware VHDL y la implementación física se realiza en la placa de desarrollo \textit{Altera\textsuperscript{\copyright} Cyclone III EP3C12}.
 Tres representaciones numéricas son estudiadas:
 1) punto flotante IEEE 754 estándar,
 2) punto fijo decimal, y
@@ -54,7 +37,7 @@ Cada representación implica una cantidad diferente de bits.
 Consideramos dos representaciones de coma flotante para los estándares simple o doble, con $32$ y $64$ bits respectivamente para representar el signo, el exponente y la mantisa;
 La aritmética decimal de punto fijo usa $p$ bits para representar la parte entera y $m$ bits para representar la parte fraccional.
 Consideramos representaciones de punto fijo de $32$ y $64$ bits con $9$ bits para la parte entera y $1$ bit para el signo y los $22$ o $54$ bits restantes para la parte fraccionaria.
-En los aritméticos enteros $k$ bits el alfabeto tiene $2^k$ símbolos.
+En aritmética de enteros $k$ bits el alfabeto tiene $2^k$ símbolos.
 Consideramos $k=54$.
 
 Para cuantificar la aleatoriedad del sistema, se utiliza el conjunto de pruebas DIEHARD de Marsaglia.
@@ -196,22 +179,12 @@ floor\left[{\frac{{Z}_{t}}{2^{{n-5}}}}\right]\nonumber \\
 				)}}}\right] \nonumber \\
 	&& floor\left[ {\frac{{Y}_{t}}{2^{( 22+floor\left[
 				{\frac{n}{2}}\right] )}}}\right]+2^{44-n}1680 \ . \nonumber
-	\end{eqnarray}
+\end{eqnarray}
 %
 Este sistema discreto tiene un comportamiento caótico (de hecho pseudocaótico) y todos los divisores tienen un poder de $2$.
 Todo el procedimiento de preprocesamiento de las ecuaciones minimiza los recursos de hardware necesarios (como se mostrará más adelante).
 
-\subsection{PRNGs caóticos}
-\label{sec:PRNG}
-
-Los PRNGs son ampliamente utilizados en física e ingeniería.
-Algunas aplicaciones son: simulaciones de Monte Carlo \cite{Mertens2004}, criptografía \cite{Carlisle2007}, teoría de las comunicaciones \cite{Kocarev2001} y algunos aspectos de la nanotecnología \cite{Popescu2000}.
-
-En algunas aplicaciones, se requiere que el sistema caótico reemplace a un sistema estocástico.
-Este es el caso, por ejemplo, en aplicaciones de enmascaramiento \cite{Fernandez2003}, generación de secuencias para técnica de espectro esparcido \cite{Setti2004, DeMicco2007B}, mejora de compatibilidad electromagnética \cite{Callegari2003A} y generadores de números pseudoaleatorios \cite {Kocarev2003, Larrondo2006 , DeMicco2009}, etc.
-
-Los sistemas dinámicos caóticos se han empleado como PRNGs \cite{Kocarev2003, Larrondo2006, DeMicco2009}, ya que pueden generar señales estocásticas a partir de modelos simples subyacentes que son fáciles de implementar a través del software o hardware apropiado.
-Por lo general, se requiere una manipulación adecuada de las series de tiempo que generan estos modelos para mejorar sus propiedades estadísticas.
+\subsection{Resultados}
 
 Para eliminar o mitigar las estructuras de correlación internas que no son deseables aquí, se analizan dos soluciones, que no requieren un hardware más grande:
 \begin{enumerate}
@@ -234,21 +207,13 @@ Cada prueba se ejecuta varias veces dando un valor $p$ por cada ejecución.
 Combinando todos estos $p$ - valores ($229$ por cada PRNG) obtuvimos un valor general de $p$ por medio de KStest.
 Solo si todos los $p$ individuales y también los $p$ globales están en el rango apuntado arriba, colocamos ``si'' en la tabla \ref{tabla:Tabla2}.
 
-\subsection{Resultados}
-\label{sec:resultados}
-
 Las implementaciones presentadas aquí se desarrollaron completamente con el software \textit{Quartus II  7.2 \textsuperscript{\copyright}}.
 Las implementaciones físicas se realizaron en el kit de desarrollo \textit{Altera \textsuperscript{\copyright} Cyclone III EP3C120}.
-
-$SignalTap$ $II$ Embedded Logic Analyzer was used to make the hardware evaluation for each design.
-This is a system-level debugging tool, provided by $Altera$,  that captures and displays the real-time signal behavior.
-It allows  one to observe interactions between hardware and software in system designs.
-After capturing the data and saving it to a $SignalTap$ $II$ file, it can be analyzed and viewed as a waveform \cite{QUARTUS}.
 
 Se utilizó  \textit{SignalTap II Embedded Logic Analyzer} para realizar la evaluación de hardware para cada diseño.
 Esta es una herramienta de depuración a nivel de sistema, proporcionada por $Altera$, que captura y muestra el comportamiento de la señal en tiempo real.
 Le permite a uno observar las interacciones entre el hardware y el software en los diseños del sistema.
-Después de capturar los datos y guardarlos en un archivo \textit{SignalTap II}, se pueden analizar y visualizar como una forma de onda \cite{CUARTO}.
+Después de capturar los datos y guardarlos en un archivo \textit{SignalTap II}, se pueden analizar y visualizar como una forma de onda \cite{QUARTUS}.
 
 Las figuras \ref{fig:tiempo} y \ref{fig:atractor} muestran respectivamente la serie temporal y el atractor, obtenidos por la implementación del hardware con $\Delta t = 0.0045$ y precisión simple de coma flotante (las cifras con la otra representación numérica son muy similares).
 %
@@ -264,7 +229,7 @@ Las figuras \ref{fig:tiempo} y \ref{fig:atractor} muestran respectivamente la se
 	\caption{Lorenz attractor.}\label{fig:atractor}
 \end{figure}
 
-El hardware requerido se muestra en la tabla \ref{tabla: Tabla1}. Aquí se muestra una comparación entre los resultados de la compilación en las tres representaciones numéricas estudiadas:
+El hardware requerido se muestra en la tabla \ref{tabla:Tabla1}. Aquí se muestra una comparación entre los resultados de la compilación en las tres representaciones numéricas estudiadas:
 \begin{itemize}
 \item \textit{aritmética de punto flotante}: los dos casos, precisión simple y doble (Flotante($32$bits) y Flotante($64$bits) respectivamente),
 \item \textit{aritmética entera} (Enteros($54$bits)) y
@@ -282,7 +247,8 @@ El hardware requerido se muestra en la tabla \ref{tabla: Tabla1}. Aquí se muest
 	         Total de registros          &       $1,658$        &       $1,754$        &      $4,753$       &      $8,532 $      &       $159$       &  \\ \hline\hline
 	       Reloj $f_{max}$ [MHz]         &       $37.82$        &       $20.51$        &       $7.48$       &       $5.42$       &      $55.38$      &  \\ \hline
 	          Throughput [Mbs]           &      $1,210.24$      &       $656.32$       &      $14.96$       &      $173.44$      &    $1,772.16$     &  \\ \hline\hline
-\end{tabular}\end{center}
+\end{tabular}
+\end{center}
 \label{tabla:Tabla1}
 \end{table*}
 
@@ -316,24 +282,11 @@ La variable $xyz$ es la serie de tiempo obtenida mediante la técnica de aleator
 	                        &    $y_{disc}$    &    si    &    si     &     no     &     no      &      no      \\ \hline
 	                        &    $z_{disc}$    &    si    &    si     &     no     &     no      &      no      \\ \hline
 	                        &      $zyx$       &    si    &    si     &     si     &     si      &      si      \\ \hline
-\end{tabular}\end{center}
+\end{tabular}
+\end{center}
 \label{tabla:Tabla2}
 \end{table*}
 
 Esta tabla muestra que en los casos de implementaciones de enteros y punto fijo la técnica de aleatorización de \textit{descarte} funciona mejor a medida que $\Delta t$ aumenta porque, para elementos $\Delta t$ inferiores, las series temporales son más correlacionadas y esta técnica de aleatorización no los mezcla lo suficiente.
 Para utilizar valores de $\Delta t$ más bajos, más bits deben descartarse para obtener buenos PRNG.
 Por otro lado, la técnica de aleatorización de \textit{concatenación} funciona bien independientemente del valor de $\Delta t$ (dentro del rango analizado).
-
-\subsection{Conclusions}
-\label{sec:conclusions}
-
-A partir de los resultados presentados aquí, es posible concluir que para obtener un PRNG, los mejores corresponden a la representación de aritmética entera tanto en hardware (recursos y frecuencia) como en propiedades estadísticas.
-La técnica de aleatorización de \textit{concatenado} hace que la calidad sea independiente de $\Delta t$ para esta representación numérica.
-Para la técnica de aleatorización de \textit{descarte} se obtienen buenos resultados solo para valores grandes de $\Delta t$.
-Lo mismo ocurre con las implementaciones de punto fijo con ambas técnicas de aleatorización.
-
-En términos de uso de recursos y limitaciones de frecuencia, el rendimiento en aritmética de enteros es considerablemente mejor que en punto flotante y punto fijo.
-Observemos que para minimizar los recursos, se requiere un preprocesamiento del sistema caótico (escalado y polarización) para obtener divisores con una potencia de $2$, tal como se explica en la subsección \ref{sec:impleInt}.
-
-Por otro lado, para el caso de la aritmética de punto flotante, el exponente se descarta en todas las técnicas de aleatorización utilizadas y, en consecuencia, la dinámica se ve muy perturbada por el proceso de aleatorización.
-Entonces, como se muestra en la Tabla \ref{tabla: Tabla2} $\Delta t $ no es la variable relevante para predecir si un PRNG será bueno o malo.

@@ -1,0 +1,496 @@
+\chapter{Sistemas de dinámica compleja}
+
+\input{./CapEcDif/Intro.tex}
+
+\section{Teoría Cualitativa - Espacio de Fases}
+En algunas aplicaciones puede interesar, más que conocer las ecuaciones explícitas de las soluciones de un sistema, poder analizar sus propiedades cualitativas, tales como la periodicidad, el comportamiento cuando crece la variable independiente (la que se supone que es el tiempo), si es constante, o si se aproxima a una solución conocida, etc.
+Una herramienta útil en este sentido es el diagrama de fase.
+El espacio de fase es el lugar geométrico que ocupan las posibles soluciones del sistema de ecuaciones diferenciales, en él se dibujan las trayectorias que son solución a un sistema de ecuaciones.
+La teoría cualitativa intenta clasificar los sistemas en función del tipo de trayectorias que poseen, en lugar de intentar resolver las ED’s.
+
+Se denomina punto crítico de un sistema de ecuaciones diferenciales, al punto del espacio de estados que satisface 
+\begin{equation}
+X'=0
+\end{equation}
+es el punto del espacio de estados a partir del cual el sistema no evoluciona.
+
+Para sistemas homogéneos de ED lineales, el único punto crítico es el origen de coordenadas. Para sistemas no homogéneos de ED lineales, el punto crítico puede ser cualquier punto del espacio. Para sistemas no lineales, pueden existir varios puntos críticos, o ninguno.
+
+Para un sistema planar, pueden darse las siguientes trayectorias respecto de los dos autovalores.
+
+\begin{description}
+
+\item[Nodo estable]
+Si ambos autovalores son negativos, la solución se acerca al orígen asintóticamente.
+Las trayectorias de las soluciones son asintóticas a los autovalores de la matriz de coeficientes $A$, excepto las soluciones con condiciones iniciales que pertenecen a las direcciones propias, entonces el sistema evoluciona sobre ellas.
+%
+\begin{figure}
+\centering\includegraphics[scale=0.5]{nodoestable}
+\caption{Nodo estable}
+\end{figure}
+
+\item[Nodo inestable]
+Si ambos autovalores son positivos, la solución se aleja del orígen.
+Las trayectorias de las soluciones son asintóticas a los autovalores de la matriz de coeficientes $A$, excepto las soluciones con condiciones iniciales que pertenecen a las direcciones propias, entonces el sistema evoluciona sobre ellas.
+%
+\begin{figure}
+\centering\includegraphics[scale=0.5]{nodoinestable}
+\caption{Nodo inestable}
+\end{figure}
+
+\item[Punto silla]
+Si los autovalores tienen signos opuestos, la solución se aleja del orígen asintóticamente a uno de los autovectores y se aproxima a él asintóticamente al otro, excepto las soluciones con condiciones iniciales que pertenecen a las direcciones propias, entonces el sistema evoluciona sobre ellas.
+%
+\begin{figure}
+\centering\includegraphics[scale=0.5]{silla}
+\caption{Punto silla}
+\end{figure}
+
+\item[Nodos degenerados]
+Aparecen en los casos en que los autovalores o autovectores sean iguales.
+Para iguales autovalores, pueden generarse todas las trayectorias radiales por combinación lineal de los autovectores. La forma de la solución sería
+\begin{equation}
+X(t)=(c_1K_1+c_2+K_2)e^{\lambda t} \nonumber
+\end{equation}
+Si los autovalores son negativos, la solución se acerca al orígen en forma radial y el nodo resulta ser estable, de lo contrario será inestable.
+\begin{figure}
+\centering\includegraphics[scale=0.5]{nodoestabledegeneradounautovalor}
+\caption{Nodo estable degenerado con autovalores negativos}
+\end{figure}
+Si además tenemos iguales autovectores, la forma de la solución sería
+\begin{equation}
+X(t)=(c_1K+tC_2K+c_2P)e^{\lambda t} \nonumber
+\end{equation}
+Si los autovalores son negativos, la solución se acerca al orígen y el nodo resulta ser estable, de lo contrario será inestable.
+\begin{figure}
+\centering\includegraphics[scale=0.5]{nodoestabledegeneradounautovector}
+\caption{Nodo estable degenerado con autovalores negativos y un solo autovector}
+\end{figure}
+
+\item[Centro]
+Si los autovalores son imaginarios puros, la solución describe elipses concéntricas que pasan por el valor inicial.
+\begin{figure}
+\centering\includegraphics[scale=0.5]{centro}
+\caption{Centro}
+\end{figure}
+
+\item[Foco estable]
+Si los autovalores son complejos con parte real negativa, la solución es una combinación de los casos anteriores. Será periódica conforme su parte imaginaria y se aproximará a cero según su parte real.
+%
+\begin{figure}
+\centering\includegraphics[scale=0.5]{focoestable}
+\caption{Foco estable}
+\end{figure}
+
+\item[Foco inestable]
+Si los autovalores son complejos, la solución será periódica conforme su parte imaginaria y se aproximará tenderá a infinito según su parte real.
+%
+\begin{figure}
+\centering\includegraphics[scale=0.5]{focoinestable}
+\caption{Foco inestable}
+\end{figure}
+
+\end{description}
+
+Para cualquier  sistema de ED, primero se deben hallar todos los puntos críticos del sistema. Luego, se linealiza en torno a cada uno mediante el primer término de la serie de Taylor obteniendo tantos sistemas de ecuaciones como puntos críticos tenga el sistema.
+Estos sistemas son válidos en un entorno suficientemente pequeño del punto crítico.
+
+Por ejemplo, supongamos que se necesita trazar el diagrama de fase para el péndulo físico de la figura \ref{fig:pendulo}.
+%
+\begin{figure}[htpb]
+	\centering
+	\includegraphics[width=.49\textwidth]{pendulo}
+	\caption{Péndulo físico ideal.}
+	\label{fig:pendulo}
+\end{figure}
+
+Primero hallamos la ecuación de la aceleración, según la figura, la componente tangencial de la gravedad es la que acelera al cuerpo.
+Tomando como referencia positiva el sentido dextrógiro, queda
+%
+\begin{equation}
+a=mg\cos\theta - \mu v \nonumber
+\end{equation}
+%
+en donde $\mu$ es el coeficiente de roce viscoso con el aire y $v$ la velocidad. Pero como nos interesa la aceleración angular $\alpha$ y la velocidad angular $\omega$
+%
+\begin{equation}
+\alpha=a/l; \qquad \omega=v/l \nonumber
+\end{equation}
+%
+siendo $l$ la longitud de la cuerda.
+
+La aceleración angular $\alpha$ es la derivada de la velocidad angular $\omega$ que a su vez es la derivada del ángulo $\theta$
+%
+\begin{equation}
+\alpha = \omega' = \theta'' \nonumber
+\end{equation}
+%
+entonces el sistema de ecuaciones queda
+%
+\begin{equation}
+\left \{
+\begin{array}{rcl}
+\theta' &=& \omega\\
+\omega' &=& \frac{mg}{l}\cos{\theta}-\frac{\mu}{l}\omega
+\end{array}
+\right. \nonumber
+\end{equation}
+
+Una vez planteado el sistema de ecuaciones, el primer paso es hallar los puntos críticos del sistema.
+%
+\begin{equation}
+\left \{
+\begin{array}{rcl}
+0 &=& \omega\\
+0 &=& \frac{mg}{l}\cos{\theta}-\frac{\mu}{l}\omega
+\end{array}
+\right.
+\longrightarrow
+\left \{
+\begin{array}{rcl}
+0 &=& \omega\\
+\theta &=& (2n-1)\frac{\pi}{2} \qquad n\notin\mathbb{Z}
+\end{array}
+\right.
+\nonumber
+\end{equation}
+
+Ahora estamos en condiciones de linealizar el sistema en torno de los puntos críticos.
+% 
+\begin{equation}
+\left \{
+\begin{array}{rcl}
+\theta' &=& \omega\\
+\omega' &=& \frac{\partial \left(\frac{mg}{l}\cos{\theta}\right)}{\partial\theta}\Big|_{\theta = (2n-1)\frac{\pi}{2}}\theta-\frac{\mu}{l}\omega
+\end{array}
+\right.
+=
+\left \{
+\begin{array}{rcl}
+\theta' &=& \omega\\
+\omega' &=& -\frac{mg}{l}\sin(\theta)\Big|_{\theta = (2n-1)\frac{\pi}{2}}\theta-\frac{\mu}{l}\omega
+\end{array}
+\right.
+\nonumber
+\end{equation}
+
+Según $n$ sea par (incluyendo el cero) o impar, la ecuación lineal que representa al sistema será diferente.
+
+Si $n$ es par o cero
+%
+\begin{equation}
+\left \{
+\begin{array}{rcl}
+\theta' &=& \omega\\
+\omega' &=& \frac{mg}{l}\theta-\frac{\mu}{l}\omega
+\end{array}
+\right.
+\longrightarrow
+A=
+\begin{pmatrix}
+0 &1 \\
+\frac{mg}{l} &-\frac{\mu}{l}
+\end{pmatrix}
+\nonumber
+\end{equation}
+
+\begin{equation}
+det(A-\lambda I)= \;
+\begin{vmatrix}
+-\lambda &1 \\
+\frac{mg}{l} &-\frac{\mu}{l}-\lambda
+\end{vmatrix}
+\nonumber
+=\lambda^2+\frac{\mu}{l}\lambda-\frac{mg}{l}
+\nonumber
+\end{equation}
+los autovalores son reales y de distinto signo (punto silla).
+
+Si $n$ es impar
+\begin{equation}
+\left \{
+\begin{array}{rcl}
+\theta' &=& \omega\\
+\omega' &=& -\frac{mg}{l}\theta-\frac{\mu}{l}\omega
+\end{array}
+\right. \nonumber
+\end{equation}
+
+\begin{equation}
+det(A-\lambda I)= \;
+\begin{vmatrix}
+-\lambda &1 \\
+-\frac{mg}{l} &-\frac{\mu}{l}-\lambda
+\end{vmatrix}
+\nonumber
+=\lambda^2+\frac{\mu}{l}\lambda+\frac{mg}{l}\\
+\nonumber
+\end{equation}
+los autovalores son complejos conjugados con parte real negativa (foco estable).
+
+La resolución numérica en Matlab (figura \ref{fig:fase}, muestra las soluciones al sistema elineal en el espacio de estados.
+Puede verse que en los puntos críticos, la solución se aproxima a un foco o a un punto silla, según el valor de $n$.
+%
+\begin{figure}
+\centering\includegraphics[scale=.7]{fase}
+\caption{Diagrama de fase del péndulo físico real}
+\label{fig:fase}
+\end{figure}
+
+\section{Sistemas caóticos}
+
+Cuando se miden variables físicas, no es muy extraño encontrar que el plano de fases tiene un comportamiento similar al de la figura \ref{fig:Secuencia-OK_2}.
+Puede verse que las trayectorias se cortan en el plano de fases, lo que indica que el sistema tiene un orden mayor que dos.
+Otra observación que se puede hacer es que las trayectorias no se repiten, es decir que, aunque la oscilación persiste, no aparece un ciclo con trayectoria definida.
+Esta última propiedad clasifica al sistema que se está midiendo como caótico.
+
+\begin{figure}
+\centering\includegraphics[scale=.3]{Secuencia-OK_2}
+\caption{Salidas de tensión de dos variables de un circuito oscilador}
+\label{fig:Secuencia-OK_2}
+\end{figure}
+
+El teorema de existencia y unicidad de las soluciones a un sistema de ecuaciones garantiza que si f es continuamente diferenciable, los campos vectoriales sobre el espacio de fases son suaves y cada punto de este espacio tiene solución única.
+La existencia de este teorema tiene un corolario importante: trayectorias diferentes nunca se intersectan.
+Como consecuenciade esto, las trayectorias sobre el plano de fases quedan restringidas a: un nodo estable o inestable, centro, foco estable o inestable y puerto.
+Entonces queda claro que un sistema continuo con derivada continua debe tener dimensión mayor o igual a tres para que pueda ser caótico, además, la trayectoria en el espacio de fases debe ocupar un dominio restringido.
+
+Para describir analíticamente el comportamiento de este tipo de sistemas en torno a ciertos puntos de interés podemos hacer uso del álgebra lineal.
+Lo que sigue son tres ejemplos de aplicaciones para atractores caóticos.
+
+El primer y más común ejemplo es el sistema de Lorenz, que está descrito por el siguiente sistema de ecuaciones diferenciales \cite{Lorenz1963}
+\begin{equation}\label{eq:lorenz}
+\left \{
+\begin{array}{rcl}
+x_1' &=& \sigma (x_1-x_2)\\
+x_2' &=& -x_1x_3+\rho x_3-x_2\\
+x_3' &=& x_1x_2-\beta x_3
+\end{array}
+\right.
+\end{equation}
+
+El sistema de Lorenz tiene tres puntos de equilibrio, $E$, $E^+$ y $E^-$: el primer punto de equilibrio $E$ está situado en el origen (0,0,0) y los otros dos tienen respectivamente como coordenadas,
+\begin{equation}
+(x_1^\pm,x_2^\pm,x_3)=\left(\pm \sqrt{\beta(\rho-1)},\pm \sqrt{\beta(\rho-1)},\rho - 1\right) \nonumber
+\end{equation}
+El comportamiento físico interesante de este sistema ocurre cuando variamos el parámetro de control $\rho$.
+Cuando $\rho<1$, todas las órbitas del campo vectorial dado por \ref{eq:lorenz} tienden al punto fijo situado en el origen.
+A medida que se va incrementando más allá de la unidad, el origen pasa a ser inestable dando lugar a dos puntos fijos, estables, y simétricos $E^+$ y $E^-$. Para todo $\rho<1$, la geometría del comportamiento asintótico del sistema es la misma ya que todas las condiciones iniciales tienden al origen E.
+
+Para $\rho>1$, se observan dos comportamientos.
+El primero, asociado a valores de $\rho$ menores que un cierto valor de humbral $\rho_h=(\sigma(\sigma+\beta)+3\sigma)/(\sigma-\beta-1)$ , valor para el cual los puntos de equilibrio $E^+$ y $E^-$ pierden su estabilidad.
+Dentro de este rango de valores del parámetro todas las órbitas terminan en uno de los dos puntos de equilibrio dependiendo de las condiciones iniciales.
+
+Cuando $\rho>\rho_h$, la situación cambia drásticamente.
+Los dos puntos fijos    pasan a ser inestables y nuevos comportamientos pueden surgir.
+Para estudiar estos comportamientos se considera el análisis dinámico del sistema \ref{eq:lorenz}. 
+La linealización del sistema \ref{eq:lorenz} en la proximidad del origen nos proporciona los siguientes autovalores:
+
+\begin{equation}
+\lambda = -\beta;\\
+\lambda_\pm = \frac{1}{2} \left(-(\sigma+1) \pm \sqrt{(\sigma+1)^2+4\sigma(\rho-1)} \right) \nonumber
+\end{equation}
+ asociados a la matriz Jacobiana
+ 
+\begin{equation}
+\begin{pmatrix}
+-\sigma &\sigma &0 \\
+\rho &-1 &0 \\
+0 &0 &-\beta
+\end{pmatrix}
+\nonumber
+\end{equation}
+
+Los autovalores  $\lambda$ y $\lambda_-$ son siempre negativos; el autovalor $\lambda_+$ cambia de negativo a positivo cuando $\rho$ pasa por el valor 1.
+
+De modo similar, la linealización del sistema \ref{eq:lorenz} en la proximidad del punto de equilibrio $E^+$ nos proporciona los siguientes autovalores:
+\begin{equation}
+\lambda^3+\lambda^2(\sigma+\beta+1)+\lambda\beta(\sigma+\rho)+2\sigma\beta(\rho-1)=0 \nonumber
+\end{equation}
+asociados a la matriz Jacobiana
+\begin{equation}
+\begin{pmatrix}
+-\sigma &\sigma &0 \\
+\rho-x_3 &-1 &-x_1 \\
+x_2 &x_1 &-\beta
+\end{pmatrix}
+\nonumber
+\end{equation}
+tiene un autovalor real negativo $\lambda$ combinado con dos autovalores imaginarios puros, $\lambda_\pm = \pm j \alpha$, si $\rho < \rho_h$
+
+La linealización del sistema \ref{eq:lorenz} en la proximidad del punto de equilibrio $E^+$ es un problema simétrico a este.
+
+En la figura \ref{fig:lorenz} pueden verse la evolución de las soluciones al sistema de lorenz.
+%
+\begin{figure}
+\centering\includegraphics[scale=.4]{lorenz}
+\caption{(a) Evolución temporal de las tres variables del sistema de Lorenz.(b) Disposición de sus puntos de equilibrio (estrellas rojas) con respecto a su atractor en el espacio de estados.}
+\label{fig:lorenz}
+\end{figure}
+
+El sistema de Rössler está descrito por el siguiente sistema de ecuaciones diferenciales
+\begin{equation}\label{eq:rossler}
+\left \{
+\begin{array}{rcl}
+x_1' &=& x_2-x_3\\
+x_2' &=& x_1x_3+ax_2\\
+x_3' &=& b+(x_1+c)x_3
+\end{array}
+\right.
+\end{equation}
+
+Este sistema tiene dos puntos de equilibrio, $E^+$ y $E^-$ que existen solo cuando $\Delta=c^2-4ab>0$ y cuyas coordenadas están dadas respectivamente por,
+\begin{equation}
+(x_1^\pm,x_2^\pm,x_3^\pm)=\left( \frac{1}{2} (c \pm \sqrt{\Delta}),-\frac{1}{2a} (c \pm \sqrt{\Delta}),\frac{1}{2a} (c \pm \sqrt{\Delta})\right) \nonumber
+\end{equation}
+ 
+La linealización del sistema \ref{eq:rossler} en la proximidad de los puntos de equilibrio proporciona los siguientes autovalores:
+
+\begin{equation}
+a \lambda^3 - \lambda^2 a (x_1-c)-\lambda(x_3-1)+ax_3+(x_1-c)=0 \nonumber
+\end{equation}
+ asociados a la matriz Jacobiana
+ 
+\begin{equation}
+\begin{pmatrix}
+0 &\-1 &-1 \\
+1 &a &0 \\
+x_3^\pm &0 &x_1^\pm-c
+\end{pmatrix}
+\nonumber
+\end{equation}
+de donde se deduce que fijando los parámetros $a$ y $b$ y variando $c$ nos encontramos con dos escenarios diferentes, podemos tener un autovalor real negativo y dos complejos conjugados con parte real positiva, o un autovalor real negativo y dos complejos conjugados con parte real negativa.
+Para valores pequeños de c, el atractor de Rössler consiste en una órbita periódica o ciclo límite que tiene un sólo mínimo local.
+A medida que vamos incrementando el parámetro c, el ciclo límite va duplicando su periodo y como consecuencia, sus mínimos locales hasta alcanzar un límite en el cual las trayectorias nunca se repiten lo que corresponde al atractor caótico de Rössler. 
+
+En la figura \ref{fig:rossler_parametro} pueden verse la evolución de las $x_1$ y $x_2$ al sistema de Rössler para distintos valores del parámetro $c$.
+En la figura \ref{fig:rossler}, la evolución de las tres variables para un parámetro fijo.
+%
+\begin{figure}
+\centering\includegraphics[scale=.5]{rossler_parametro}
+\caption{Proyecciones del atractor de Rössler en el plano  para diferentes valores del parámetro c.}
+\label{fig:rossler_parametro}
+\end{figure}
+%
+\begin{figure}
+\centering\includegraphics[scale=.5]{rossler}
+\caption{(a) Evolución temporal de las tres variables del sistema de Rössler. (b) Disposición de sus puntos de equilibrio (estrellas rojas) con respecto a su atractor en el espacio de estados.}
+\label{fig:rossler}
+\end{figure}
+
+El sistema de Chua está descrito por el siguiente sistema de ecuaciones diferenciales
+\begin{equation}\label{eq:chua}
+\left \{
+\begin{array}{rcl}
+x_1' &=& \alpha x_2- \alpha x_1^3- \alpha c x_1\\
+x_2' &=& x_1 + x_3 - x_2\\
+x_3' &=& -\beta x_2
+\end{array}
+\right.
+\end{equation}
+
+Tiene tres puntos de equilibrio, $E$, $E^+$ y $E^-$: el primer punto de equilibrio $E$ está situado en el origen (0,0,0) y los otros dos tienen respectivamente como coordenadas,
+\begin{equation}
+(x_1^\pm,x_2^\pm,x_3)=\left(\pm \sqrt{-c}, 0,\pm \sqrt{-c}\right) \nonumber
+\end{equation}
+Los puntos de equilibrio existen sólo para valores positivos del parámetro c.
+
+La linealización del sistema \ref{eq:chua} en la proximidad de los puntos de equilibrio proporciona los siguientes autovalores:
+
+\begin{equation}
+\lambda^3 + \lambda^2 \alpha (\alpha c+1)+\lambda(\alpha c-\alpha+\beta)+ax_3+\alpha\beta c=0 \nonumber
+\end{equation}
+asociados a la matriz Jacobiana
+\begin{equation}
+\begin{pmatrix}
+-\alpha c &\alpha &0 \\
+1 &-1 &1 \\
+0 &-\beta &0
+\end{pmatrix}
+\nonumber
+\end{equation}
+donde podemos detectar un punto de bifurcación para $\alpha=0$ en el cual el autovalor real negativo pasa a ser positivo provocando la inestabilidad del punto de equilibrio $E$ que permanece inestable para una amplia gama de valores del parámetro $\alpha$.
+
+En la figura \ref{fig:chua}, puede verse la evolución de las tres variables de estado para este sistema.
+%
+\begin{figure}
+\centering\includegraphics[scale=.5]{chua}
+\caption{(a) Evolución temporal de las tres variables del sistema de Chua. (b) Disposición de sus puntos de equilibrio (estrellas rojas) con respecto a su atractor en el espacio de estados.}
+\label{fig:chua}
+\end{figure}
+
+\section{Mapas caóticos}
+
+¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡Hablar de mapas como Logístico, tent, etc..!!!!!!!!!!!!!!!!!!!!
+
+\subsection{Mapas cuadráticos bidimensionales}
+\label{ssec:QMaps}
+
+La familia de mapas cuadráticos bidimensionales que estudiamos aquí es modelada por un par de ecuaciones cuadráticas acopladas:
+%
+\begin{equation}\label{eq:mapaSprott}
+\left\{\begin{aligned}
+x_{n+1}&=a_1+a_2 x_n+a_3 x_n^2+a_4 x_n y_n+a_5 y_n+a_6 y_n^2\\
+y_{n+1}&=a_7+a_8 x_n+a_9 x_n^2+a_{10} x_n y_n+a_{11} y_n+a_{12} y_n^2
+\end{aligned}
+\right.
+\end{equation}
+%
+donde $\{x, y\}$ son las variables de estado y $A = \{a_i, i = 1, \dots, 12 \}$ son los parámetros.
+La principal característica de este sistema es que presenta múltiples atractores caóticos en función del punto seleccionado en el espacio del parámetros.
+El espacio de parámetros de $12D$ generado por los coeficientes $A$ es muy difícil de explorar.
+
+Las razones para estudiar este sistema en particular son dobles:
+%
+\begin{enumerate}
+	\item Usando la aritmética de punto flotante con un barrido automático de parámetros $a_i$ y una gran cantidad de puntos en el espacio del parámetro (alrededor de $6. 10 ^ {16}$), Sprott pudo detectar varios atractores en régimen caótico permanente.
+	Es decir, tienen la característica de modificar su atractor según los valores que tomen sus 12 coeficientes reales.
+	Él también encontró una relación entre la dimensión de correlación y los exponentes de Lyapunov, con su estética visual, un tema interesante para la generación automática de arte.
+	\item Es posible emplear estos atractores en una amplia variedad de aplicaciones electrónicas, como la generación de nuevos sistemas de encriptación, ya sea reemplazando el S-box en AES \cite{Ahmad2013, Hussain2013}, o incluso desarrollando nuevos algoritmos \cite{Machado2004, Smaoui2009}.
+\end{enumerate}
+
+Tres de estos atractores caóticos se muestran juntos en la figura \ref{fig:atractoresQMaps}.
+Sus juegos de parámetros $A_i$ son:	
+%
+\begin{align*}
+A_1&=\{-0.7,-0.4,0.5,-1.0,-0.9,-0.8,0.5,0.5,0.3,0.9,-0.1,-0.9\},\nonumber\\
+A_2&=\{-0.6,-0.1,1.1,0.2,-0.8,0.6,-0.7,0.7,0.7,0.3,0.6,0.9\}, \nonumber\\
+A_3&=\{ -0.1,0.8,-0.7,-1.1,1.1,-0.7,-0.4,0.6,-0.6,-0.3,1.2,0.6\}.\nonumber\\
+\end{align*}
+%
+Como se puede ver en la figura, es posible obtener salidas muy diferentes simplemente modificando el valor de los parámetros y manteniendo la estructura del sistema.
+En una implementación electrónica, esto sería equivalente a poder variar la salida manteniendo la estructura del hardware y modificando los parámetros a través de, por ejemplo, una entrada.
+%
+\begin{figure}
+	\centering
+	\includegraphics[width=1\columnwidth]{atractoreslindos}\\
+	\caption{Tres atractores para tres juegos de parámetros distintos.}\label{fig:atractoresQMaps}
+\end{figure}
+
+Las figuras \ref{fig:atractores3592}.a a \ref{fig:atractores3592}.d muestran los mismos tres atractores $A_1$ a $A_3$ de la Fig. \ref{fig:atractoresQMaps} junto a un atractor con $A_4=\{-1,0.9,0.4,-0.2,-0.6,-0.5,0.4,0.7,0.3,-0.5,0.7,-0.8\}$, superpuestos con sus regiones de atracción (en gris).
+Las áreas blancas de cada figura corresponden a aquellas condiciones iniciales que generan trayectorias divergentes del sistema (semillas inútiles con respecto a su uso como PRNG).	
+%
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{0.49\textwidth}
+		\includegraphics[width=\textwidth]{Atractor3_condominio}
+		\caption{$\{a_i\}=A_1$.}
+	\end{subfigure}
+	\hfill 
+	\begin{subfigure}[b]{0.49\textwidth}
+		\includegraphics[width=\textwidth]{Atractor5_condminio}
+		\caption{$\{a_i\}=A_2$.}
+	\end{subfigure}
+	\hfill 
+	\begin{subfigure}[b]{0.49\textwidth}
+		\includegraphics[width=\textwidth]{Atractor9_condominio}
+		\caption{$\{a_i\}=A_3$.}
+	\end{subfigure}
+	\hfill  
+	\begin{subfigure}[b]{0.49\textwidth}
+		\includegraphics[width=\textwidth]{Atractor2_condominio}
+		\caption{$\{a_i\}=A_4$.}
+	\end{subfigure}
+	\caption{Cuatro atractores caóticos y sus respectivos dominios de atracción.}
+	\label{fig:atractores3592}
+\end{figure}

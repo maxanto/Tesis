@@ -1,65 +1,9 @@
 \section{Cuantificadores de la teoría de la información}
+\label{sec:ITQs}
 
-%ESTO VIENE DE OTRO LADO
-La entropía de Shannon normalizada se deriva de la Teoría de la Información, y es un funcional de la PDF.
-Una vez que se determina el PDF, la entropía se define por la muy conocida expresión de Shannon normalizada:
-%
-\begin{equation}
-H=-\frac{\sum_{i=1}^{M}{p_i~log~p_i}}{log(M)}, \label{eq:shannon}
-\end{equation}
-%
-donde $ M $ es la cantidad de elementos del alfabeto.
-
-Desde un punto de vista estadístico, un sistema caótico es la \textit{fuente} de una serie temporal simbólica con un alfabeto de símbolos $M$.
-Para evaluar la entropía, primero se necesita definir una función de distribución de probabilidad de la serie temporal.
-Cabe señalar que la distribución de probabilidad clásica, aquí denominada PDF basada en histogramas, solo tiene en cuenta la ocurrencia de valores, pero no es capaz de detectar el orden de aparición de los mismos.
-Por ejemplo, una secuencia de valores aleatorios generados por cualquier generador de ruido exhibirá un PDF constante entre 0 y 1.
-Por otro lado, una secuencia tipo diente de sierra también presentará un PDF constante entre 0 y 1.
-En ambos casos, los valores aparecen en la serie el mismo número de veces, pero en un orden diferente.
-Esta característica es crucial porque diferencia una señal aleatoria de una completamente predecible.
-
-There exist different procedures to obtain a PDF \cite{Rosso2009,DeMicco2008,Mischaikow1999,Powell1979,Rosso2001,Pompe2002} and the determination of the best PDF $P$ is a fundamental problem because $P$ and the sample space are inextricably linked. Their applicability depends on particular characteristics of the data, such as stationarity, time series length, variation of the parameters, level of noise contamination, etc. In previous work devoted to PRNGs, the use of two
-PDFs was successful for the comparison between different systems. One PDF is the
-normalized histogram, and its normalized Shannon
-entropy is denoted here $H_{hist}$. The other one is the ordering PDF
-proposed by Bandt \& Pompe \cite{Pompe2002} and its  normalized Shannon entropy is  here denoted as $H_{BP}$. By this selection of the PDFs it is possible to cover the two mentioned properties, namely, (1) the probability of occurrence of each element of the alphabet (PDF based on histograms), and (2) the order of the items in the time series (PDF based on Bandt-Pompe technique).
-One may consider the statistics of individual symbols or the statistics of sequences of $d$ consecutive symbols. In the first case $P$ is \textsl{non-causal} because it does not change if the outcomes are mixed up and the number of different possible outcomes is $M$. In the second case, the outcome changes if the output is mixed and then one says that $P$ is \textsl{causal}. In the second case the number of different outcomes is equal to $M^d$ and increases rapidly with $d$. Bandt and Pompe made a proposal in \cite{Pompe2002} that is computationally efficient, because it limits the outcomes to $d!$, but retains causal effects.
-
-Existen diferentes procedimientos para obtener una PDF \cite{Rosso2009, DeMicco2008, Mischaikow1999, Powell1979, Rosso2001, Pompe2002} y la determinación de la mejor PDF $P$ es un problema fundamental porque $P$ y el espacio de muestra están inextricablemente vinculados.
+Dada una fuente de símbolos cuya salida es un vector de símbolos $X$, existen diferentes procedimientos para obtener una PDF \cite{Rosso2009, DeMicco2008, Mischaikow1999, Powell1979, Rosso2001, Pompe2002}.
+La determinación de la mejor PDF $P$ es un problema fundamental porque $P$ y el espacio de muestra $X$ están inextricablemente vinculados.
 Su aplicabilidad depende de las características particulares de los datos, tales como estacionariedad, duración de la serie temporal, variación de los parámetros, nivel de contaminación de ruido, etc.
-En trabajos previos dedicados a los PRNG, el uso de dos PDFs fue exitoso para la comparación entre diferentes sistemas.
-Una PDF es el histograma normalizado, y su entropía de Shannon normalizada se denota aquí $H_{hist}$.
-La otra PDF es la propuesta por por Bandt \& Pompe \cite{Pompe2002} y su entropía de Shannon normalizada se denota aquí como $H_{BP}$.
-Mediante esta selección de PDFs, es posible cubrir las dos propiedades mencionadas, a saber, (1) la probabilidad de que ocurra cada elemento del alfabeto (PDF basado en histogramas) y (2) el orden de los elementos en el tiempo serie (PDF basado en la técnica de Bandt-Pompe).
-Se pueden considerar las estadísticas de símbolos individuales o las estadísticas de secuencias de símbolos consecutivos $d$.
-En el primer caso $P$ es \textit{no causal} porque no cambia si los resultados están mezclados y el número de resultados posibles diferentes es $M$.
-En el segundo caso, el resultado cambia si el resultado está mezclado, por lo que $P$ es \textit{causal}.
-
-The representation plane $H_{BP}$ vs $H_{hist}$ is considered in \cite{DeMicco2008}.
-A higher value in any of the entropies, $H_{BP}$ and $H_{hist}$, implies an
-increase in the uniformity of the involved PDFs. The point
-$(1,1)$ represents the ideal point for a system with uniform histogram and
-uniform distribution of ordering patterns.
-A discussion about the convenience of using these quantifiers is beyond the scope of this paper but there is an extensive literature  \cite{DeMicco2008,Rosso2007C,Martin2006}.
-
-El plano de representación $H_{BP}$ vs $H_{hist}$ se considera en \cite{DeMicco2008}.
-Un valor más alto en cualquiera de las entropías, $H_{BP}$ y $H_{hist}$, implica un aumentO la uniformidad de los archivos PDF involucrados.
-El punto $(1,1)$ representa el punto ideal para un sistema con histograma uniforme y distribución uniforme de patrones de orden.
-Una discusión sobre la conveniencia de usar estos cuantificadores está más allá del alcance de este documento, pero hay una extensa literatura \cite{DeMicco2008, Rosso2007C, Martin2006}.
-%FIN DE ESTO VIENE DE OTRO LADO
-
-Los sistemas dinámicos son sistemas que evolucionan en el tiempo.
-En la práctica, solo es posible medir una serie de tiempo escalar $X(t)$ la cual puede ser función de las variables $V=\{ v_1, v_2,\cdots, v_k\}$ que describe la dinámica subyacente (por ejemplo $dV/dt=f(V)$).
-Tratamos de inferir propiedades de un sistema no conocido a partir del análisis de los datos guardados de datos observacionales.
-¿Cuanta información revelan estos datos sobre la dinámica del sistema o procesos subyacentes?.
-
-El contenido de información de un sistema se evalúa típicamente mediante una función de distribución de probabilidad (PDF) $P$ que describe la distribución de alguna cantidad mensurable o observable, generalmente una serie de tiempo $X(t)$.
-Podemos definir los cuantificadores de la Teoría de la Información como medidas capaces de caracterizar las propiedades relevantes de las PDFs asociadas a estas series temporales, y de esta manera debemos extraer juiciosamente información sobre el sistema dinámico en estudio.
-Estos cuantificadores representan métricas en el espacio de PDFs para conjuntos de datos, permitiendo comparar diferentes conjuntos y clasificarlos de acuerdo a sus propiedades de procesos subyacentes, de manera amplia, estocástica vs. determinística.
-
-En nuestro caso, nos interesa la dinámica caótica.
-Por lo tanto, nos centramos en las métricas que toman en cuenta el orden temporal de las observaciones de forma explícita; es decir, el enfoque es fundamentalmente de naturaleza \textit{causal} y \textit{estadística} en la naturaleza.
-En un enfoque puramente estadístico, las correlaciones entre los valores sucesivos de las series temporales se ignoran o simplemente se destruyen a través de la construcción del PDF; mientras que un enfoque causal se centra en las PDFs de secuencias de datos.
 
 Los cuantificadores seleccionados se basan en el recuento de símbolos y en la estadística de patrones de orden.
 Las métricas a utilizar pueden clasificarse de forma amplia en dos categorías: las que cuantifican el \textit{contenido de información} de los datos en comparación con los relacionados con su \textit{complejidad}.
@@ -209,7 +153,7 @@ Para destacar la diferencia entre una $P$ \textit{causal} y una \textit{no causa
 	\end{subfigure}
 	\begin{subfigure}[t]{0.49\textwidth}
 		\includegraphics[width=\textwidth]{HistBP_y}
-		\caption{Histograma de patrones de orden de los puntos sordenados}
+		\caption{Histograma de patrones de orden de los puntos ordenados}
 		\label{subfig:causal_nocausal_HistBPy}
 	\end{subfigure}
 	\caption{Comparación entre histogramas causal y no causal}\label{fig:causal_nocausal}
@@ -227,7 +171,7 @@ En la ecuación anterior $x_{j+k-1}-\bar{X_j^D}$ denota la media aritmética del
 Originalmente, se propuso esta técnica para discriminar patrones sumergidos en un bajo nivel de ruido.
 Nosotros también aprovechamos el hecho de que los puntos fijos no se computan en el WPE.
 
-Se calculó la entropía de Shannon normalizada $H$ y la complejidad estadística $C$ de estas PDFs, y los valores obtenidos se denotan como:
+Al calcular la entropía de Shannon normalizada $H$ y la complejidad estadística $C$ de estas PDFs, y los valores obtenidos se denotan como:
 \begin{itemize}
 	\item $H_{hist}$, es la entropía de Shannon normalizada aplicada a una PDF no causal $P_{hist}$
 	\item $H_{BP}$, es la entropía de Shannon normalizada aplicada a una PDF causal $P_{BP}$
@@ -268,14 +212,14 @@ Los resultados obtenidos sin las contribuciones de amplitud se representan en pu
 El último punto en $(H_{hist}, H_{BP}) = (0, 0)$ corresponde a un vector de ceros, en este caso el histograma de patrones de orden con contribuciones de amplitud es también un vector nulo y $H_{BPW}$ no se puede calcular.
 A través de este último ejemplo, mostramos que la convergencia a un punto fijo puede ser detectada por la información conjunta de $H_{BP}$ y $H_{BPW}$.
 
-En la figura \ref{fig: HC} se muestra el plano causal $H_{BP} \times C_{BP}$.
+En la figura \ref{fig:HC} se muestra el plano causal $H_{BP} \times C_{BP}$.
 Podemos ver que no toda la región $0 < H_{BP} < 1$, $0 < C_{BP} < 1$ es alcanzable, de hecho, para cualquier PDF los pares $(H, C)$ de valores posibles caen entre dos curvas extremas en el plano $H_{BP} \times C_{BP}$ \ cite {Anteneodo1996}.
 Los mapas caóticos tienen entropía intermedia $H_{BP}$, mientras que su complejidad $C_{BP}$ alcanza valores mayores, muy cercanos a los del límite de complejidad superior \cite{Rosso2007, Olivares2012}.
 Para procesos regulares, la entropía y la complejidad tienen valores pequeños, cercanos a cero.
 Los procesos estocásticos no correlacionados se ubican en la localización planar asociada con $H_{BP}$ cerca de uno y $C_{BP}$ cerca de cero.
 Los sistemas aleatorios ideales que tienen un Bandt \& Pompe PDF uniforme, están representados por el punto $(1,0)$ \ cite{Gonzalez2005} y una PDF tipo delta corresponde al punto $(0,0)$.
 
-En la figura \ref{fig: HC} mostramos $H_{BP} \times C_{BP}$ con y sin contribuciones de amplitud.
+En la figura \ref{fig:HC} mostramos $H_{BP} \times C_{BP}$ con y sin contribuciones de amplitud.
 Se muestran los mismos puntos de muestra para ilustrar las posiciones planas para diferentes vectores de datos.
 
 En ambos planos de información $H_ {BP} \times H_ {hist}$ en la Fig. \ref{fig:HH} y $H_{BP} \times C_{BP}$ en Fig. \ref{fig:HC}, los datos estocásticos, caóticos y deterministas están claramente localizados en diferentes posiciones planares.
@@ -300,16 +244,16 @@ De hecho, la existencia de estos patrones de orden faltantes se convierte en un 
 Por lo tanto, para una longitud de patrón fija (dimensión de embedding $D$) el número de patrones perdidos de una serie temporal (patrones no observados) es independiente de la longitud de la serie $N$.
 Obsérvese que esta independencia no caracteriza otras propiedades de la serie como la proximidad y la correlación \cite{Amigo2007,Amigo2010}.
 
-Existen fuentes bibliográficas para una discusión completa sobre la conveniencia de usar estos cuantificadores \cite{DeMicco2008,Rosso2010,Rosso2012,Lopez-Ruiz1995,Martin2006,Wackerbauer1994,Rosso2007A}.
-
-\subsubsection{Entropías diferenciales}
+\subsection{Entropías diferenciales}
 \label{subsec:addquanti}
 
-La entropía de Shannon $S(P)$ es el punto de partida para otros cuantificadores:
+La entropía de Shannon $S(P)$ es el punto de partida para otros cuantificadores.
+
+!!!!HABLAR DE LOS CONJUNTOS DE PARTICIONES Y NO SE QUE!!!
+
 Para medir la entropía de una serie binaria es necesario 
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	hablar del conjunto de particiones y no se que
-	
+
+!!!FIN DE HABLAR DE LOS CONJUNTOS DE PARTICIONES Y NO SE QUE!!!
 
 \begin{enumerate}
 	\item Entropía normalizada $H(P)$: es la entropía de Shannon dividida por su valor máximo. Por ejemplo, si usamos $S_2$ (ver arriba), se obtiene la entropía máxima para equiprobabilidad entre dos símbolos. Su valor es $S_{max}=-1/2 log(1/2)-1/2 log(1/2)=log(2)=1$; tentonces, la entropía normalizada es $H_2=S_2$. Si usamos $S_W$ la equiprobabilidad entre las $2^W$ posibles palabras (números decimales de $W$-bits) produce $S_{max}=W$ y $H_W=S_W/W$. Finalmente, para $S^{(D)}_{BP}$ la equiprobabilidad entre los $D!$ patrones de orden produce $S_{max}= log(D!)$ y $H^{(D)}_{BP}=S^D_{BP}/log(D!)$.
@@ -326,25 +270,36 @@ Para medir la entropía de una serie binaria es necesario
 	\end{eqnarray}
 \end{enumerate}
 
-Let us stress some important issues involved in the calculations of the above-mentioned entropies:
+Enfatizemos algunas cuestiones importantes involucradas en los cálculos de las entropías binarias mencionadas anteriormente:
 \begin{enumerate}
-	\item The binary entropy $S_2$ is noncasual while both, the block entropy $S_W$ and the Bandt \& Pompe entropy $S^{(D)}_{BP}$, are causal. 
-	\item The block entropy $S_W$ takes into account correlations between $W$ consecutive bits. Bandt\& Pompe entropy $S^{(D)}_{BP}$ takes into account correlations between $D$ consecutive $W$-length words.
-	Both grouping procedures (decimal numbers of $W$ bits and permutation patterns of $D$ decimal numbers) may be done with or without superposition. The number of data required for good statistics is different depending the grouping procedures are made with superposition or not.
-	\item For $S_W$ there is only one grouping process ($W$ bits are grouped to obtain a decimal numbers time series $Y$). Let us define $\alpha$ as a statistical quality parameter, given by the quotient between the number of elements in the symbolic time series $Y$ and the number of symbols in the alphabet. In this paper we will not accept $\alpha~<~10$. 
+	\item La entropía binaria $S_2$ es no causal, mientras que ambas, la entropía de bloque $S_W$ y la entropía Bandt \& Pompe $S^{(D)}_{BP}$, son causales.
+	\item La entropía de bloque $S_W$ tiene en cuenta las correlaciones entre $W$ bits consecutivos.
+	La entropía Bandt \& Pompe $S^{(D)}_{BP}$ tiene en cuenta las correlaciones entre $D$ consecutivas palabras de longitud $W$.
+	Ambos procedimientos de agrupación (números decimales de $W$ bits y patrones de permutación de $D$ números decimales) pueden realizarse con o sin superposición.
+	La cantidad de datos requeridos para obtener buenas estadísticas es diferente dependiendo de que los procedimientos de agrupación se realicen.
+	\item Para $ S_W $ solo hay un proceso de agrupación ($W$ bits agrupados para obtener una serie de números decimales $Y$).
+	Definamos $\alpha$ como un parámetro de calidad estadística, dado por el cociente entre el número de elementos en la serie de tiempo simbólica $Y$ y la cantidad de símbolos en el alfabeto.
+	En este documento, no aceptaremos $\alpha < 10$.
 	
-	Obviously the quality factor $\alpha$ increases with the length of the time series:
+	Obviamente, el factor de calidad $\alpha$ aumenta con la longitud de la serie temporal:
 	%
 	\begin{enumerate}
-		\item If the grouping of $W$ bits is made with superposition, two consecutive $W$-length words share $W-2$ bits. Consequently starting with a file with a length of $N$-bits we get $N-W+1$ words. Furthermore, there are $2^W$ symbols in the alphabet and $\alpha=(N-W+1)/(2^W)$. 
-		\item If $S_W$ is evaluated without superposition the number of $W$-length words is $floor~\{N/W\}$ and the quality parameter becomes $\alpha=floor~\{N/W\}/(2^W)$. For $N\gg W$ the statistical quality factor is $W$ times lower that the one with superposition.
+		\item si el agrupamiento de $W$ bits está hecho con, dos palabras consecutivas de longitud $W$ comparten $W-2$ bits.
+		En consecuencia, comenzando con un archivo con una longitud de $N$ bits obtenemos $N - W + 1$ palabras.
+		Además, hay símbolos $2 ^ W$ en el alfabeto y $\alpha = (N - W + 1) / (2 ^ W)$.
+		\item Si $S_W$ se evalúa sin superposición la cantidad de palabras de longitud $W$ es $floor\{N/W\}$ y el parámetro de calidad se calcula como $\alpha=floor~\{N/W\}/(2^W)$.
+		Si $N \gg W$ el factor de calidad estadística es $W$ veces más bajo que el usado con superposición.
 	\end{enumerate}
 	
-	\item In the case of $S^{(D)}_{BP}$, there are two grouping processes involved. 
+	\item En el caso de $S^{(D)}_{BP} $, hay dos procesos de agrupación involucrados.
 	\begin{enumerate}
-		\item If both grouping processes are made with superposition we get $N-W-D+2$ elements starting with a file $N$-bits length, and the quality factor is $\alpha=(N-W-D+2)/D!)$. In this case $S^{(D)}_{BP}$ takes into account the correlations between $W+D$ consecutive bits. 
-		\item If the grouping process of $W$ bits is made without superposition but the grouping of $D$ decimal numbers is made with superposition we get $floor\{N/W\}-D+1$ elements and the statistical quality parameter is $\alpha=(floor\{N/W\}-D+1)/D!$. In this case $S^{(D)}_{BP}$ will include correlations between $WD$ consecutive bits. 
-		\item If the grouping process of $W$ bits is made with superposition and the grouping of $D$ decimal numbers is made without superposition we get $floor\{(N-W+1)/D\}$ elements starting from a file with $N$ bits.The statistical quality factor is $\alpha=floor\{(N-W+1)/D\}/D!$ and $S^{(D)}_{BP}$ takes into account correlations between $W+D-1$ bits.
-		\item If both grouping processes are made without superposition we get $floor\{floor\{N/W\}/D\}$ elements starting from a $N$-bits length file. The statistical quality factor is $\alpha=floor\{floor\{N/W\}/D\}/D!$ and $S^{(D)}_{BP}$ takes into account correlations between $WD$ consecutive bits.
+		\item Si ambos procesos de agrupamiento se realizan con superposición obtenemos $NW-D + 2$ elementos comenzando con un archivo $ N $ bits de longitud, y el factor de calidad es $\alpha = (NW-D + 2) / D!$.
+		En este caso $S ^ {(D)}_{BP}$ tiene en cuenta las correlaciones entre $W + D$ bits consecutivos.
+		\item Si el proceso de agrupación de $W$ bits se realiza sin superposición pero la agrupación de números decimales $D$ se realiza con superposición obtenemos $floor\{N/W\}-D+1$ elementos y el parámetro de calidad estadística es $\alpha=(floor\{N/W\}-D+1)/D!$.
+		En este caso $S^{(D)}_{BP}$ incluirá correlaciones entre $WD$ bits consecutivos.
+		\item Si el proceso de agrupación de $W$ bits se realiza con superposición y la agrupación de números decimales $D$ se realiza sin superposición, obtenemos $floor\{(N-W+1)/D\}$ elementos a partir de un archivo de $N$ bits.
+		El factor de calidad estadística es $\alpha=floor\{(N-W+1)/D\}/D!$ y $S^{(D)}_{BP}$ tiene en cuenta correlaciones de $W+D-1$ bits.
+		\item Si ambos procesos de agrupación se realizan sin superposición, obtenemos $floor\{floor\{N/W\}/D\}$ elementos a partir de un archivo de longitud de  $N$ bits.
+		El factor de calidad estadística es $\alpha=floor\{floor\{N/W\}/D\}/D!$ y $S^{(D)}_{BP}$ tiene en cuenta las correlaciones entre $WD$ bits consecutivos.
 	\end{enumerate}
 \end{enumerate} 

@@ -1,5 +1,4 @@
 \subsection{Cuantificador de entropías implementado en FPGA}
-\label{sec:ImpFPGA}
 
 En esta sección se describe la implementación de un sistema de medición de entropías.
 El diseño fue optimizado para ser implementado en un microcotrolador simple y pequeño, conservando una precisión aceptable.
@@ -69,8 +68,8 @@ El sistema implementado puede dividirse en tres etapas principales como se muest
 	Se trata de un microcontrolador que contiene la lógica principal del microprocesador 8051 de Intel, sin sus periféricos.
 	Este micro tiene una arquitectura Von Newman con un bus de direcciones de 16~bits, lo que limita nuestro diseño a 64~KB de memoria de código y 64~KB de memoria de datos.
 	
-	Sobre este microcontrolador corre el programa que realiza los cálculos presentados en la sección \ref{sec:entropias}.
-	Se encarga de, a partir de los datos de entrada, obtener las PDFs ($BP$ e $hist$) y de realizar los cálculos para la obtención de las entropías, según la ec. \ref{eq:entropia}.
+	Sobre este microcontrolador corre el programa que realiza los cálculos presentados en la sección \ref{sec:ITQs}.
+	Se encarga de, a partir de los datos de entrada, obtener las PDFs ($BP$ e $hist$) y de realizar los cálculos para la obtención de las entropías, según la ec. \ref{eq:shannon}.
 	El \textit{software} implementado se describe más detalladamente en la sección \ref{sec:Software}.
 	
 	La memoria de código es una memoria no volátil (NVM) implementada con los bloques flash internos de la FPGA.
@@ -127,16 +126,22 @@ En los cuatro casos la frecuencia de las señales fue de 100~Hz y la velocidad d
 El cuadro \ref{tabla} muestra el error absoluto entre los resultados de los cuantificadores calculados en la FPGA comparados con los resultados calculados con el programa patrón sobre los mismos datos.
 %
 \begin{table}
-\centering	
 	\begin{tabular}{@{\extracolsep{\fill}}| c| c | c |c |}
 		\hline
-		\textbf{\footnotesize{Generador}} & \textbf{\footnotesize{Orígen}} & \textbf{\footnotesize{Error}} \textbf{\footnotesize{$H_{BP}$}} & \textbf{\textbf{\footnotesize{Error}}} \textbf{\footnotesize{$H_{hist}$}} \\ \hline
-		\footnotesize{Rand}               & \footnotesize{Digital}         & \footnotesize{$1,7421E^{-6}$}                                  & \footnotesize{$2,6977E^{-6}$}                                             \\ \hline
-		\footnotesize{Logístico}          & \footnotesize{Digital}         & \footnotesize{$0,4256E^{-6}$}                                  & \footnotesize{$94,693E^{-6}$}                                             \\ \hline
-		\footnotesize{Triangular}         & \footnotesize{Analógico}       & \footnotesize{$6,3445E^{-6}$}                                  & \footnotesize{$2,0028EE^{-6}$}                                            \\ \hline
-		\footnotesize{Senoidal}           & \footnotesize{Analógico}       & \footnotesize{$6,3151E^{-6}$}                                  & \footnotesize{$5,6506E^{-6}$}                                             \\ \hline
-		\footnotesize{Cuadrada}           & \footnotesize{Analógico}       & \footnotesize{$0,1797E^{-6}$}                                  & \footnotesize{$1,9930EE^{-6}$}                                            \\ \hline
-		\footnotesize{Rampa}              & \footnotesize{Analógico}       & \footnotesize{$245,00E^{-6}$}                                  & \footnotesize{$1,0876E^{-6}$}                                             \\ \hline
+		\textbf{\footnotesize{Generador}} & \textbf{\footnotesize{Orígen}} & \textbf{\footnotesize{Error}} \textbf{\footnotesize{$H_{BP}$}} & \textbf{\textbf{\footnotesize{Error}}} \textbf{\footnotesize{$H_{hist}$}} \\
+		\hline
+		\footnotesize{Rand} & \footnotesize{Digital} & \footnotesize{$1,7421E^{-6}$} & \footnotesize{$2,6977E^{-6}$} \\
+		\hline
+		\footnotesize{Logístico} & \footnotesize{Digital} & \footnotesize{$0,4256E^{-6}$} & \footnotesize{$94,693E^{-6}$} \\
+		\hline
+		\footnotesize{Triangular} & \footnotesize{Analógico} & \footnotesize{$6,3445E^{-6}$} & \footnotesize{$2,0028EE^{-6}$} \\
+		\hline
+		\footnotesize{Senoidal} & \footnotesize{Analógico} & \footnotesize{$6,3151E^{-6}$} &\footnotesize{$5,6506E^{-6}$} \\
+		\hline
+		\footnotesize{Cuadrada} & \footnotesize{Analógico} & \footnotesize{$0,1797E^{-6}$} & \footnotesize{$1,9930EE^{-6}$} \\
+		\hline
+		\footnotesize{Rampa} & \footnotesize{Analógico} & \footnotesize{$245,00E^{-6}$} & \footnotesize{$1,0876E^{-6}$} \\
+		\hline
 	\end{tabular}
 	\caption{Error de los cuantificadores evaluados en la FPGA con respecto a los resultados calculados por el programa patrón.}\label{tabla}
 \end{table}
@@ -167,9 +172,6 @@ Por otro lado, de las 65536 direcciones la memoria SRAM tenemos disponibles 6144
 	\caption{Recursos empleados por el \textit{software} del sistema.}\label{fig:soft}
 \end{figure}
 
-\subsubsection{Discusión}
-\label{sec:discusion}
-
 El programa debió ser adaptado al microcontrolador instanciado en la FPGA.
 Estas modificaciones hacen que la salida del sistema implementado no sea igual a la de un programa que corre en la PC, al cual tomamos como programa o patrón.
 Por esto se testeó el error cometido, para tener una cota y determinar si los resultados de los cuantificadores son correctos.
@@ -185,18 +187,3 @@ Un caso interesante de analizar es la señal Cuadrada.
 El efecto del ruido aditivo es especialmente notable en las zonas en donde el valor de la señal debería ser constante.
 Se generan dos Gaussianas muy finas en torno a los valores ideales en la $PDF_{hist}$, esto no afecta demasiado el valor calculado $H_{hist}$, sin embargo para la $PDF_{BP}$, se calcula el patrón de orden directamente a la señal ruidosa, por lo que el valor de $H_{BP}$ es más alto que el esperado.
 La señal generada mediante la función rand de C, presenta las mejores propiedades estadísticas ubicándose en el punto $\sim(1,1)$.
-
-\subsubsection{Conclusiones y trabajo futuro}
-\label{sec:conclusiones}
-
-Se desarrolló e implementó un sistema que permite medir con buena precisión las entropías causal y no-causal de señales analógicas provenientes del exterior de la FPGA y también internas generadas por código.
-
-Se logró medir señales y realizar cálculos complejos con un microcontrolador modesto como el 8051 instanciado en la FPGA AFS1500 de ACTEL.
-Este primer prototipo cumple con las especificaciones de precisión y cantidad de recursos requeridos establecidas en el diseño, el próximo paso será optimizar el sistema en cuanto a frecuencia de operación e inmunidad al ruido.
-
-Se prevé que el sistema permita modificar, en tiempo de ejecución, la frecuencia de muestreo, de forma de que sea adaptable a la señal de entrada, con el límite superior de 500~Ks/s fijado por el ADC.
-
-Deberá agregarse también un umbral a partir del cual un valor es considerado distinto de otro, de esta forma se solucionaría el problema que presenta el ruido aditivo en el cálculo de $H_{BP}$.
-
-El código de este sistema ocupa el 15,4\% del total de la memoria flash del micro instanciado, por lo que será posible agregar \textit{software} para implementar otros cuantificadores y funcionalidades.
-En cuanto a los recursos disponibles en la FPGA se utilizaron 7349 celdas lógicas, quedando casi el 80\% de los recursos de \textit{hardware} disponibles para implementar los sistemas bajo prueba en forma concurrente.

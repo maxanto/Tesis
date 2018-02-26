@@ -1,0 +1,33 @@
+\section{Conclusiones}
+
+En este capítulo se resumen los resultados de cuatro trabajos orientados a la implementación de sistemas caóticos.
+Se propusieron y analizaron distintos sistemas y aplicaciones desde el punto de vista estadístico, siempre contemplando la implementación orientada a la ingeniería.
+
+!!!!!!!!!!!!!!!!!!!!FALTA PONER ALGO DE RNA!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+Se desarrolló un nuevo método para el diseño de sistemas de criptocodificación mediante el empleo de mapas caóticos cuadráticos acoplados.
+Se obtuvieron resultados muy prometedores hasta el momento mediante las simulaciones realizadas.
+También se obtuvieron buenos resultados en la implementación en VHDL del sistema codificador, en la que se verificó que la salida generada por el sistema no cayera en ciclos periódicos debido a la utilización de presición finita.
+En cuanto al análisis de performance que presenta el sistema se deben tener en cuenta dos aspectos:
+\begin{itemize}
+	\item
+	La distancia mínima de la modulación codificada resultante.
+	Esta  es usualmente empleada para proveer un límite de error en la región de piso.
+	\item
+	Una descripción precisa de la tasa binaria de error del sistema o BER (en inglés, Bit Error Rate) también es un parámetro muy importante, ya que da una estimación del comportamiento que presentara el código.
+\end{itemize}
+
+A partir de los resultados presentados para PRNGs determinístico-estocásticos, es posible concluir que para obtener un PRNG, los mejores corresponden a la representación de aritmética entera tanto en hardware (recursos y frecuencia) como en propiedades estadísticas.
+La técnica de aleatorización de \textit{concatenado} hace que la calidad sea independiente de $\Delta t$ para esta representación numérica.
+Para la técnica de aleatorización de \textit{descarte} se obtienen buenos resultados solo para valores grandes de $\Delta t$.
+Lo mismo ocurre con las implementaciones de punto fijo con ambas técnicas de aleatorización.
+En términos de uso de recursos y limitaciones de frecuencia, el rendimiento en aritmética de enteros es considerablemente mejor que en punto flotante y punto fijo.
+Observemos que para minimizar los recursos, se requiere un preprocesamiento del sistema caótico (escalado y polarización) para obtener divisores con una potencia de $2$, tal como se explica en la subsección \ref{sec:impleInt}.
+Por otro lado, para el caso de la aritmética de punto flotante, el exponente se descarta en todas las técnicas de aleatorización utilizadas y, en consecuencia, la dinámica se ve muy perturbada por el proceso de aleatorización.
+Entonces, como se muestra en la Tabla \ref{tabla: Tabla2} $\Delta t $ no es la variable relevante para predecir si un PRNG será bueno o malo.
+
+Finalmente, hemos desarrollado un análisis detallado de los cambios en el comportamiento de una implementación en punto fijo de un mapa cuadrático bidimensional.
+El objetivo fue reportar la tasa de degradación de la propiedad de cada sistema, para que los autores la utilicen al momento de diseñar sus aplicaciones particulares.
+Los resultados muestran que es posible determinar un umbral para el número de bits empleados en la representación de punto fijo del sistema, mientras que el dominio de atracción conserva su integridad y se mantienen las características de las secuencias generadas.
+Con la ayuda de los cuantificadores de aleatoriedad introducidos fue posible determinar ese límite, en el caso del estudio fue de 23 bits.
+El mismo procedimiento debe repetirse para cualquier otro sistema si se desea utilizarlo en una aplicación electrónica digital, como generadores de ruido controlados o para desarrollar nuevos sistemas de encriptación.

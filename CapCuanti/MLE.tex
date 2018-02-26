@@ -1,21 +1,6 @@
 \section{Máximo Exponente de Lyapunov}
 \label{sec:MLE}
 
-\subsubsection{Maximum Lyapunov Exponent}
-
-%ESTO VIENE DE OTRO LADO
-Los exponentes de Lyapunov son cuantificadores que caracterizan cómo evoluciona la separación entre dos trayectorias con condiciones iniciales adyacentes, \cite{Sprott2003}.
-Es bien sabido que los comportamientos caóticos se caracterizan principalmente por Lyapunov números de los sistemas dinámicos.
-Un comportamiento caótico requiere que uno o más números de Lyapunov sean mayores que cero.
-De lo contrario, el sistema es estable.
-En este documento, empleamos el número máximo exponente de Lyapunov ya que es uno de los más útiles indicadores de caos.
-
-La distancia entre las trayectorias cambia en $2 ^ {MLE}$ para cada iteración, en promedio.
-Si $MLE < 0$ las trayectorias convergen, esto puede deberse a un punto fijo, si $MLE = 0$ las trayectorias mantienen su distancia, esto puede ser debido a un ciclo límite, si $MLE > 0$, el distancia entre trayectorias aumenta, y es un indicador de caos, \cite{Strotgartz1994}.
-
-En este caso, hemos adoptado una forma no analítica de medirlo ya que aquí solo se puede acceder a las entradas y salidas del sistema \cite{Sprott2003}.
-%FIN DE ESTO VIENE DE OTRO LADO
-
 ¿Que es lo que diferencia a un ciclo límite o una órbita cerrada de una órbita caótica? una órbita caótica (atractor caótico) es aperiódica, es decir que nunca se repite exactamente y la oscilación persiste para $t \to \infty$.
 El movimiento sobre un atractor exhibe una dependencia sensible a las condiciones iniciales.
 Esto significa que dos trayectorias que comienzan muy cercanas, rápidamente divergen una de otra, por lo que tendrán futuros muy diferentes.
@@ -46,14 +31,14 @@ Venimos llamando al número $\lambda$ exponente de Lyapunov, sin embargo este es
 Primero, $\lambda$ depende de la trayectoria que estamos estudiando, deberíamos promediar sobre muchos puntos sobre la misma trayectoria para obtener su verdadero valor.
 Segundo, realmente hay tantos exponentes de Lyapunov como dimensiones tenga el sistema.
 Supongamos la evolución de una esfera infinitesimal de condiciones iniciales en el espacio de estados de tres dimensiones.
-Durante esta evolución la esfera se se vuelve un elipsoide infinitesimal con tres ejes principales $\lambda_1$, $\lambda_2$ y $\lambda_3$, siendo estos tres los exponentes de Lyapunov del sistema.
+Durante esta evolución la esfera se vuelve un elipsoide infinitesimal con tres ejes principales $\lambda_1$, $\lambda_2$ y $\lambda_3$, siendo estos tres los exponentes de Lyapunov del sistema.
 El caos está definido por el máximo exponente de Lyapunov, a partir de ahora MLE, entonces basta que uno de los tres exponentes sea positivo para que el sistema sea caótico.
 Si uno o mas números de Lyapunov es mayor que cero, entonces el sistema se comporta caóticamente, de otra forma el sistema es estable.
 
-El Máximo Exponente de Lyapunov (MLE) caracteriza que tan rápido se apartan dos trayectorias.
+El Máximo Exponente de Lyapunov (MLE) caracteriza que tan rápido se apartan dos trayectorias inicialmente vecinas.
 Si esta velocidad es exponencial, se dice que el sistema es caótico, por lo que este exponente es conocido como un detector de  ``caoticidad", \cite{strotgartz1994,Kantz1994,Sprott2003}.
 Más adelante, el MLE fue utilizado en diversas aplicaciones de muy distintas áreas.
-Sólo por mencionar alguna, en \cite{Ma2013} el MLE es usado para medir una señal muy débil en un gas ideal utilizando criterios caóticos.
+Sólo por mencionar algunas, en \cite{Ma2013} el MLE es usado para medir una señal muy débil en un gas ideal utilizando criterios caóticos.
 En \cite{Bruijna2011}, se estudia si es posible predecir un cambio en la probabilidad de caída para un modelo simple de caminante humano a partir del $MLE$.
 
 Sabemos que el sistema en tiempo continuo es una idealización, por lo que se usa el exponente de Lyapunov para tiempo discreto:
