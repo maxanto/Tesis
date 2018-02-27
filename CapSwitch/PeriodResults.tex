@@ -6,28 +6,34 @@ Vieron que el período $T$ del mapa compuesto obtenido al conmutar entre dos map
 Aquí hemos considerado el solo la conmutación secuencial para evitar el uso de otra variable aleatoria, ya que esta puede introducir sus propias propiedades estadísticas en la serie temporal.
 
 La Fig. \ref{fig:period} muestra $T$ vs. $B$ en escala semi logarítmica para el mapa logístico.
+Para cada presición, se generararon 100 surrogados diferentes, cada uno con una condición inicial generada aleatoriamente.
+La figura muestra 100 puntos puntos rojos por cada precisión de punto fijo ($1 \geq B \geq 53$) y los resultados promediados (puntos negros conectados con líneas enrtecortadas negras).
 Los puntos promediados experimentales se pueden ajustar por una línea recta expresada como $\log_2 T = mB + b$ donde $m$ es la pendiente y $b$ es la ordenada al orígen.
-Los resultados para todos los mapas considerados se resumen en la tabla \ref{tabla:periodos}.
 %
 \begin{figure}[htpb]
 \centering	
 	\includegraphics[width=.49\textwidth]{Period_Log}
 	\caption{Período $T$ en función de la preceisión $B$ en números binarios para el mapa LOG.} \label{fig:period}
 \end{figure}
+
+Los resultados para todos los mapas considerados se resumen en la tabla \ref{tabla:periodos}.
+Pudimos detectar que el período promediado fué el mismo usando $u=2$ y $u=1.96$ cuando se ustiliza la estrategia de switching.
+Por lo tanto para calcular los resultados mostrados en la tabla para SWITCH, EVEN y ODD se iteró con $u=2$.
 %
 \begin{table}[htpb]
-\centering	
-	\caption{Período $T$ en función de la preceisión $B$ para todos los mapas considerados}
+	\centering	
+	\caption{Período $T$ en función de la preceisión $B$ para todos los mapas considerados. SWITCH, EVEN y ODD fueron calculados con $u=2$.}
 	\vspace{1em}
 	\begin{tabular}{lll}
 		\hline\noalign{\smallskip}
-		mapa & m & b  \\
+		map 			& m 	& b  \\
 		\noalign{\smallskip}\hline\noalign{\smallskip}
-		TENT&0 & 0 \\
-		LOG &0.139 & -0.6188 \\
-		SWITCH &0.1462 & -0.5115 \\
-		EVEN &0.1447 & -0.7783 \\
-		ODD &0.1444 & -0.7683 \\
+		TENT $u=2$		&0 		& 0 \\
+		TENT $u=1.96$ 	&0.1487 & -0.01177 \\
+		LOG 			&0.139 	& -0.6188 \\
+		SWITCH 			&0.1462 & -0.5115 \\
+		EVEN 			&0.1447 & -0.7783 \\
+		ODD 			&0.1444 & -0.7683 \\
 		\noalign{\smallskip}\hline
 	\end{tabular}
 	\label{tabla:periodos}	
@@ -35,3 +41,4 @@ Los resultados para todos los mapas considerados se resumen en la tabla \ref{tab
 
 Los resultados son compatibles con los obtenidos en \cite{Nagaraj2008}.
 La conmutación entre mapas aumenta el período $T$ pero el procedimiento de skipping lo disminuye casi a la mitad.
+Además, los resultados para el mapa TENT con $u=1,96$ exhibe los mejores resultados.

@@ -6,14 +6,14 @@ Mediante el uso de nuevos dispositivos electrónicos programables como DSP y ele
 Cuando se implementa un sistema caótico en computadoras o cualquier dispositivo digital, el atractor caótico se vuelve periódico por el efecto de la precisión finita, entonces solo se pueden generar atractores pseudocaóticos \cite{Alcover2017, Dias2011}.
 La discretización puede incluso destruir el comportamiento pseudocaótico y, en consecuencia, es un proceso no trivial \cite{Azzaz2013, Hoover2017, DeMicco2017}.
 
-En estos nuevos dispositivos, el punto flotante y el punto fijo son la aritmética disponible.
+En estos nuevos dispositivos, el punto flotante y el punto fijo son las aritméticas más comunes.
 El punto flotante es la solución más precisa, pero no siempre se recomienda cuando se requieren velocidad, baja potencia y/o área de circuito pequeño, una solución de punto fijo es mejor en estos casos.
 
 El efecto de la discretización numérica sobre un mapa caótico fue abordado recientemente en \cite{Alcover2017} y \cite{DeMicco2017}.
 En \cite{Alcover2017}, el autor caracteriza las interfaces de Moire en el sistema Mandelbrot.
 Estas interfaces son consecuencia del tipo de precisión de los datos y no aparecen en el sistema ideal con números reales.
 En \cite{DeMicco2017}, los autores exploran la degradación estadística del espacio de fases para una familia de mapas cuadráticos 2D.
-Estos mapas presentan una dinámica multiatractor que los hace muy atractivos como generadores de números aleatorios en campos como criptografía, codificación, etc.
+Estos mapas presentan una dinámica multiatractor que los hace muy atractivos como generadores de números aleatorios en campos como criptografía, codificación, etc. En \cite{Tlelo-Cuautle2016} y \cite{DelaFraga2017}, los autores propusieron usar el valor de la entropía para elegir el número de bits en la parte fraccionaria, cuando se implementan mapas en aritmética entera.
 
 Grebogi y colaboradores \cite{Grebogi1988} estudiaron este tema y vieron que el período $T$ escala con el redondeo $\epsilon$ como $T\sim\epsilon^{-d/2}$ donde $d$ es la dimensión de correlación del atractor caótico.
 Conseguir un período grande $T$ es una propiedad importante de los mapas caóticos, en \cite{Nagaraj2008} Nagaraj \textit{et. al} se estudió el efecto de cambiar las longitudes de período promedio de los mapas caóticos en precisión finita.
