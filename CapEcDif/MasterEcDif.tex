@@ -1,4 +1,5 @@
 \chapter{Sistemas de dinámica compleja}
+\label{capSist}
 
 \input{./CapEcDif/Intro.tex}
 
@@ -245,7 +246,7 @@ Otra observación que se puede hacer es que las trayectorias no se repiten, es d
 Esta última propiedad clasifica al sistema que se está midiendo como caótico.
 
 \begin{figure}
-\centering\includegraphics[scale=.3]{Secuencia-OK_2}
+\centering\includegraphics[width=0.8\textwidth]{Secuencia-OK_2}
 \caption{Salidas de tensión de dos variables de un circuito oscilador}
 \label{fig:Secuencia-OK_2}
 \end{figure}
@@ -424,7 +425,7 @@ En la figura \ref{fig:chua}, puede verse la evolución de las tres variables de 
 ¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡Hablar de mapas como Logístico, tent, etc..!!!!!!!!!!!!!!!!!!!!
 
 \subsection{Mapas cuadráticos bidimensionales}
-\label{ssec:QMaps}
+\label{ssecQMaps}
 
 La familia de mapas cuadráticos bidimensionales que estudiamos aquí es modelada por un par de ecuaciones cuadráticas acopladas:
 %
@@ -443,7 +444,7 @@ El espacio de parámetros de $12D$ generado por los coeficientes $A$ es muy dif�
 Las razones para estudiar este sistema en particular son dobles:
 %
 \begin{enumerate}
-	\item Usando la aritmética de punto flotante con un barrido automático de parámetros $a_i$ y una gran cantidad de puntos en el espacio del parámetro (alrededor de $6. 10 ^ {16}$), Sprott pudo detectar varios atractores en régimen caótico permanente.
+	\item Usando la aritmética de punto flotante con un barrido automático de parámetros $a_i$ y una gran cantidad de puntos en el espacio del parámetro (alrededor de $6\cdot10 ^ {16}$), Sprott pudo detectar varios atractores en régimen caótico permanente.
 	Es decir, tienen la característica de modificar su atractor según los valores que tomen sus 12 coeficientes reales.
 	Él también encontró una relación entre la dimensión de correlación y los exponentes de Lyapunov, con su estética visual, un tema interesante para la generación automática de arte.
 	\item Es posible emplear estos atractores en una amplia variedad de aplicaciones electrónicas, como la generación de nuevos sistemas de encriptación, ya sea reemplazando el S-box en AES \cite{Ahmad2013, Hussain2013}, o incluso desarrollando nuevos algoritmos \cite{Machado2004, Smaoui2009}.
@@ -452,11 +453,11 @@ Las razones para estudiar este sistema en particular son dobles:
 Tres de estos atractores caóticos se muestran juntos en la figura \ref{fig:atractoresQMaps}.
 Sus juegos de parámetros $A_i$ son:	
 %
-\begin{align*}
+\begin{eqnarray}
 A_1&=\{-0.7,-0.4,0.5,-1.0,-0.9,-0.8,0.5,0.5,0.3,0.9,-0.1,-0.9\},\nonumber\\
 A_2&=\{-0.6,-0.1,1.1,0.2,-0.8,0.6,-0.7,0.7,0.7,0.3,0.6,0.9\}, \nonumber\\
 A_3&=\{ -0.1,0.8,-0.7,-1.1,1.1,-0.7,-0.4,0.6,-0.6,-0.3,1.2,0.6\}.\nonumber\\
-\end{align*}
+\end{eqnarray}
 %
 Como se puede ver en la figura, es posible obtener salidas muy diferentes simplemente modificando el valor de los parámetros y manteniendo la estructura del sistema.
 En una implementación electrónica, esto sería equivalente a poder variar la salida manteniendo la estructura del hardware y modificando los parámetros a través de, por ejemplo, una entrada.

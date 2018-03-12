@@ -239,14 +239,14 @@ El hardware requerido se muestra en la tabla \ref{tabla:Tabla1}. Aquí se muestr
 \begin{table*} [tb]
 \begin{center}
 \caption{Resultados de compilación en \textit{CYCLONE III EP3C120F780C7}.}
-\begin{tabular}{|c|c|c|c|c|c|c|c|}
-	\hline\hline
-	                                     & Punto fijo($32$bits) & Punto fijo($64$bits) & Flotante($32$bits) & Flotante($64$bits) & Enteros($54$bits) &  \\ \hline\hline
-	     Total de elementos lógicos      &       $2,392$        &       $6,104$        &      $8,176$       &      $17,532$      &      $1,297$      &  \\ \hline
-	Porcentaje de elementos lógicos [\%] &        $2.00$        &        $5.12$        &       $6.86$       &      $14.72$       &      $1.08$       &  \\ \hline
-	         Total de registros          &       $1,658$        &       $1,754$        &      $4,753$       &      $8,532 $      &       $159$       &  \\ \hline\hline
-	       Reloj $f_{max}$ [MHz]         &       $37.82$        &       $20.51$        &       $7.48$       &       $5.42$       &      $55.38$      &  \\ \hline
-	          Throughput [Mbs]           &      $1,210.24$      &       $656.32$       &      $14.96$       &      $173.44$      &    $1,772.16$     &  \\ \hline\hline
+\begin{tabular}{c|c|c|c|c|c|c|}
+	\cline{2-6}
+	& \begin{tabular}[c]{@{}c@{}} Punto fijo\\($32$bits)\end{tabular} & \begin{tabular}[c]{@{}c@{}} Punto fijo\\($64$bits) \end{tabular} & \begin{tabular}[c]{@{}c@{}} Flotante\\($32$bits) \end{tabular} & \begin{tabular}[c]{@{}c@{}} Flotante\\($64$bits) \end{tabular} & \begin{tabular}[c]{@{}c@{}} Enteros\\($54$bits) \end{tabular} \\ \hhline{~=====} \cline{1-1}
+\multicolumn{1}{|c|}{Elementos lógicos [Total]}     &       $2,392$        &       $6,104$        &      $8,176$       &      $17,532$      &      $1,297$ \\ \hline
+\multicolumn{1}{|c|}{Elementos lógicos [\%]} 		&        $2.00$        &        $5.12$        &       $6.86$       &      $14.72$       &      $1.08$ \\ \hline
+\multicolumn{1}{|c|}{Total de registros}          	&       $1,658$        &       $1,754$        &      $4,753$       &      $8,532 $      &       $159$ \\ \hline\hline
+\multicolumn{1}{|c|}{Reloj $f_{max}$ [MHz]}         &       $37.82$        &       $20.51$        &       $7.48$       &       $5.42$       &      $55.38$ \\ \hline
+\multicolumn{1}{|c|}{Throughput [Mbs]}           	&      $1,210.24$      &       $656.32$       &      $14.96$       &      $173.44$      &    $1,772.16$ \\ \hline
 \end{tabular}
 \end{center}
 \label{tabla:Tabla1}
@@ -266,26 +266,27 @@ Definimos los valores $x_ {disc}$, ($ y_{disc}$, $z_{disc}$) como la serie tempo
 La variable $xyz$ es la serie de tiempo obtenida mediante la técnica de aleatorización de \textit{concatenado}.
 \begin{table*} [tb]
 \begin{center}
-\caption{DIEHARD tests results.}
-\begin{tabular}{|c|c|c|c|c|c|c|}
-	\hline\hline
-	                        & $\Delta t=1/2^n$ & 0,015625 & 0,0078125 & 0,00390625 & 0,001953125 & 0,0009765625 \\ \hline\hline
-	   Float ($64$ bits)    &    $x_{disc}$    &    no    &    no     &     si     &     si      &      no      \\ \hline
-	                        &    $y_{disc}$    &    no    &    no     &     si     &     si      &      no      \\ \hline
-	                        &    $z_{disc}$    &    si    &    si     &     si     &     no      &      no      \\ \hline
-	                        &      $zyx$       &    no    &    no     &     no     &     no      &      si      \\ \hline\hline
-	Fixed Point ($64$ bits) &    $x_{disc}$    &    si    &    si     &     no     &     no      &      no      \\ \hline
-	                        &    $y_{disc}$    &    si    &    si     &     no     &     no      &      no      \\ \hline
-	                        &    $z_{disc}$    &    si    &    si     &     no     &     no      &      no      \\ \hline
-	                        &      $zyx$       &    si    &    si     &     si     &     no      &      no      \\ \hline\hline
-	  Integer ($54$ bits)   &    $x_{disc}$    &    si    &    si     &     no     &     no      &      no      \\ \hline
-	                        &    $y_{disc}$    &    si    &    si     &     no     &     no      &      no      \\ \hline
-	                        &    $z_{disc}$    &    si    &    si     &     no     &     no      &      no      \\ \hline
-	                        &      $zyx$       &    si    &    si     &     si     &     si      &      si      \\ \hline
+\caption{Resultados del test DIEHARD. $\Delta t = 2^{-n}$.}
+\begin{tabular}{c|c|c|c|c|c|c|}
+	\cline{2-7}
+	                        & $n$ & 6 & 7 & 8 & 9 & 10 \\ \hhline{~======}\cline{1-1}
+	\multicolumn{1}{|c|}{\multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}\\ Flotante\\ ($64$ bits)\end{tabular}}} &    $x_{disc}$    &    no    &    no     &     si     &     si      &      no      \\ \cline{2-7}
+	\multicolumn{1}{|c|}{}                         &    $y_{disc}$    &    no    &    no     &     si     &     si      &      no      \\ \cline{2-7}
+	\multicolumn{1}{|c|}{}                         &    $z_{disc}$    &    si    &    si     &     si     &     no      &      no      \\ \cline{2-7}
+	\multicolumn{1}{|c|}{}                         &      $zyx$       &    no    &    no     &     no     &     no      &      si      \\ \hline\hline
+	\multicolumn{1}{|c|}{\multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}\\ Punto fijo\\ ($64$ bits)\end{tabular}}} &    $x_{disc}$    &    si    &    si     &     no     &     no      &      no      \\ \cline{2-7}
+	\multicolumn{1}{|c|}{}                         &    $y_{disc}$    &    si    &    si     &     no     &     no      &      no      \\ \cline{2-7}
+	\multicolumn{1}{|c|}{}                         &    $z_{disc}$    &    si    &    si     &     no     &     no      &      no      \\ \cline{2-7}
+	\multicolumn{1}{|c|}{}                         &      $zyx$       &    si    &    si     &     si     &     no      &      no      \\ \hline\hline
+	\multicolumn{1}{|c|}{\multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}\\ Enteros\\ ($54$ bits)\end{tabular}}} &    $x_{disc}$    &    si    &    si     &     no     &     no      &      no      \\ \cline{2-7}
+	\multicolumn{1}{|c|}{}                         &    $y_{disc}$    &    si    &    si     &     no     &     no      &      no      \\ \cline{2-7}
+	\multicolumn{1}{|c|}{}                         &    $z_{disc}$    &    si    &    si     &     no     &     no      &      no      \\ \cline{2-7}
+	\multicolumn{1}{|c|}{}                         &      $zyx$       &    si    &    si     &     si     &     si      &      si      \\ \hline
 \end{tabular}
 \end{center}
 \label{tabla:Tabla2}
 \end{table*}
+
 
 Esta tabla muestra que en los casos de implementaciones de enteros y punto fijo la técnica de aleatorización de \textit{descarte} funciona mejor a medida que $\Delta t$ aumenta porque, para elementos $\Delta t$ inferiores, las series temporales son más correlacionadas y esta técnica de aleatorización no los mezcla lo suficiente.
 Para utilizar valores de $\Delta t$ más bajos, más bits deben descartarse para obtener buenos PRNG.

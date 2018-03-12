@@ -25,7 +25,7 @@ Ellos solo agregaron un flip-flop D adicional en cada salida de anillo.
 La efectividad de su propuesta fue probada por medio de suites de prueba disponibles en la literatura abierta \cite{NIST2000, marsaglia1995, NIST2000a}.
 
 En este capítulo se realiza una descripción detallada de una implementación de hardware muy compacta de \emph{TRNG}s basados en \emph{RO}s propuesto en \cite{Wold2009}.
-Para validar la aleatoriedad de las secuencias de ruido generadas, se usan dos cuantificadores derivados de la teoría de la información y el plano de doble entropía $H_{BP} \times H_{hist}$ propuestos en la sección \ref{sec:itqs}.
+Para validar la aleatoriedad de las secuencias de ruido generadas, se usan dos cuantificadores derivados de la teoría de la información y el plano de doble entropía $H_{BP} \times H_{hist}$ propuestos en la sección \ref{capCuanti}.
 Según lo explicado arriba, $H_{hist}$ es una medida de la equiprobabilidad entre todos los valores posibles y $H_{BP}$ es una medida de la independencia entre valores consecutivos.
 
 A continuación se muestra la implementación de hardware del \emph{RO}s mapeado en \emph{FPGA} Ciclone III y los resultados obtenidos para diferentes configuraciones, comparando estos resultados con los arrojados por otros generadores.
@@ -34,12 +34,12 @@ A continuación se muestra la implementación de hardware del \emph{RO}s mapeado
 
 Los \emph{TRNG} implementados consisten en varios \emph{RO}s con sus salidas XOR juntas y muestreadas por un flip flop \emph{D}.
 El flip flop latchea la salida a una frecuencia seleccionada (aquí $ 100 $ MHz) \cite{Wold2009}.
-La implementación física se realiza en el kit de desarrollo con \emph{EP3C120F780C7N} \emph{FPGA} cuyo dispositivo principal es una  \emph{ALTERA} $^{\ copyright}$ \emph{Cyclone} III \emph{EP3C120}.
-El diseño está hecho con el software \emph{Quartus} $^{\ copyright}$ II 13.1.
+La implementación física se realiza en el kit de desarrollo con \emph{EP3C120F780C7N} \emph{FPGA} cuyo dispositivo principal es una  \emph{ALTERA} $^{\copyright}$ \emph{Cyclone} III \emph{EP3C120}.
+El diseño está hecho con el software \emph{Quartus} $^{\copyright}$ II 13.1.
 
 \subsubsection{Reseña del Chip}
 
-Las \emph{FPGA}s consisten en una gran cantidad de bloques de matriz lógica (\emph{LAB} s), con grupos de elementos lógicos (\emph{LE} s) para implementar circuitos tanto secuenciales como combinatorios \ref{apendA}.
+Las \emph{FPGA}s consisten en una gran cantidad de bloques de matriz lógica (\emph{LAB} s), con grupos de elementos lógicos (\emph{LE} s) para implementar circuitos tanto secuenciales como combinatorios.
 En la arquitectura de la familia \emph{Cyclone} III cada \emph{LAB} contiene $16$ \emph{LE}s.
 Básicamente, cada \emph{LE} es un Flip Flop (\emph{FF}) con una (\emph{LUT}) de cuatro entradas(ver Fig. \ref{fig:LE}).
 Cada \emph{LUT} puede implementar cualquier función de vcuatro variables.
@@ -89,9 +89,7 @@ La Fig. \ref{fig:fpgaplan} muestra las $50$ regiones \emph{LogicLock}s utilizada
 Se asigna un \emph{RO} a cada región.
 Las regiones se distribuyen sobre el chip para un análisis futuro de la importancia de la ubicación.
 Cada región tiene $16$ \emph{LAB}s, lo que nos permite aumentar el número de inversores de cada anillo, este es un problema a estudiar en futuros trabajos.
-
-%=========================================
- % FIGURA
+%
 \begin{figure*}
 \begin{center}
 \includegraphics[ width=0.5\textwidth]{fpgaplan}
@@ -140,20 +138,16 @@ Para tener una idea de la ocupación en el dispositivo, la tabla \ref{table:comp
 \label{sec:results}
 
 La herramienta \emph{Embedded Logic Analyzer} se utiliza para recopilar las secuencias aleatorias generadas.
-Constituye una \emph{herramienta de depuración a nivel de sistema}, proporcionada por $ Altera $ \cite{CUARTO}, que captura y almacena el comportamiento de la señal en tiempo real y permite observar las interacciones entre el hardware y el software en los diseños del sistema.
+Constituye una \emph{herramienta de depuración a nivel de sistema}, proporcionada por $ Altera $ \cite{QUARTUS}, que captura y almacena el comportamiento de la señal en tiempo real y permite observar las interacciones entre el hardware y el software en los diseños del sistema.
 Después de adquirir los datos y guardarlos en un archivo \emph{SignalTap} II, pueden ser analizado o visto como una forma de onda.
 Con este procedimiento ni jitter adicional, ni la distorsión se introducen en la señal medida de la cadena de adquisición de datos.
 
 Se utilizaron archivos de datos con $917504$ bits cada uno para cada \emph{TRNG}.
 Consideramos conjuntos de $N_ {RO}$ anillos, cada uno con $3$ inversores; $N_{RO}=2$, $3$, $4$, $5$, $6$, $7$, $15$, $25$ y $50$.
 
-Data from $SignalTap$ were  processed using \emph{Matlab}$^\copyright$. Binary data were grouped in $6$-bits words without
-superposition, so files with $152917$ data each were generated. Quantifiers described in section \ref{sec:method} were calculated
-for all generated files.
-
 Los datos de $SignalTap$ se procesaron usando \emph{Matlab} $^\copyright$.
 Se agruparon los datos en pañabras de $6$ bits sin superposición, por lo que se generaron archivos con $152917$ datos cada uno.
-Se calcularon los cuantificadores descritos en la sección \ref{sec: ITQs} para todos los archivos generados
+Se calcularon los cuantificadores descritos en la sección \ref{capCuanti} para todos los archivos generados
 
 También evaluamos otros generadores de ruidos conocidos para comparar su calidad con la de los \emph{PRNG} basados en \emph{RO}.
 Los ruidos analizados son:
@@ -166,11 +160,7 @@ Los ruidos analizados son:
   \item Dos mapas caóticos $M^1$ y sus versiones iteradas $M^2$ a $M^8$ \cite{DeMicco2008} para el mapa logístico (\emph{LOGISTIC}) y el \emph{three way Bernoulli map} (\emph{TWBM}).
 \end{itemize}
 
-Fig. \ref{fig:HBPvsHhis_all} shows the results in the dual entropy plane $H_{BP}$ vs $H_{hist}$ for all these noises.
-It can be seen that the \emph{physical noises}, the algorithmic \emph{Mersenne Twister}, and the \emph{PRNG}s used in \emph{Matlab} $^\copyright$(\emph{rand} function) and \emph{Excel}$^\copyright$ (\emph{RAND} function), have the  maximum value for $H_{BP}$, indicating that all the ordering patterns appear almost the same number of times. However these five noises present very different behavior with respect the $H_{hist}$ quantifier. The \emph{radioactive decay} is the worst, with a value of $H_{hist}$ about $0.5$ indicating that this sequence does not exhibit all possible values in the same proportion. In Fig. \ref{fig:HBPvsHhis_all} the numbers next to each marker for the chaotic sequences, indicate the number of iteration. The iterated maps have higher $H_{BP}$ because of their mixing property \cite{DeMicco2008}.
-
 La Fig. \ref{fig:HBPvsHhis_all} muestra los resultados en el plano de doble entropía $H_ {BP} \times H_{hist}$ para todos estos ruidos.
-
 Se puede ver que los ruidos físicos, el algoritmo \emph{Mersenne Twister} y los \emph{PRNG}s utilizados en \emph{Matlab} $^\copyright$ (función \emph{rand}) y en \emph{Excel} $^\copyright$ (\emph{RAND}), tienen el valor máximo para $H_{BP}$, lo que indica que todos los patrones de orden aparecen casi el mismo número de veces.
 Sin embargo, estos cinco ruidos presentan un comportamiento muy diferente con respecto al cuantificador $H_{hist}$.
 El \emph{decaimiento radiactivo} es el peor, con $H_ {hist} \sim 0,5$, que indica que esta secuencia no muestra todos los valores posibles en la misma proporción.
@@ -185,39 +175,30 @@ Los números al lado de cada punto en las secuencias caóticas \emph{Logistic} y
 \label{fig:HBPvsHhis_all}
 \end{center}
 \end{figure*}
-
+%
 El plano de entropía dual muestra que un aumento en el número de \emph{RO}s mejora tanto $H_ {BP}$ como $H_ {hist}$.
 
-Fig. \ref{HhistvsHBP_zoom} is a zoom of Fig. \ref{fig:HBPvsHhis_all}  around the ideal point $(1,1)$.
-
 La Fig. \ref{HhistvsHBP_zoom} es una vista con más detalle de la Fig. \ref{fig:HBPvsHhis_all} alrededor del punto ideal $(1,1)$.
-%
- % FIGURA
-\begin{figure*}
-\begin{center}
-\includegraphics[ width=0.8\textwidth]{HhistvsHBP_z}
-\caption{Detalle de la Fig. \ref{fig:HBPvsHhis_all} alrededor del punto ideal $(1,1)$.}
-\label{HhistvsHBP_zoom}
-\end{center}
-\end{figure*}
-%
 Allí, se muestra la evolución de las secuencias cuando la cantidad de \emph{RO}s aumenta de $5$ a $50$.
 Se puede observar que a medida que aumenta el número de anillos los datos aumentan su mezcla y también el histograma tiende a ser más uniforme, por lo tanto, ambas propiedades mejoran.
 Se puede determinar un umbral en el número de anillos, ya que los puntos se saturan en alrededor de $(0.997,1)$, por lo que este es el mejor \emph{PRNG} posible, usar más de $15$ \emph{RO}s no presenta ninguna mejora.
 Como se dijo anteriormente, el cuantificador $H_ {hist}$ detecta la variación del histograma de la secuencia, y el cuantificador $ H_ {BP} $ refleja la mejora en la mezcla de datos.
 Finalmente, las secuencias de Mersenne Twister y Matlab presentan un valor idéntico, ideal $H_ {BP}$ y un valor alto de $H_ {hist}$; no obstante, el histograma no es perfectamente uniforme (los valores no son equiprobables).
+%
+% FIGURA
+\begin{figure*}
+	\begin{center}
+		\includegraphics[ width=0.8\textwidth]{HhistvsHBP_z}
+		\caption{Detalle de la Fig. \ref{fig:HBPvsHhis_all} alrededor del punto ideal $(1,1)$.}
+		\label{HhistvsHBP_zoom}
+	\end{center}
+\end{figure*}
 
 \section{Conclusiones}
-\label{sec:conclusions}
 
 Los \emph{TRNG}s basados en \emph{RO} implementados aquí han demostrado satisfacer las propiedades estadísticas deseadas para un \emph{RNG}.
 Son comparables a otros \emph{RNG}s utilizados y en algunos casos son mejores.
 Emplean pocos recursos del dispositivo y se implementan de forma muy simple en una plataforma digital.
-
-It was demonstrated that for these architectures of \emph{PRNG} the quantity of
-\emph{RO}s establishes \emph{PRNG}'s statistical properties. It was seen that
-for $15$ \emph{RO}s both output's statistical properties, histogram
-and mixing, were almost ideal, making unnecessary the increase of the number of rings.
 
 Se demostró que para esta arquitectura la cantidad de \emph{RO}s establece las propiedades estadísticas del \emph{TRNG}.
 Se vio que para $15$ \emph{RO}s el histograma y la mezcla, eran casi ideales, haciendo innecesario el aumento de la cantidad de anillos.

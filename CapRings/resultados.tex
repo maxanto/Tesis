@@ -1,4 +1,4 @@
-\section{Resultados}
+\subsection{Resultados}
 \label{sec:resu}
 
 Se simuló con Matlab\textsuperscript{\textregistered} una salida de un \emph{RO} muestreada uniformemente sin \textit{jitter} y se generó un archivo de salida con una longitud de $N_b = 7.000.000$ de bits.
@@ -13,7 +13,7 @@ En consecuencia, la varianza del \textit{jitter} acumulada durante un período d
 Los valores considerados son $\sigma_T=\{0,$ $0.001,$ $0.002,$ $0.003,$ $0.004,$ $0.005,$ $0.007,$ $0.01,$ $0.02,$ $0.02,$ $0.04,$ $0.05,$ $0.07,$ $0.1\}$.
 
 Por cada archivo se evaluaron todos los cuantificadores definidos en la sección \ref{sec:quanti} para $D\in[2,10]$ y $W\in[1,26]$..
-Los detalles sobre la evaluación, las ventajas y los inconvenientes de cada cuantificador se informan en la sección \ref{sec:quanti}: ellos son $S_W$, $S^{(D)}_{BP}$, $H_{W}$, $H^{(D)}_{BP}$, $h$ and $h^*$. 
+Los detalles sobre la evaluación, las ventajas y los inconvenientes de cada cuantificador se informan en la sección \ref{capCuanti}: ellos son $S_W$, $S^{(D)}_{BP}$, $H_{W}$, $H^{(D)}_{BP}$, $h$ and $h^*$. 
 Aquí mostraremos solo los resultados más relevantes para mostrar la razón por la cual los dos últimos cuantificadores ($h$ y $h^*$) resultan los más adecuados para este problema.
 
 \begin{itemize}
@@ -54,30 +54,32 @@ La figura \ref{fig:hm_D_SJ} muestra la entropía diferencial de Bandt \& Pompe $
 Se puede ver que existe un valor umbral $W = 4$ sobre el cual todas las curvas colapsan en una sin importar el valor de $D$.
 Además, la Fig. \ref{fig:hm_D_SJ} también muestra que para $D \ge 8$ todas las curvas colapsan en una, independientemente del valor de $W$.
 En conclusión, si $D \ge 8$ y $W \ge 4$ obtenemos un cuantificador independiente de $D$ y $W$.
-La influencia del \textit{jitter} en este cuantificador se muestra en la figura \ref{fig: hm_D_CJ}, donde $h^*$ se representa como una función de $D$ con $\sigma_T$ como parámetro.
+%
+\begin{figure}
+	\centering
+	\includegraphics[ width=0.8\textwidth]{hm_D_SJ}
+	\caption{$h^*$ en función de $D$ para un \emph{RO} sin \textit{jitter} muestreado con $r=8$.}
+	\label{fig:hm_D_SJ}
+\end{figure}
+
+La influencia del \textit{jitter} en este cuantificador se muestra en la figura \ref{fig:hm_D_CJ}, donde $h^*$ se representa como una función de $D$ con $\sigma_T$ como parámetro.
 Los valores considerados son $\sigma_T=\{0 (sin~jitter),$ $0.001,$ $0.002,$ $0.003,$ $0.004,$ $0.005,$ $0.007,$ $0.01,$ $0.02,$ $0.02,$ $0.04,$ $0.05,$ $0.07,$ $0.1\}$.
 El recuadro de la Fig. \ref{fig:hm_D_CJ} muestra $h^*$ como una función de $\sigma_T$ para $D = 8$.
 Este recuadro muestra que este cuantificador es una función monótona creciente de $\sigma_T$.
-Finalmente, la Fig.\ref{fig: hm_r_CJ} muestra $h^*$ como una función de la relación de muestreo $r$.
+%
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\textwidth]{hm_D_CJ}
+	\caption{$h^*$ en función de $D$ para un \emph{RO} muestreado con $r=8$ con longitud de palabra $W=6$ para \textit{jitter} con diferentes varianzas. El recuadro muestra $h^*$ en función de $\sigma_T$ para $r=8$, $W=6$ y $D=8$.}
+	\label{fig:hm_D_CJ}
+\end{figure}
+
+Finalmente, la Fig.\ref{fig:hm_r_CJ} muestra $h^*$ como una función de la relación de muestreo $r$.
 En esta figura, se muestra que hay un mínimo para el $r$ correcto (en este caso $r = 8$).
 Además, la sensibilidad de $h^*$ en función del \textit{jitter} es máxima para este mismo valor ideal de $r$.
-
+%
 \begin{figure}
-\center
-\includegraphics[ width=0.8\textwidth]{hm_D_SJ}
-\caption{$h^*$ en función de $D$ para un \emph{RO} sin \textit{jitter} muestreado con $r=8$.}
-\label{fig:hm_D_SJ}
-\end{figure}
-
-\begin{figure}
-\center
-\includegraphics[width=0.8\textwidth]{hm_D_CJ}
-\caption{$h^*$ en función de $D$ para un \emph{RO} muestreado con $r=8$ con longitud de palabra $W=6$ para \textit{jitter} con diferentes varianzas. El recuadro muestra $h^*$ en función de $\sigma_T$ para $r=8$, $W=6$ y $D=8$.}
-\label{fig:hm_D_CJ}
-\end{figure}
-
-\begin{figure}
-\center
+\centering
 \includegraphics[ width=0.8\textwidth]{hm_r_CJ}
 \caption{$h^*$ en función de $r$ para $r\in[7.95,8.05]$, con algunos $\sigma_T$, $W=6$ y $D=8$. La curva tiene un mínimo en el valor correcto de $r=8$.}
 \label{fig:hm_r_CJ}
@@ -85,77 +87,79 @@ Además, la sensibilidad de $h^*$ en función del \textit{jitter} es máxima par
 
 Analicemos ahora el segundo cuantificador, $h$.
 Este cuantificador solo depende de $W$ porque $ D $ no se usa para definir la \emph{PDF} asignada a la serie de datos.
-La Fig. \ref{fig: h_W_SJ} muestra un caso sin \textit{jitter}, $h$ es independiente de $W$ para $W \ge 4$.
+La Fig. \ref{fig:h_W_SJ} muestra un caso sin \textit{jitter}, $h$ es independiente de $W$ para $W \ge 4$.
 Para lo siguiente adoptamos $W = 6$.
-La figura \ref{fig: h_W_CJ} muestra la influencia del \textit{jitter} sobre este cuantificador.
+%
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\textwidth]{h_W_SJ}
+	\caption{$h$ en función de $W$ para un \emph{RO} sin \textit{jitter} muestreado con $r=8$.}
+	\label{fig:h_W_SJ}
+\end{figure}
+
+La figura \ref{fig:h_W_CJ} muestra la influencia del \textit{jitter} sobre este cuantificador.
 Queda claro en el recuadro de esta figura que, para el valor seleccionado $W = 6$, $h$ es una función monótona creciente de la varianza del \textit{jitter} $\sigma_T$.
-La Fig. \ref{fig: h_r_CJ} muestra que $h$ tiene un mínimo cuando $r$ toma su valor óptimo ($r = 8$).
+%
+\begin{figure}
+	\centering
+	\includegraphics[ width=0.8\textwidth]{h_W_CJ}
+	\caption{$h$ en función de $W$ para un \emph{RO} muestreado con $r=8$, con \textit{jitter} con distintas varianzas. El recuadro muestra $h$ en función de $\sigma_T$ con $r=8$ y $W=6$.}
+	\label{fig:h_W_CJ}
+\end{figure}
+
+La Fig. \ref{fig:h_r_CJ} muestra que $h$ tiene un mínimo cuando $r$ toma su valor óptimo ($r = 8$).
 Note que este mínimo es robusto también en presencia de jitter.
-
+%
 \begin{figure}
-\center
-\includegraphics[width=0.8\textwidth]{h_W_SJ}
-\caption{$h$ en función de $W$ para un \emph{RO} sin \textit{jitter} muestreado con $r=8$.}
-\label{fig:h_W_SJ}
-\end{figure}
-
-\begin{figure}
-\center
-\includegraphics[ width=0.8\textwidth]{h_W_CJ}
-\caption{$h$ en función de $W$ para un \emph{RO} muestreado con $r=8$, con \textit{jitter} con distintas varianzas. El recuadro muestra $h$ en función de $\sigma_T$ con $r=8$ y $W=6$.}
-\label{fig:h_W_CJ}
-\end{figure}
-
-\begin{figure}
-\center
+\centering
 \includegraphics[ width=0.8\textwidth]{h_r_CJ}
 \caption{$h$ en función de $r$ con $r\in[7.95,8.05]$, para distintos $\sigma_T$ y $W=6$ . La curva tiene un mínimo en $r=8$.}
 \label{fig:h_r_CJ}
 \end{figure}
 
-Se debe realizar un análisis adicional para asegurar que los valores seleccionados $W = 6$ y $D = 8$ produzcan archivos simbólicos con una buena estadística. Para un alfabeto dado $\mathcal{A}$ con $m$ elementos, y un archivo simbólico dado de longitud $n$, el parámetro de calidad $\alpha = n/m$, vea \ref{sec: quanti}.
+Se debe realizar un análisis adicional para asegurar que los valores seleccionados $W = 6$ y $D = 8$ produzcan archivos simbólicos con una buena estadística.
+Para un alfabeto dado $\mathcal{A}$ con $m$ elementos, y un archivo simbólico dado de longitud $n$, el parámetro de calidad $\alpha = n/m$, vea \ref{capCuanti}.
 La calidad es mejor a medida que $\alpha$ aumenta y se acepta un valor mínimo $\alpha = 10$.
-De acuerdo con la sección \ref{sec: quanti} los valores seleccionados $W = 6$ y $D = 8$ proporcionan $\alpha_h \simeq 10^5$, $ \alpha_ {h^*} \simeq 175$ con superposición y $29$ sin superposición. Todos los casos dan $\alpha>10$ como es requerido.
+De acuerdo con la sección \ref{capCuanti} los valores seleccionados $W = 6$ y $D = 8$ proporcionan $\alpha_h \simeq 10^5$, $ \alpha_ {h^*} \simeq 175$ con superposición y $29$ sin superposición.
+Todos los casos dan $\alpha>10$ como es requerido.
 
-%EN LA SECCIÓN CUANTI TENGO QUE PONER COMO SE CALCULA ALFA
+¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡EN LA SECCIÓN CUANTI TENGO QUE PONER COMO SE CALCULA ALFA!!!!!!!!!!!!!!!!!!!!!
 
-Figure \ref{fig:hm_h_CJ} shows the $h^*_{m} \times h$ plane. The quantifiers have been calculated sweeping the values of $D$ from $2$ to $11$, and $W$ from $2$ to $26$ (both for $h^*$ and only $W$ in the case of $h_{hist}$).
-Better differentiation is obtained for higher values of the parameters, this is because both quantifiers tend to quantify the source value for $D$ and $W$ equal to infinite.
-Nevertheless, this is impossible in real practice, also the amount of data available limits the values of the parameters based to achieve good statistics. Therefore, we seek the minimum values (threshold value) of the parameters that discern the jitter good enough. In Figure \ref{fig:hvsh_8} it can be seen that for values of $W$ equal to $3$ or lower the $h_{hist}$ quantifier is insensitive to the variations of the jitter. Therefore, $W$ should be $4$ or higher, this result is in concordance with the threshold determined in Figures \ref{fig:hhistvsW_T8_CJ}. In the case of $h^*$ the $W$ value should be equal or higher than $4$ and the value of $D$ higher than $7$, again this result is in concordance with the ones derived from Figures \ref{fig:hmvsD_T8} and \ref{fig:hmvsD_CJ_T8}. The bottom left area of the plane is the one with better performance of both quantifiers.
-
-La figura \ref{fig: hm_h_CJ} muestra el plano $h^*_{m} \times h$.
+La figura \ref{fig:hm_h_CJ} muestra el plano $h^*_{m} \times h$.
 Los cuantificadores se calcularon barriendo los valores de $D$ de $2$ a $11$ y $W$ de $2$ a $26$ (barrimos ambos para $h^*$ y solo $W$ en el caso de $h_{hist}$).
 Se obtiene una mejor diferenciación para valores más altos de los parámetros, esto es porque ambos cuantificadores tienden a cuantificar la entropía de la fuente cuando $D$ y $W$ tienden a infinito.
 Sin embargo esto es imposible en la práctica real, la cantidad de datos disponibles limita los valores de los parámetros para lograr buenas estadísticas.
 Por lo tanto, buscamos los valores mínimos (valor umbral) de los parámetros que distinguen el \textit{jitter} lo suficientemente bien.
+%
+\begin{figure}
+	\centering
+	\includegraphics[ width=0.8\textwidth]{hm_h_CJ}
+	\caption{$h^*$ como función de $h$ para $r=8$, $D=8$ y diferentes valores de $W$.}
+	\label{fig:hm_h_CJ}
+\end{figure}
+
 En la figura \ref{fig:hvsh_8} se puede ver que para valores de $W$ iguales o menores a $3$, el cuantificador $h_{hist}$ no es sensible a las variaciones del \textit{jitter}.
-Por lo tanto, $W$ debe ser $ $ o superior, este resultado está en concordancia con el umbral determinado en las Figuras \ref{fig: hhistvsW_T8_CJ}.
-En el caso de $h^*$ el valor de $W$ debe ser igual o superior a $4$ y el valor de $D$ superior a $7$, nuevamente este resultado está en concordancia con los derivados de las Figuras \ref{fig : hmvsD_T8} y \ref{fig: hmvsD_CJ_T8}.
+Por lo tanto, $W$ debe ser $ $ o superior, este resultado está en concordancia con el umbral determinado en las Figuras \ref{fig:hhistvsW_T8_CJ}.
+En el caso de $h^*$ el valor de $W$ debe ser igual o superior a $4$ y el valor de $D$ superior a $7$, nuevamente este resultado está en concordancia con los derivados de las Figuras \ref{fig:hmvsD_T8} y \ref{fig:hmvsD_CJ_T8}.
 El área inferior izquierda del plano es la que tiene un mejor rendimiento de ambos cuantificadores, sin embargo es la que precisa un mayor esfuerzo de cómputo y una mejor estadística.
 
-%TENGO QUE PONER EL PLANO EN LAS FIGURAS
+¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡TENGO QUE PONER EL PLANO EN LAS FIGURAS!!!!!!!!!!!!!!!!!!!!
 
 Una comparación entre ambos cuantificadores se muestra en la figura \ref{fig:hm_h_CJ}.
 Los marcadores corresponden a varianzas $\sigma_T=\{0,$ $0.001,$ $0.002,$ $0.003,$ $0.004,$ $0.005,$ $0.007,$ $0.01,$ $0.02,$ $0.03,$ $0.04,$ $0.05,$ $0.07,$ $0.1\}$.
-Hay que tener en cuenta que la pendiente de cualquiera de estas curvas es $dh^*/dh$ y es igual al cociente entre pendientes de curvas en las inserciones de las Figs. \ref{fig: hm_D_CJ}, y \ref{fig: h_W_CJ}.
+Hay que tener en cuenta que la pendiente de cualquiera de estas curvas es $dh^*/dh$ y es igual al cociente entre pendientes de curvas en las inserciones de las Figs. \ref{fig:hm_D_CJ}, y \ref{fig:h_W_CJ}.
 Si $dh^*/dh\to1$, $h^*$ es más sensible que $h$ para medir el \textit{jitter}.
 La pendiente aumenta levemente de $\sim2.47$ para $W =5 $ a $\sim5.54$ para $W = 19$, esto muestra que $h^*$ se vuelve más sensible a medida que aumenta $W$.
-	
-\begin{figure}
-\center
-\includegraphics[ width=0.8\textwidth]{hm_h_CJ}
-\caption{$h^*$ as a function of $h$ for $r=8$, $D=8$ and different values of $W$.}
-\label{fig:hm_h_CJ}
-\end{figure}
+
 
 También evaluamos $h^*$ sin la superposición de bits entre números naturales consecutivos pero manteniendo la superposición de los $D-1$ números naturales entre patrones de orden (en todos los casos $h$ se evaluó con la superposición de $W-1$ bits consecutivos).
-Los resultados se representan en la Fig. \ref{fig: Deltahm_Deltah_CS_SS} donde se muestra que al eliminar la superposición aumenta la sensibilidad de este cuantificador.
+Los resultados se representan en la Fig. \ref{fig:Deltahm_Deltah_CS_SS} donde se muestra que al eliminar la superposición aumenta la sensibilidad de este cuantificador.
 Por supuesto, obtenemos una cantidad menor de $W$ bits en números naturales del archivo original de siete millones de binarios, y en consecuencia, la calidad estadística es menor que la del cálculo original con superposición.
 Para aumentar $\alpha$ hasta su valor anterior, se requieren archivos binarios más largos.
-
+%
 \begin{figure}
-\center
+\centering
 \includegraphics[ width=0.8\textwidth]{Deltahm_Deltah_CS_SS}
-\caption{$h^*$ as a function of $h$ for $r=8$, $W=6$ and $D=8$. Two procedures to obtain $W$-bits natural numbers are considered: with and without superposition (see text).}
+\caption{$h^*$ en función de $h$ para $r=8$, $W=6$ y $D=8$. Son considerados los dos procedimientos para obtener números naturales de $W$-bits: con y sin superposición (see text).}
 \label{fig:Deltahm_Deltah_CS_SS}
 \end{figure}

@@ -24,7 +24,7 @@ Lo mismo ocurre con las implementaciones de punto fijo con ambas técnicas de al
 En términos de uso de recursos y limitaciones de frecuencia, el rendimiento en aritmética de enteros es considerablemente mejor que en punto flotante y punto fijo.
 Observemos que para minimizar los recursos, se requiere un preprocesamiento del sistema caótico (escalado y polarización) para obtener divisores con una potencia de $2$, tal como se explica en la subsección \ref{sec:impleInt}.
 Por otro lado, para el caso de la aritmética de punto flotante, el exponente se descarta en todas las técnicas de aleatorización utilizadas y, en consecuencia, la dinámica se ve muy perturbada por el proceso de aleatorización.
-Entonces, como se muestra en la Tabla \ref{tabla: Tabla2} $\Delta t $ no es la variable relevante para predecir si un PRNG será bueno o malo.
+Entonces, como se muestra en la Tabla \ref{tabla:Tabla2}, $\Delta t $ no es la variable relevante para predecir si un PRNG será bueno o malo.
 
 Finalmente, hemos desarrollado un análisis detallado de los cambios en el comportamiento de una implementación en punto fijo de un mapa cuadrático bidimensional.
 El objetivo fue reportar la tasa de degradación de la propiedad de cada sistema, para que los autores la utilicen al momento de diseñar sus aplicaciones particulares.

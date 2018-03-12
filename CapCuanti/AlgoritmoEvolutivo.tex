@@ -49,7 +49,7 @@ Si la distancia entre ellos es más grande que el parámetro $max\_hop$, entonce
 Este proceso se repite hasta que se llega al máximo número de  generaciones $max\_gen$.
 El grupo final de adultos es la solución al problema de buscar los máximos MLE locales.
 
-La subrutina \textit{Evolution} de la figura \ref{fig:diagramaflujo2}) es un algoritmo muy simple basado en mutaciones.
+La subrutina \textit{Evolution} de la figura \ref{fig:diagramaflujo2} es un algoritmo muy simple basado en mutaciones.
 El primer paso es generar una mutación del hijo con una probabilidad uniformemente distribuida entre $\pm max\_step$, tambien se calcula su \textit{fitness function} $Fm$, que se compara con la del individuo original $Fc$.
 Entonces sobrevive el mejor adaptado para dar lugar a la siguiente mutación.
 Este procedimiento se repute hasta que se llega al máximo número de mutaciones $max\_mut$.
@@ -96,7 +96,7 @@ El valor del MLE en la iteración $250000$ es $0.1415$, lo que es consistente co
 \subsubsection{Estado actual del avance}
 
 Actualmente estamos en etapa de desarrollo de la implementación en hardware de este algoritmo.
-En este segundo caso, el sistema bajo prueba es la familia de mapas cuadráticos bidimensionales descriptos en el capítulo \ref{sec:QMaps}.
+En este segundo caso, el sistema bajo prueba es la familia de mapas cuadráticos bidimensionales descriptos en la sección \ref{ssecQMaps}.
 
 La población inicial es de $12$ coeficientes iniciales del mapa caótico empleado.
 En la figura \ref{bloques} puede verse un diagrama en bloques general del sistema.

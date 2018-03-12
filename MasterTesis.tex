@@ -19,6 +19,8 @@
 \usepackage{microtype} %Slightly tweak font spacing for aesthetics
 \usepackage{makeidx} %Required to make an index
 \makeindex %Tells LaTeX to create the files required for indexing
+\usepackage{multirow} %Para tablas con celdas combinadas
+\usepackage{hhline} %para hacer lineas en tablas
 
 \begin{document}
 
@@ -54,25 +56,25 @@
 \include{CapRings/MasterRings}
 \thispagestyle{empty}
 
-\include{Conclu}
-\thispagestyle{empty}
+%\include{Conclu}
+%\thispagestyle{empty}
 
 %----------------------------------------------------------------------------------------
 %	APÉNDICES
 %----------------------------------------------------------------------------------------
 
-\addtocontents{toc}{\vspace{2em}} % Agrega espacios en la toc
+%\addtocontents{toc}{\vspace{2em}} % Agrega espacios en la toc
 
-\appendix % Los siguientes capítulos son apéndices
+%\appendix % Los siguientes capítulos son apéndices
 
 %  Incluye los apéndices en el folder de apéndices
 
-\include{Apend}
-\thispagestyle{empty}
+%\include{Apend}
+%\thispagestyle{empty}
 %\include{Apendices/AppendixB}
 %\include{Apendices/AppendixC}
 
-\addtocontents{toc}{\vspace{2em}} % Agrega espacio en la toc
+%\addtocontents{toc}{\vspace{2em}} % Agrega espacio en la toc
 
 %----------------------------------------------------------------------------------------
 %	BIBLIOGRAFÍA

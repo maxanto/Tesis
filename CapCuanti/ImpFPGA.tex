@@ -1,4 +1,5 @@
 \subsection{Cuantificador de entropías implementado en FPGA}
+\label{ssecCuantiImpFPGA}
 
 En esta sección se describe la implementación de un sistema de medición de entropías.
 El diseño fue optimizado para ser implementado en un microcotrolador simple y pequeño, conservando una precisión aceptable.
@@ -98,7 +99,7 @@ Uno corriendo en la PC y otro en el microcontrolador implementado en la FPGA.
 Puede verse un diagrama de flujo de ambos programas y la interacción entre ellos en la Fig. \ref{fig.softflow}.
 %
 \begin{figure}[htpb]
-	\centering\includegraphics[scale=0.23]{Soft}
+	\centering\includegraphics[width=0.7\columnwidth]{Soft}
 	\caption{Diagrama de flujo del \textit{software} implementado.}\label{fig.softflow}
 \end{figure}
 
@@ -126,22 +127,16 @@ En los cuatro casos la frecuencia de las señales fue de 100~Hz y la velocidad d
 El cuadro \ref{tabla} muestra el error absoluto entre los resultados de los cuantificadores calculados en la FPGA comparados con los resultados calculados con el programa patrón sobre los mismos datos.
 %
 \begin{table}
+	\centering
 	\begin{tabular}{@{\extracolsep{\fill}}| c| c | c |c |}
 		\hline
-		\textbf{\footnotesize{Generador}} & \textbf{\footnotesize{Orígen}} & \textbf{\footnotesize{Error}} \textbf{\footnotesize{$H_{BP}$}} & \textbf{\textbf{\footnotesize{Error}}} \textbf{\footnotesize{$H_{hist}$}} \\
-		\hline
-		\footnotesize{Rand} & \footnotesize{Digital} & \footnotesize{$1,7421E^{-6}$} & \footnotesize{$2,6977E^{-6}$} \\
-		\hline
-		\footnotesize{Logístico} & \footnotesize{Digital} & \footnotesize{$0,4256E^{-6}$} & \footnotesize{$94,693E^{-6}$} \\
-		\hline
-		\footnotesize{Triangular} & \footnotesize{Analógico} & \footnotesize{$6,3445E^{-6}$} & \footnotesize{$2,0028EE^{-6}$} \\
-		\hline
-		\footnotesize{Senoidal} & \footnotesize{Analógico} & \footnotesize{$6,3151E^{-6}$} &\footnotesize{$5,6506E^{-6}$} \\
-		\hline
-		\footnotesize{Cuadrada} & \footnotesize{Analógico} & \footnotesize{$0,1797E^{-6}$} & \footnotesize{$1,9930EE^{-6}$} \\
-		\hline
-		\footnotesize{Rampa} & \footnotesize{Analógico} & \footnotesize{$245,00E^{-6}$} & \footnotesize{$1,0876E^{-6}$} \\
-		\hline
+		\textbf{{Generador}} & \textbf{{Orígen}} & \textbf{{Error}} \textbf{{$H_{BP}$}} & \textbf{\textbf{{Error}}} \textbf{{$H_{hist}$}} \\ \hline
+		{Rand}               & {Digital}         & {$1,7421E^{-6}$}                     & {$2,6977E^{-6}$}                                \\ \hline
+		{Logístico}          & {Digital}         & {$0,4256E^{-6}$}                     & {$94,693E^{-6}$}                                \\ \hline
+		{Triangular}         & {Analógico}       & {$6,3445E^{-6}$}                     & {$2,0028EE^{-6}$}                               \\ \hline
+		{Senoidal}           & {Analógico}       & {$6,3151E^{-6}$}                     & {$5,6506E^{-6}$}                                \\ \hline
+		{Cuadrada}           & {Analógico}       & {$0,1797E^{-6}$}                     & {$1,9930EE^{-6}$}                               \\ \hline
+		{Rampa}              & {Analógico}       & {$245,00E^{-6}$}                     & {$1,0876E^{-6}$}                                \\ \hline
 	\end{tabular}
 	\caption{Error de los cuantificadores evaluados en la FPGA con respecto a los resultados calculados por el programa patrón.}\label{tabla}
 \end{table}
