@@ -1,4 +1,4 @@
-\subsection{Conclusiones}
+\section{Conclusiones}
 
 Dada su utilidad como \emph{PRNG} y generadores de reloj, los \emph{RO}s se están convirtiendo en uno de los principales componentes básicos de los circuitos digitales.
 El jitter es inevitable en \emph{RO}s, y en consecuencia, necesita ser caracterizado.
@@ -13,3 +13,10 @@ Hemos mostrado en la sección \ref{sec:resu} que en el caso de \emph{RO}s muestr
 El plano de entropía dual determinado por estos cuantificadores ha demostrado discernir satisfactoriamente entre las dos principales propiedades deseadas de \emph{PRNG}, la equiprobabilidad entre todos los valores posibles y la independencia estadística entre valores consecutivos.
 Por lo tanto, permite ver claramente lo que debe mejorarse en una secuencia determinada.
 Los ejemplos presentados aquí han demostrado la necesidad de utilizar ambos histogramas para caracterizar secuencias.
+
+En cuanto a la implementación en hardware, los \emph{TRNG}s basados en \emph{RO} implementados aquí han demostrado satisfacer las propiedades estadísticas deseadas para un \emph{RNG}.
+Son comparables a otros \emph{RNG}s utilizados y en algunos casos son mejores.
+Emplean pocos recursos del dispositivo y se implementan de forma muy simple en una plataforma digital.
+
+Se demostró que para esta arquitectura la cantidad de \emph{RO}s establece las propiedades estadísticas del \emph{TRNG}.
+Se vio que para $15$ \emph{RO}s el histograma y la mezcla, eran casi ideales, haciendo innecesario el aumento de la cantidad de anillos.

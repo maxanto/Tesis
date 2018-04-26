@@ -6,18 +6,16 @@ Se exploró un conjunto de cien valores de relación de muestreo $r = T_s/T \in 
 \textit{Jitter} con una distribución normal con un conjunto de diferentes valores de varianza $\sigma_s$ (ver a continuación) se agregaron y se generaron nuevos archivos de la misma longitud.
 Nuestro método emula el verdadero proceso de muestreo de la salida ruidosa de un \emph{RO} real; el código detallado se publicó en Mathworks \cite{MathworksMaxi}.
 
-Por cada valor de $\sigma_s$, ten surrogates (each one with a different random initial condition) were generated and new files with $N_b$ bits each were stored. It was assumed that jitter of individual samples is independent, normal distributed random variables, with zero mean value and variance $\sigma_i=\sigma_s$. Consequently, the variance of the accumulated jitter over one period $T$ is given by $\sigma^2_T=r \sigma^2_s$ \cite{Valtchanov2008}. The values considered  are $\sigma_T=\{0,$ $0.001,$ $0.002,$ $0.003,$ $0.004,$ $0.005,$ $0.007,$ $0.01,$ $0.02,$ $0.02,$ $0.04,$ $0.05,$ $0.07,$ $0.1\}$.
-
 Para cada valor de $\sigma_s$, se generaron diez surrogados (cada uno con una condición inicial aleatoria diferente) y se almacenaron nuevos archivos con $N_b$ bits cada uno. Se asumió que el \textit{jitter} de las muestras individuales es independiente, con variables aleatorias distribuidas normales y un valor medio cero y varianza $\sigma_i = \sigma_s$.
 En consecuencia, la varianza del \textit{jitter} acumulada durante un período de $T$ está dada por $\sigma^2_T = r \sigma^2_s $ \cite{Valtchanov2008}.
 Los valores considerados son $\sigma_T=\{0,$ $0.001,$ $0.002,$ $0.003,$ $0.004,$ $0.005,$ $0.007,$ $0.01,$ $0.02,$ $0.02,$ $0.04,$ $0.05,$ $0.07,$ $0.1\}$.
 
-Por cada archivo se evaluaron todos los cuantificadores definidos en la sección \ref{sec:quanti} para $D\in[2,10]$ y $W\in[1,26]$..
-Los detalles sobre la evaluación, las ventajas y los inconvenientes de cada cuantificador se informan en la sección \ref{capCuanti}: ellos son $S_W$, $S^{(D)}_{BP}$, $H_{W}$, $H^{(D)}_{BP}$, $h$ and $h^*$. 
+Por cada archivo se evaluaron todos los cuantificadores definidos en la sección \ref{capCuanti} para $D\in[2,10]$ y $W\in[1,26]$.
+Los detalles sobre la evaluación, las ventajas y los inconvenientes de cada cuantificador se informan en la sección \ref{capCuanti}: ellos son $S_W$, $S^{(D)}_{BP}$, $H_{W}$, $H^{(D)}_{BP}$, $h$ y $h^*$. 
 Aquí mostraremos solo los resultados más relevantes para mostrar la razón por la cual los dos últimos cuantificadores ($h$ y $h^*$) resultan los más adecuados para este problema.
 
 \begin{itemize}
-	\item En el caso de entropía normalizada $H_ {W}$, depende en gran medida de $W$.
+	\item En el caso de entropía normalizada $H_{W}$, depende en gran medida de $W$.
 	Además, el análisis de $H_{W}$ en función de $r$ muestra que no permite determinar un valor óptimo de la relación de muestreo $r$ (ver Fig. \ref{fig:H_W_rCS}).
 	Este es un problema importante si los cuantificadores se van a usar para configuraciones experimentales.
 	\item En el caso de la entropía de Bandt \& Pompe normalizada $H^{(D)}_{BP}$, también está presente una fuerte dependencia con la dimensión de emmbedding $D$.
@@ -29,14 +27,14 @@ Aquí mostraremos solo los resultados más relevantes para mostrar la razón por
 
 %
 \begin{figure}
-\center
+\centering
 \includegraphics[width=0.8\textwidth]{H_W_rCS}
 \caption{Entropía normalizada $H_W$ en función de $W$ para un \emph{RO} sin \textit{jitter} muestreado con diferentes valores de $r$.}
 \label{fig:H_W_rCS}
 \end{figure}
 %
 \begin{figure}
-\center
+\centering
 \includegraphics[ width=0.8\textwidth]{HBP_W_rSS}
 \caption{$H^{(D)}_{BP}$ en función de  $W$ para un \emph{RO} sin \textit{jitter} muestreado con diferentes valores de $r$. Los cálculos fueron hechos con superposición de palabras}
 \label{fig:HBP_W_rSS}
@@ -138,13 +136,6 @@ Por lo tanto, buscamos los valores mínimos (valor umbral) de los parámetros qu
 	\label{fig:hm_h_CJ}
 \end{figure}
 
-En la figura \ref{fig:hvsh_8} se puede ver que para valores de $W$ iguales o menores a $3$, el cuantificador $h_{hist}$ no es sensible a las variaciones del \textit{jitter}.
-Por lo tanto, $W$ debe ser $ $ o superior, este resultado está en concordancia con el umbral determinado en las Figuras \ref{fig:hhistvsW_T8_CJ}.
-En el caso de $h^*$ el valor de $W$ debe ser igual o superior a $4$ y el valor de $D$ superior a $7$, nuevamente este resultado está en concordancia con los derivados de las Figuras \ref{fig:hmvsD_T8} y \ref{fig:hmvsD_CJ_T8}.
-El área inferior izquierda del plano es la que tiene un mejor rendimiento de ambos cuantificadores, sin embargo es la que precisa un mayor esfuerzo de cómputo y una mejor estadística.
-
-¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡TENGO QUE PONER EL PLANO EN LAS FIGURAS!!!!!!!!!!!!!!!!!!!!
-
 Una comparación entre ambos cuantificadores se muestra en la figura \ref{fig:hm_h_CJ}.
 Los marcadores corresponden a varianzas $\sigma_T=\{0,$ $0.001,$ $0.002,$ $0.003,$ $0.004,$ $0.005,$ $0.007,$ $0.01,$ $0.02,$ $0.03,$ $0.04,$ $0.05,$ $0.07,$ $0.1\}$.
 Hay que tener en cuenta que la pendiente de cualquiera de estas curvas es $dh^*/dh$ y es igual al cociente entre pendientes de curvas en las inserciones de las Figs. \ref{fig:hm_D_CJ}, y \ref{fig:h_W_CJ}.
@@ -163,3 +154,24 @@ Para aumentar $\alpha$ hasta su valor anterior, se requieren archivos binarios m
 \caption{$h^*$ en función de $h$ para $r=8$, $W=6$ y $D=8$. Son considerados los dos procedimientos para obtener números naturales de $W$-bits: con y sin superposición (see text).}
 \label{fig:Deltahm_Deltah_CS_SS}
 \end{figure}
+
+En la figura \ref{fig:PlanoHHTodos} podemos ver la sensibilidad de ambos cuantificadores en función de las longitudes de palabra $W$ y de emmbedding $D$.
+Sobre el eje horizontal podemos separar cuatro grupos de curvas ($W = 1$, $W = 2$, $W = 3$ y $W \geq 4$), vemos que a partir de 
+Allí podemos ver una sección de interés del plano doble entropía diferencial y varias curvas, que son las trayectorias de 
+El área inferior izquierda del plano es la que tiene un mejor rendimiento de ambos cuantificadores, sin embargo es la que precisa un mayor esfuerzo de cómputo y una mejor estadística.
+Este detalle es fácil de ver en \ref{fig:PlanoHHZoom}
+%
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{PlanoHHTodos}
+	\caption{Plano doble entropía diferencial con D y W como parámetro.}
+	\label{fig:PlanoHHTodos}
+\end{figure}
+%
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{PlanoHHZoom}
+	\caption{Detalle del plano doble entropía, en donde puede verse la sensibilidad como funcional de $D$.}
+	\label{fig:PlanoHHZoom}
+\end{figure}
+%

@@ -1,4 +1,4 @@
-\section{Introduction}
+\section{Introducción}
 \label{sec:intro}
 
 El \emph{Jitter} es cualquier desviación leve del período medio de una señal presuntamente periódica.
@@ -16,9 +16,9 @@ Además, los instrumentos digitales se utilizan en cualquier experimento moderno
 
 Este capítulo está dedicado a los osciladores de anillos (\emph{RO}).
 Recalcemos que en esta aplicación particular, el \textit{jitter} no siempre es indeseable.
-El \textit{jitter} no es desead en aplicaciones que usan un \emph{RO} como generador de reloj \cite{Buedo1998, Beomsup1990, Hajimiri1999, Mandal2010, Gupta2011}.
+El \textit{jitter} no es deseado en aplicaciones que usan un \emph{RO} como generador de reloj \cite{Buedo1998, Beomsup1990, Hajimiri1999, Mandal2010, Gupta2011}.
 Por el contrario, los generadores de números aleatorios \emph{RNG} basados en \emph{RO}'s, usan \textit{jitter} como fuente de aleatoriedad, \cite{Sunar2007, Wold2009}.
-El \textit{jitter} también mejora la compatibilidad electromagnética para distribuir la frecuencia del reloj sobre una banda, mejorando la Compatibilidad Electromagnética (EMC) \cite{DeMicco2012}.
+El \textit{jitter} también mejora la compatibilidad electromagnética (EMC) para distribuir la frecuencia del reloj sobre una banda \cite{DeMicco2012}.
 
 La determinación del \textit{jitter} de fase en \emph{RO} se ha estudiado en varios artículos: en \cite{McNeill1997} se presentó el estudio de tres medidas relevantes del \textit{jitter} en el dominio del tiempo.
 En \cite{Valtchanov2008} se propuso un modelo para la generación y distribución del \textit{jitter} en \emph{RO}.
@@ -29,9 +29,8 @@ En Lubicz \textit{et. al} se describe un método práctico y eficiente para esti
 
 Por lo general, \emph{jitter determinista} es el nombre que se le da a cualquier \emph{jitter no gaussiano}.
 Está limitado y se caracteriza por su valor máximo de $\Delta_{pp}$.
-\textit{Jitter} aleatori es el nombre utilizado para la \textit{jitter} gaussiano y se caracteriza por su valor RMS.
-A veces aparece \textit{jitter} periódico determinístico.
-Tiene un \emph{período} que es el intervalo entre dos tiempos el efecto máximo (mínimo); el inverso del período de tiempo es \emph{la frecuencia del jitter}.
+\textit{Jitter} aleatorio es el nombre utilizado para la \textit{jitter} gaussiano y se caracteriza por su valor RMS.
+A veces aparece \textit{jitter} periódico determinístico su período es el intervalo entre dos tiempos el efecto máximo (mínimo); el inverso del período de tiempo es la frecuencia del jitter.
 El \textit{jitter} periódico con una frecuencia de fluctuación inferior a $10 Hz$ usualmente se denomina \emph{wander} y el nombre \emph{jitter} está reservada solo a la fluctuación periódica con frecuencias en o por encima de $10 Hz$.
 En comunicaciones, \emph{jitter total} es $T = \Delta_{pp} + 2nR_{rms}$ donde $n$ es un número entre $6$ y $8$ relacionado con la tasa de error de bit (\emph{BER}).
 
@@ -43,7 +42,7 @@ Ya sea que se quiera usar o eliminarlo, el \textit{jitter} en \emph{RO}s debe me
 La principal contribución de este trabajo es proporcionar una técnica de medición del \textit{jitter} basada en cuantificadores de la teoría de la información (\emph{ITQ}).
 Utilizamos un modelo estocástico cuya aleatoriedad está relacionada con la amplitud de la inestabilidad.
 Cada \emph{ITQ} propuesto utilizado en este trabajo se basa en una entropía, es decir, una función de Shannon de la función de distribución de probabilidad (\emph{PDF}) asignada a la serie de tiempo del proceso estocástico.
-También se pueden usar desequilibrios y complejidades \cite{Amigo2005, Rosso2007b}, pero no representan una mejora en nuestro caso.
+También se pueden usar desequilibrios y complejidades \cite{Amigo2005,Rosso2007B}, pero no representan una mejora en nuestro caso.
 En trabajos anteriores \cite{DeMicco2008, DeMicco2009} mostramos que muchas \emph{PDF}s diferentes pueden asignarse a la misma cadena de datos.
 La mejor opción depende de la aplicación específica.
 En este caso utilizamos dos opciones para \emph{PDF}: el \emph{histograma normalizado} y el \emph{histograma de patrones de orden}.
