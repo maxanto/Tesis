@@ -1,19 +1,10 @@
 Se estudiaron cinco mapas pseudocaóticos: dos mapas simples y tres combinaciones de ellos.
-Para cada uno hemos usado números representados por coma flotante (80 bits de mantisa) y números de punto fijo con $1\leq B \leq 53$, donde $B$ es el número de bits que representa la parte fraccionaria.
+Para cada uno se emplearon números representados por coma flotante (80 bits de mantisa) y números de punto fijo con $1\leq B \leq 53$, donde $B$ es el número de bits que representa la parte fraccionaria.
 Las series de tiempo se generaron usando $100$ condiciones iniciales elegidas al azar dentro de su dominio de atracción (intervalo $[0,1]$), para cada una de estas $54$ precisiones numéricas.
+Los mapas estudiados son: LOG, TENT, SWITCH, EVEN y ODD.
 
-Los mapas estudiados son: logístico (LOG), tent (TENT), conmutación secuencial entre TENT y LOG (SWITCH) y skipping descartando los valores en las posiciones impares (EVEN) o los valores en las posiciones pares (ODD), respectivamente.
-
-El mapa logístico es interesante porque es representativo de la gran familia de mapas cuadráticos.
-Su expresión es:
-%
-\begin{equation}\label{eq:logimap}
-x_{n+1}=4\,x_{n}(1-x_{n}) 
-\end{equation}
-%
-con $x_n \in \mathbb{R}$.
-
-Efectivamente, para trabajar en una representación dada, es necesario cambiar la expresión del mapa para realizar todas las operaciones en los números de representación elegidos.
+El mapa Logístico fue elegido por ser representativo de la gran familia de mapas cuadráticos, fue presentado den la Sección \ref{secSistCaot}.
+Para trabajar en una representación dada, es necesario cambiar la expresión del mapa de la Ecuación \ref{eqLogistico} para realizar todas las operaciones en los números de representación elegidos.
 Por ejemplo, en el caso de LOG, la expresión en números binarios de punto fijo es:
 %
 \begin{equation}\label{eq:logimapB2}
@@ -22,26 +13,14 @@ x_{n+1}=4 \epsilon \,\text{floor}\left\{\frac{x_n(1-x_n)}{\epsilon}\right\}
 %
 con $\epsilon = 2^{-B}$ donde $B$ es la cantidad de bits que representa la parte fraccionaria.
 
-Ésta técnica de redondeo es la misma que la utilizada en \cite{Antonelli2012, Grebogi1988, Nagaraj2008} y tiene algunas ventajas, ya que es algorítmicamente fácil de implementar y es independiente de la plataforma en donde es utilizada, siempre y cuando $B$ sea menor que la mantisa de la unidad aritmética lógica de la máquina local.
-En nuestro caso, los resultados fueron abtenidos con una PC Intel i7, que cuenta con una ALU con estándar IEEE-754 de punto fijo de doble precisión, lo cual limita el método a $B \leq 53$ bits.
+En la ecuación anterior, la función floor() descarta la parte fraccionaria del argumento. Ésta técnica de redondeo es la misma que la utilizada en \cite{Antonelli2012, Grebogi1988, Nagaraj2008} y tiene algunas ventajas, ya que es algorítmicamente fácil de implementar y es independiente de la plataforma en donde es utilizada, siempre y cuando $B$ sea menor que la mantisa de la unidad aritmética lógica de la máquina local.
+Para obtener los resultados, se trabajó con una PC Intel i7, que cuenta con una ALU con estándar IEEE-754 de punto fijo de doble precisión, lo cual limita el método a $B \leq 53$ bits.
 
 El mapa TENT ha sido ampliamente estudiado en la literatura porque teóricamente tiene buenas propiedades estadísticas que pueden obtenerse analíticamente.
 Por ejemplo, es fácil probar que tiene un histograma uniforme y, en consecuencia, un $H_{hist} = 1$ ideal.
 El operador Perron-Frobenius y sus autovalores y autofunciones correspondientes se pueden obtener analíticamente para este mapa \cite{Lasota1994}.
 
-El mapa tent se representa con la ecuación:
-%
-\begin{equation}\label{eq:TENT}
-x_{n+1} =
-\begin{cases}
-u~x_n &, \textrm{if } 0\leq x_n\leq 1/u\\
-\frac{u}{1-u}~(1-x_n) &, \textrm{if } 1/u< x_n\leq 1 
-\end{cases}
-\end{equation}
-%
-con $x_n$ and $u \in \mathbb{R}$.
-
-En el redondeo de números fraccionarios base-2, la ecuación (\ref{eq:TENT}) se convierte en:
+En el redondeo de números fraccionarios base-2, la Ecuación \ref{eqTent} se convierte en:
 %
 \begin{equation}\label{eq:TENTB2}
 x_{n+1} = 
@@ -54,10 +33,10 @@ con $\epsilon=2^{-B}$, $\mu = \epsilon ~\text{floor}\{\frac{1}{\epsilon} u\}$, $
 
 En \cite{DelaFraga2017}, los autores mostraron la evolución de la entropía de valores $H_{hist}$ con respecto a la precisión binaria. Ellos caracterizaron la evolución del mapa TENT como función de la precisión binaria en aritmética de punto fijo.
 En su esquema de generación de números aleatorios usaron dos etapas de postprocesamiento, primero binarizaron los datos detectando el cruce por un umbral y luego estos datos fueron procesados por una compuerta XOR.
-En nuestro caso, utilizamos la salida de los mapas caóticos sin ningún proceso de randomización, sin embargo sus resultados son muy interesantes para hacerse de un criterio acerca de cuales parámetros son útiles para implementar.
-En este trabajo se utilizan dos valores de $u$ por dos distintas razones, siguiendo a \cite{DelaFraga2017} un valor interesante es $u = 1.96$ o el valor más cercano en la aritmética utilizada, por otro lado, el valor $u=2$ es muy atractivo dado su extremadamente bajo costo de implementación.
+Aquí se utilizó la salida de los mapas caóticos sin ningún postprocesamiento de aleatorización, sin embargo sus resultados son muy interesantes y permiten obtener un criterio acerca de cuales parámetros son útiles para implementar.
+Aquí se utilizaron dos valores de $u$ por dos distintas razones, siguiendo a \cite{DelaFraga2017} un valor interesante es $u = 1.96$ o el valor más cercano en la aritmética utilizada, por otro lado, el valor $u=2$ es muy atractivo dado su extremadamente bajo costo de implementación.
 
-En la figura \ref{fig:seq} se muestran los procedimientos de conmutación, skipping par y skipping impar.
+En la Figura \ref{fig:seq} se muestran los procedimientos de conmutación, skipping par y skipping impar.
 
 \begin{figure}[htpb]
 \centering	
@@ -93,18 +72,14 @@ x_{n+2}=4 ~\epsilon ~\text{floor}\left\{\frac{x_n(1-x_n)}{\epsilon}\right\}
 \end{cases}
 \end{equation}
 
-El skipping es una técnica habitual de aleatorización que solo aumenta la calidad de mezcla de un mapa y, por consiguiente, aumenta el valor de $H_{BP}$ y disminuye $C_{BP}$ de la serie temporal.
-El skipping no cambia los valores de $H_{hist}$ para los mapas ergódicos porque se evalúan utilizando el PDF no causal (histograma de valores normalizado) \cite{DeMicco2008}.
+El skipping es una técnica habitual de aleatorización que sólo aumenta la calidad de mezcla de un mapa y, por consiguiente, aumenta el valor de $H_{BP}$ y disminuye $C_{BP}$ de la serie temporal.
+El skipping no cambia los valores de $H_{hist}$ para los mapas ergódicos porque se evalúan utilizando el PDF no causal, como se describió en la Sección \ref{sec:ITQs}.
 
-En el caso bajo consideración, estudiamos saltos pares e impares de la conmutación secuencial de los mapas de tent y de logístico:
+En el caso bajo consideración, se estudiaron saltos pares e impares de la conmutación secuencial de los mapas de Tent y de Logístico:
 \begin{enumerate}
-	\item Skipping par de la conmutación secuencial de mapas Tent y Logístico (EVEN). \\
+	\item Skipping par de la conmutación secuencial de mapas TENT y LOG (EVEN). \\
 	Si $\{x_n; n = 1, \dots, \infty \}$ es la serie de tiempo generada por la eq. \ref{eq:SWITCH}, descarta todos los valores en posiciones impares y conserva los valores en posiciones pares.
-	\item Skipping impar de la conmutación secuencial de mapas Tent y Logístico.
+	\item Skipping impar de la conmutación secuencial de mapas TENT y LOG.
 	Si $\{x_n; n = 1, \dots, \infty \}$ es la serie de tiempo generada por la eq. \ref{eq:SWITCH}, descarta todos los valores en posiciones pares y conserva todos los valores en posiciones impares.
 \end{enumerate}
-
 El skipping par se puede expresar como la función de composición TENT $\circ$ LOG mientras que el skipping impar se puede expresar como LOG $\circ$ TENT.
-La evolución del período como función de la precisión para estos mapas se informó en \cite{Nagaraj2008}.
-
-Los resultados para cada uno de estos mapas son los siguientes.

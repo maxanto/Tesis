@@ -1,25 +1,31 @@
-\subsubsection{LOG} \label{subsubsec:log}
+\subsection {Cuantificadores de Mapas Simples}
+\label{subsec:SimpleMaps}
 
-Las Figs. \ref{fig:Hval_Log} a \ref{fig:MP_Log} muestran las propiedades estadísticas del mapa LOG en representación de coma flotante y punto fijo.
-Todas estas figuras muestran: $100$ puntos rojos (surrogados) por cada precisión de punto fijo ($1 \geq B \geq 53$) y en negro su promedio (línea negra discontinua que conecta puntos negros), $100$ líneas discontinuas horizontales azules que son el resultado de cada surrogado en punto flotante y una línea continua negra en su promedio.
-Tenga en cuenta que estas líneas son independientes del eje x.
+A continuación se analizan los resultados obtenidos para los mapas simples LOG y TENT.
+
+\subsubsection{Mapa LOG}
+\label{subsubsec:log}
+
+Las Figuras \ref{fig:Hval_Log} a \ref{fig:MP_Log} muestran las propiedades estadísticas del mapa LOG en representación de coma flotante y punto fijo.
+Todas estas Figuras muestran: $100$ puntos rojos (surrogados) por cada precisión de punto fijo ($1 \geq B \geq 53$) y en negro su promedio (línea negra discontinua que conecta puntos negros), $100$ líneas discontinuas horizontales azules que son el resultado de cada surrogado en punto flotante y una línea continua negra en su promedio.
+se debe tener en cuenta que estas líneas son independientes del eje x.
 En este caso, todas las líneas del punto flotante se superponen.
 
 Según $B$ crece, las propiedades estadísticas varían hasta que se estabilizan.
 Para $B \geq 30$, el valor de $H_{hist}$ permanece casi idéntico al valor de la representación en coma flotante, mientras que $H_{BP}$ y $C_{BP}$ se estabilizan a $B > 21$.
 Sus valores son: $\left\langle H_{hist}\right\rangle = 0.9669$; $\left\langle H_{BP}\right\rangle = 0.6269$; $\left\langle C_{BP}\right\rangle = 0.4843$.
-Tenga en cuenta que el valor estable de los patrones faltantes $MP = 645$ hace que el valor óptimo sea $H_{BP} \leq \ln(75)/\ln(720) \simeq 0.65$.
+Cabe destacar que el valor estable de los patrones faltantes $MP = 645$ hace que el valor óptimo sea $H_{BP} \leq \ln(75)/\ln(720) \simeq 0.65$.
 Entonces, $B = 30$ es la opción más conveniente para la implementación en hardware porque un aumento en el número de dígitos fraccionarios no mejora las propiedades estadísticas.
 
-Se pueden sacar algunas conclusiones con comparando los cuantificadores de BP y BPW.
-Para $B = 1, 2, 3$ y $4$, los cuantificadores de BP promediados son casi $0$ mientras que los cuantificadores de BPW promediados no se pueden calcular (ver en las figuras \ref{fig:Hbpw_Log} y \ref{fig:Cbpw_Log} la línea punteada negra faltante).
-Esto se debe a que para esas secuencias la condición inicial era $0$, todas las iteraciones resultan ser una secuencia de ceros (el punto fijo del mapa), esto es más probable que ocurra cuando se usan pequeñas precisiones debido al redondeo.
+Se pueden sacar algunas conclusiones comparando los cuantificadores de BP y BPW.
+Para $B = 1, 2, 3$ y $4$, los cuantificadores de BP promediados toman valores cercanos a $0$ mientras que no existe solución para los cuantificadores de BPW promediados (ver en las Figuras \ref{fig:Hbpw_Log} y \ref{fig:Cbpw_Log} la línea punteada negra faltante).
+Esto se debe a que para esas secuencias la condición inicial fue cero, todas las iteraciones resultan ser una secuencia de ceros (el punto fijo del mapa), esto es más probable que ocurra cuando se usan pequeñas precisiones debido al redondeo.
 
 Cuando $B$ aumenta las condiciones iniciales se redondean a cero con menos frecuencia, esto se puede ver para $B > 6$.
-En este caso, las secuencias generadas que comienzan desde un valor no nulo caen a cero después de un transitorio cortomuy frecuentemente.
-Un tema interesante en las Figs. \ref{fig:Hbpw_Log} y \ref{fig:Cbpw_Log}, es que los cuantificadores de BPW muestran una alta dispersión a diferencia de los cuantificadores de BP.
+En este caso, las secuencias generadas que comienzan desde un valor no nulo caen a cero después de un transitorio corto muy frecuentemente.
+Un tema interesante en las Figuras \ref{fig:Hbpw_Log} y \ref{fig:Cbpw_Log}, es que los cuantificadores de BPW muestran una alta dispersión a diferencia de los cuantificadores de BP.
 Esto se debe a que el procedimiento BPW tiene en cuenta transitorios y descarta los puntos fijos, a diferencia del procedimiento BP, que considera todos los valores de la secuencia.
-Podemos ver en las Figs. \ref{fig:Hbpw_Log} y \ref{fig:Cbpw_Log} para $1 < B < 10$ líneas horizontales de puntos rojos que no aparecen en las Figs. \ref{fig:Hbp_Log} y \ref{fig:Cbp_Log}, esto evidencia que las diferentes condiciones iniciales caen en las mismas órbitas, incluso para las precisiones adyacentes.
+Podemos ver en las Figuras \ref{fig:Hbpw_Log} y \ref{fig:Cbpw_Log} para $1 < B < 10$ líneas horizontales de puntos rojos que no aparecen en las Figuras \ref{fig:Hbp_Log} y \ref{fig:Cbp_Log}, esto evidencia que las diferentes condiciones iniciales caen en las mismas órbitas, incluso para las precisiones adyacentes.
 %
 \begin{figure}[htpb]
 	\centering
@@ -57,8 +63,8 @@ Podemos ver en las Figs. \ref{fig:Hbpw_Log} y \ref{fig:Cbpw_Log} para $1 < B < 1
 	\label{fig:LOG_QuantiB}
 \end{figure}
 
-Los mismos resultados se muestran en planos de doble entropía con la precisión como parámetro (Fig. \ref{fig:HbpHval_Log} sin contribuciones de amplitud y Fig. \ref{fig:HbpwHval_Log} con contribuciones de amplitud).
-Estas figuras muestran: $100$ puntos rojos por cada precisión de punto fijo ($B$) y su promedio en negro (línea negra discontinua que conecta puntos negros), $100$ puntos azules que son los resultados de cada surrogado en coma flotante y la estrella negra es su promedio.
+Los mismos resultados se muestran en planos de doble entropía con la precisión como parámetro (Figuras \ref{fig:HbpHval_Log} sin contribuciones de amplitud y Figura \ref{fig:HbpwHval_Log} con contribuciones de amplitud).
+Estas Figuras muestran: $100$ puntos rojos por cada precisión de punto fijo ($B$) y su promedio en negro (línea negra discontinua que conecta puntos negros), $100$ puntos azules que son los resultados de cada surrogado en coma flotante y la estrella negra es su promedio.
 Aquí, los $100$ puntos azules y su promedio se superponen.
 
 Como se esperaba, la implementación de la arquitectura de punto fijo converge al valor de coma flotante a medida que aumenta $B$.
@@ -77,11 +83,11 @@ Se puede ver que la entropía de distribución de valores es alta ($\left \langl
 		\caption{$H_{hist} \times H_{BPW}$}
 		\label{fig:HbpwHval_Log}
 	\end{subfigure}
-	\caption{evolución de las propiedades estadísticas en el plano de doble entropía para el mapa LOG.}
+	\caption{Evolución de las propiedades estadísticas en el plano de doble entropía para el mapa LOG.}
 	\label{fig:LOG_HH}
 \end{figure}
 
-En la Fig. \ref{fig:CbpHbp_Log} y \ref{fig:CbpwHbpw_Log}, mostramos los planos entropía - complejidad.
+En la Figura \ref{fig:CbpHbp_Log} y \ref{fig:CbpwHbpw_Log}, se muestran los planos entropía-complejidad.
 Las líneas grises punteadas son los márgenes superior e inferior, se espera que un sistema caótico permanezca cerca del margen superior.
 Estos resultados caracterizan un comportamiento caótico, en el plano $H_{BP} \times C_{BP}$ podemos ver una baja entropía y alta complejidad.
 %
@@ -97,6 +103,6 @@ Estos resultados caracterizan un comportamiento caótico, en el plano $H_{BP} \t
 		\caption{$H_{BPW} \times C_{BPW}$}
 		\label{fig:CbpwHbpw_Log}
 	\end{subfigure}
-	\caption{Evolution of statistical properties in causal entropy-complexity plane for LOG map}
+	\caption{Evolución de las propiedades estadísticas en el plano causal entropía-complejidad para el mapa LOG.}
 	\label{fig:LOG_HC}
 \end{figure}

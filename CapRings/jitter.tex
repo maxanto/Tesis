@@ -1,4 +1,4 @@
-\section{Determinación del \textit{jitter} en \emph{RO}'s}
+\section{Determinación del \textit{jitter} en \emph{RO}s}
 \label{sec:jitter}
 
 Hay dos situaciones diferentes en lo que concierne al \textit{jitter} en \textit{RO}s:
@@ -10,10 +10,9 @@ Entre esos casos está la caractarización de \textit{RO}s considerada en este t
 Los \textit{RO}s ideales están compuestos por un numero impar de inversores.
 Cada inversor tiene un tiempo de propagación y por lo tanto los flancos de subida y bajada separados por medio período viajan a través de los inversores.
 Si todos los tiempos de propagación son constantes, la salida de este \textit{RO} ideal es una señal cuadrada con un espectro de frecuencia discreto.
-Pero los tiempos de propagación no son constantes, por lo tanto hay \textit{jitter}.
-El \textit{jitter} distorsiona el espectro de potencia ensanchando cada delta en un máximo con cierta anchura.
+Pero como los tiempos de propagación no son constantes, el \textit{jitter} distorsiona el espectro de potencia ensanchando cada delta.
 
-Supongamos que $T/2$ es el medio período de un \emph{RO} ideal.
+Supongamos que $T/2$ es el tiempo de medio período de un \emph{RO} ideal.
 Entonces está dado por:
 %
 \begin{eqnarray}
@@ -28,11 +27,11 @@ d_i=D_i+ \Delta d_i
 \end{eqnarray}
 %
 donde $D_i$ es el valor medio de $d_i$ con el nivel nominal de voltaje de fuente y la temperatura normal, y $\Delta d_i$ es la variación del retardo producida por los eventos físicos locales y los cambios globales en las condiciones de trabajo del dispositivo (como $V_{CC}$, temperatura , etc.).
-Entonces, el \textit{jitter} en \emph{RO}s se evidencia por el desplazamiento aleatorio de la ubicación de los flancos ascendentes (descendentes), con respecto a la ubicación perfectamente periódica.\
+Entonces, el \textit{jitter} en \emph{RO}s se evidencia por el desplazamiento aleatorio de la ubicación de los flancos ascendentes y descendentes, con respecto a la ubicación perfectamente periódica.
 La medición directa de este desplazamiento tiene dos problemas principales:
 (a) requiere un instrumento de muy alta frecuencia, porque la resolución del tiempo está limitada por el período de muestreo $T_s$;
 (b) esta técnica introduce fluctuaciones y distorsiones adicionales en la señal medida proveniente de la cadena de adquisición de datos.
-Entonces es más conveniente usar \emph{medidas indirectas}, por medio de variables aleatorias auxiliares relacionadas con las propiedades estadísticas relacionadas con el \textit{jitter} para medir la fluctuación de fase con una perturbación mínima \cite{Lubicz2014}.
+Entonces, para medir el jitter con una perturbación mínima, es más conveniente usar \emph{medidas indirectas} por medio de variables aleatorias auxiliares relacionadas con las propiedades estadísticas involucradas en el \textit{jitter} \cite{Lubicz2014}.
 El procedimiento general es el siguiente:
 \begin{enumerate}
 \item Se muestrea la salida con el período de muestreo $ T_s $ para obtener una serie de tiempo binaria.
@@ -42,7 +41,7 @@ La serie de tiempo binaria será periódica con $m$ unos seguida de $m$ ceros.
 Cuando el \textit{jitter} está presente, la serie binaria no es periódica sino estocástica.
 Este modelo estocástico se conoce como \emph{proceso de renovación alterna}.
 \item Se pueden usar muchos cuantificadores de aleatoriedad diferentes para caracterizar el modelo estocástico asociado con el \textit{jitter} medido.
-En este trabajo utilizamos cuantificadores de la teoría de la información.
+En este trabajo se utilizaron cuantificadores de la teoría de la información.
 \end{enumerate}
 Tengamos en cuenta que el \textit{jitter} es acumulativo y surgen dos situaciones básicas:
 (a) si se supone que el \textit{jitter} introducido por cada etapa es totalmente independiente del \textit{jitter} introducido por otras etapas, significa que  $\sigma_T^2=m\sigma_s^2$, en donde $\sigma_s$ es el \textit{jitter} de cada muestra, y se supone que todas las muestras tienen fluctuaciones con la misma distribución normal;

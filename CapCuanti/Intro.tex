@@ -1,25 +1,24 @@
 Los sistemas dinámicos son sistemas que evolucionan en el tiempo.
-En la práctica, solo es posible medir una serie de tiempo escalar $X(t)$ la cual puede ser función de las variables $V=\{ v_1, v_2,\cdots, v_k\}$ que describe la dinámica subyacente (por ejemplo $dV/dt=f(V)$).
+En la práctica, sólo es posible medir alguna funcional del sistema bajo estudio, generalmente una serie de tiempo escalar $X(t)$ la cual puede ser función de las variables $V=\{ v_1, v_2,\cdots, v_k\}$ que describe la dinámica subyacente (por ejemplo $dV/dt=f(V)$).
 Tratamos de inferir propiedades de un sistema no conocido a partir del análisis de los datos guardados de variables observacionales.
-¿Cuanta información revelan estos datos sobre la dinámica del sistema o procesos subyacentes?.
+¿Cuánta información revelan estos datos sobre la dinámica del sistema o procesos subyacentes?
 
-El contenido de información de un sistema se evalúa típicamente mediante una función de distribución de probabilidad (PDF) $P$ que describe la distribución de alguna cantidad mensurable o observable, generalmente una serie de tiempo $X(t)$.
+El contenido de información de un sistema se evalúa típicamente mediante una función de distribución de probabilidades (PDF) $P$ que describe la distribución de alguna cantidad mensurable u observable, generalmente una serie temporal $X(t)$.
 Podemos definir los cuantificadores de la Teoría de la Información como medidas capaces de caracterizar las propiedades relevantes de las PDFs asociadas a estas series temporales, y de esta manera debemos extraer juiciosamente información sobre el sistema dinámico en estudio.
 Estos cuantificadores representan métricas en el espacio de PDFs para conjuntos de datos, permitiendo comparar diferentes conjuntos y clasificarlos de acuerdo a sus propiedades de procesos subyacentes, de manera amplia, estocástica vs. determinística.
 
 En nuestro caso, nos interesa la dinámica caótica.
-Por lo tanto, nos centramos en las métricas que toman en cuenta el orden temporal de las observaciones de forma explícita; es decir, el enfoque es fundamentalmente de naturaleza \textit{causal} y \textit{estadística} en la naturaleza.
-En un enfoque puramente estadístico, las correlaciones entre los valores sucesivos de las series temporales se ignoran o simplemente se destruyen a través de la construcción del PDF; mientras que un enfoque causal se centra en las PDFs de secuencias de datos.
+Por lo tanto, nos centramos en las métricas que toman en cuenta el orden temporal de las observaciones de forma explícita; es decir, el enfoque es fundamentalmente de naturaleza \textit{causal} y \textit{estadística}.
+En un enfoque puramente estadístico, las correlaciones entre los valores sucesivos de las series temporales se ignoran o simplemente se destruyen a través de la construcción de la PDF; mientras que un enfoque causal se centra en las PDFs de secuencias de datos.
 Además, los exponentes de Lyapunov permiten analizar los datos de un punto de vista topológico y brindan una valiosa información acerca de la caoticidad del sistema.
 
-En este capítulo primero se presenta al Máximo Exponente de Lyapunov (MLE) como un detector de caos, para luego presentar un caso de aplicación de un algoritmo de búsqueda de caos.
+En este Capítulo primero se presenta al Máximo Exponente de Lyapunov (MLE) como un detector de caos, para luego presentar un caso de aplicación de un algoritmo de búsqueda de caos.
 Este algoritmo fue presentado en \cite{CASE2013} y muestra la factibilidad de la búsqueda automática de caos con algoritmos eurísticos basados en el  MLE.
-Después se presenta una implementación en FPGA del mismo algoritmo pero aplicado a los mapas cuadráticos bidimensionales presentados en \ref{ssecQMaps}, esta implementación ya cuenta con cierto grado de avance.
 
-En la segunda sección de este capítulo se presentan una serie cuantificadores de aleatoriedad provenientes de la teoría de la información.
-Estos cuantificadores se utilizan luego a través del resto de esta tesis como una herramienta de análisis, con ella se evalúa la calidad de los generadores de números aleatorios.
-Después mostramos los resultados presentados en \cite{CRIA2014}, en donde se implementaron estas herramientas en FPGA.
+En la segunda Sección de este Capítulo se presentan una serie cuantificadores de aleatoriedad provenientes de la Teoría de la Información.
+Estos cuantificadores se utilizan luego a través del resto de esta tesis como una herramienta de análisis, con ellos se evalúa la calidad de los generadores de números aleatorios.
+Luego se muestran los resultados presentados en \cite{Antonelli2016}, en donde se implementaron estas herramientas en FPGA.
 La implementación de estos cuantificadores surge como una solución práctica, así es posible medir la calidad de los generadores en la misma plataforma, sin la necesidad de extraer los datos y medirlos en una computadora.
 Aprovechando la disponibilidad de entradas analógicas en el kit de desarrollo, al diseño se le agregó la posibilidad de medir señales analógicas externas.
 Cuando se midieron señales de prueba bien conocidas, los resultados mostraron ciertos corrimientos de los valores esperados debido a la contaminación con ruido aditivo (AWGN) y a la limitación en la banda de paso inherentes a todo sistema analógico.
-Esto abre la inquietud de caracterizar el comportamiento de los cuantificadores frente a estos dos factores, en la sección \ref{ssec:TDdS} se realiza un estudio al respecto.
+Esto abre la inquietud de caracterizar el comportamiento de los cuantificadores frente a estos dos factores, en la Sección \ref{ssec:TDdS} se realiza un estudio al respecto.

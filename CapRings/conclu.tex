@@ -1,22 +1,21 @@
 \section{Conclusiones}
 
-Dada su utilidad como \emph{PRNG} y generadores de reloj, los \emph{RO}s se están convirtiendo en uno de los principales componentes básicos de los circuitos digitales.
-El jitter es inevitable en \emph{RO}s, y en consecuencia, necesita ser caracterizado.
+El \textit{jitter} es inevitable en {RO}s, y en consecuencia, necesita ser caracterizado.
 La mezcla y la distribución de valores son las principales propiedades a considerar.
-Varios \emph{ITQ} fueron evaluados aquí.
+Varios {ITQ} fueron evaluados aquí.
 $S_W$, $S^{(D)}_{BP}$, $H_W$ y $H^{(D)}_{BP}$ resultan dependientes de los parámetros $W$ y $D$.
-Esto es un inconveniente si los usamos como medidas de inestabilidad.
+Esto es un inconveniente si se deben emplear como cuantificadores de aleatoriedad, ya que dependen de parámetros externos a la fuente generadora de símbolos.
 Por otro lado, no es posible calcular \emph{rate entropies}, $h_0^*$ y $h_0$, ya que se necesita una cantidad infinita de datos para su cálculo.
-Las dos \emph{entropías diferenciales}, $h^*$ y $h$, en cambio, son independientes de los parámetros utilizados para su determinación y son estimadores de la \emph{rate entropy}.
-Hemos mostrado en la sección \ref{sec:resu} que en el caso de \emph{RO}s muestreados, presentan un mínimo para la tasa de muestreo correcta, lo que los convierte en una buena medida de la calidad tanto de los \emph{RO}s como de los \emph{PRNG}s derivados de ellos.
+Las dos {entropías diferenciales}, $h^*$ y $h$, en cambio, son independientes de los parámetros utilizados para su determinación y son estimadores de la \emph{rate entropy}.
+Se demostró en la Sección \ref{sec:resu} que en el caso de {RO}s muestreados, presentan un mínimo para la tasa de muestreo correcta, lo que los convierte en una buena medida de la calidad tanto de los {RO}s como de los {PRNG}s derivados de ellos.
 
-El plano de entropía dual determinado por estos cuantificadores ha demostrado discernir satisfactoriamente entre las dos principales propiedades deseadas de \emph{PRNG}, la equiprobabilidad entre todos los valores posibles y la independencia estadística entre valores consecutivos.
-Por lo tanto, permite ver claramente lo que debe mejorarse en una secuencia determinada.
+El plano de entropía dual determinado por estos cuantificadores ha demostrado discernir satisfactoriamente entre las dos principales propiedades deseadas de {PRNG}, la equiprobabilidad entre todos los valores posibles y la independencia estadística entre valores consecutivos.
+Por lo tanto, permite ver claramente lo que debe mejorarse en una secuencia determinada para obtener una buena \textit{PRNG}.
 Los ejemplos presentados aquí han demostrado la necesidad de utilizar ambos histogramas para caracterizar secuencias.
 
-En cuanto a la implementación en hardware, los \emph{TRNG}s basados en \emph{RO} implementados aquí han demostrado satisfacer las propiedades estadísticas deseadas para un \emph{RNG}.
-Son comparables a otros \emph{RNG}s utilizados y en algunos casos son mejores.
+En cuanto a la implementación en hardware, los {TRNG}s basados en {RO} implementados aquí han demostrado satisfacer las propiedades estadísticas deseadas para un {RNG}.
+Son comparables a otros {RNG}s utilizados y en algunos casos presentan mejores características.
 Emplean pocos recursos del dispositivo y se implementan de forma muy simple en una plataforma digital.
 
-Se demostró que para esta arquitectura la cantidad de \emph{RO}s establece las propiedades estadísticas del \emph{TRNG}.
-Se vio que para $15$ \emph{RO}s el histograma y la mezcla, eran casi ideales, haciendo innecesario el aumento de la cantidad de anillos.
+Se demostró que para esta arquitectura la cantidad de {RO}s establece las propiedades estadísticas del {TRNG}.
+Se vio que para $15$ {RO}s el histograma y la mezcla, eran casi ideales, haciendo innecesario el aumento de la cantidad de anillos.

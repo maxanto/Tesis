@@ -1,4 +1,4 @@
-\subsubsection{TENT} \label{sssec:tent}
+\subsubsection{Mapa TENT} \label{sssec:tent}
 
 La ecuación que representa la implementación para $u=2$ es:
 %
@@ -10,17 +10,17 @@ x_{n+1} =
 \end{cases}	
 \end{equation}
 %
-En este caso el redondeo es necesario solo en la segunda multiplicación por que la multiplicación por dos es equivalente a un acarreo hacia la izquierda.
+En este caso, el redondeo es necesario sólo en la segunda multiplicación porque la multiplicación por dos es equivalente a un desplazamiento hacia la izquierda.
 
-Cuando este mapa se implementa con $u=2$ en una computadora que utiliza cualquier sistema de representación numérica binaria (¡incluso punto flotante!), los errores de truncamiento aumentan rápidamente y hacen que el punto fijo inestable en $x^* = 0$ se estabilice.
-Las secuencias dentro del dominio de atracción de este punto fijo tendrán un corto transitorio de longitud entre $0$ y $B$ seguido de un número infinito de $0$s \cite{Jessa2002, Callegari}.
-Este problema se explica de forma muy sencilla en \cite{Li2004}, el problema aparece porque todas las iteraciones tienen una operación de desplazamiento a la izquierda que arrastra los $0$s del lado derecho del número a las posiciones más significativas.
+Cuando este mapa se implementa con $u=2$ en una computadora que utiliza cualquier sistema de representación numérica binaria (¡Incluso punto flotante!), los errores de truncamiento aumentan rápidamente y hacen que el punto fijo inestable en $x^* = 0$ se estabilice.
+Las secuencias dentro del dominio de atracción de este punto fijo tendrán un transitorio corto de longitud entre $0$ y $B$ seguido de un número infinito de $0$s \cite{Jessa2002, Callegari}.
+Este problema se explica de forma muy sencilla en \cite{Li2004}, el problema aparece porque todas las iteraciones tienen una operación de desplazamiento a la izquierda que arrastra los ceros del lado derecho del número a las posiciones más significativas.
 
-Las Figs. \ref{fig:Hval_Tent} a \ref{fig:MP_Tent} muestran los cuantificadores para representaciones numéricas de coma flotante y fija.
+Las Figuras \ref{fig:Hval_Tent} a \ref{fig:MP_Tent} muestran los cuantificadores para representaciones numéricas de coma flotante y fija.
 Los cuantificadores $H_{hist}$, $H_{BP}$ y $C_{BP}$ son iguales a cero para todas las precisiones, esto refleja que las series convergen rápidamente hacia un punto fijo para cada condición inicial.
 En el caso de $H_{BPW}$ y $C_{BPW}$ los cuantificadores son diferentes a cero porque el procedimiento BPW descarta los elementos una vez que se alcanza el punto fijo.
 Las altas dispersiones en $H_{BPW}$, $C_{BPW}$ y MP están relacionadas con la corta duración del transitorio de la serie.
-Estos transitorios que convergen en un punto fijo tienen una longitud máxima de $B$ elementos (iteraciones) para aritmética de punto fijo y $80$ para punto flotante (precisión long-double).
+Estos transitorios que convergen a un punto fijo tienen una longitud máxima de $B$ elementos (iteraciones) para aritmética de punto fijo y $80$ para punto flotante (precisión long-double).
 %
 \begin{figure}[htpb]
 	\centering
@@ -58,10 +58,10 @@ Estos transitorios que convergen en un punto fijo tienen una longitud máxima de
 	\label{fig:TENT_QuantiB}
 \end{figure}
 %
-Resumiendo, a pesar de usar un alto número de bits (con cualquier representación numérica en base 2) para representar el mapa TENT digitalizado, siempre converge rápidamente al punto fijo en $(x_n, x_{n+1}) = (0, 0)$.
+Resumiendo, no importa la cantidad de bits que se utilicen (con cualquier representación numérica en base 2) para representar el mapa TENT digitalizado, éste siempre converge rápidamente al punto fijo en $(x_n, x_{n+1}) = (0, 0)$.
 
-Cuando este mapa se calcula con un valor distinto de $u$ los resultados son completamente distintos, como se muestra en las figuras \ref{fig:TENT1p96_QuantiB}, en donde se muestran los resultados tomando $u=1.96$.
-Los resultados son similares a los del mapa LOG, en cuanto a que el valor promediado de los cuantificadores tiendo no monótonamente al valor encontrado en punto flotante y se estabiliza a partir de cierto valor de $B$.
+Cuando este mapa se calcula con un valor distinto de $u$ los resultados son completamente distintos, como se ve en las Figuras \ref{fig:TENT1p96_QuantiB}, en donde se muestran los resultados tomando $u=1.96$.
+Los resultados son similares a los del mapa LOG, en cuanto a que el valor promediado de los cuantificadores tiende no monótonamente al valor encontrado en punto flotante y se estabiliza a partir de cierto valor de $B$.
 Sin embargo, fueron necesarios más bits de precisión para alcanzar estas asíntotas.
 Por otro lado, se puede ver que el valor de $H_{hist}$ es mejor que el encontrado para LOG y que $H_{BP}$ es similar.
 Mediante los cuantificadores $H_{BPW}$ y $C_{BPW}$ se puede detectar que con una precisión por debajo de $13$ bits, algunas condiciones iniciales convergen a puntos fijos o divergen, por lo que no es posible utilizar este mapa con $B < 13$.
@@ -102,12 +102,12 @@ Mediante los cuantificadores $H_{BPW}$ y $C_{BPW}$ se puede detectar que con una
 	\label{fig:TENT1p96_QuantiB}
 \end{figure}
 
-Las posiciones en los planos doble entropía (Figura \ref{fig:TENT1p96_HH}) y entropía-complejidad (Figura \ref{fig:TENT1p96_HH}) son marginalmente mejores que los que se obtienen para el mapa LOG y son característicos de los mapas pseudocaóticos.
+Las posiciones en los planos doble entropía (Figura \ref{fig:TENT1p96_HH}) y entropía-complejidad (Figura \ref{fig:TENT1p96_HH}) son levemente mejores que los que se obtienen para el mapa LOG y son característicos de los mapas pseudocaóticos.
 %
 \begin{figure}[htpb]
 	\centering
 	\includegraphics[width=.49\textwidth]{HbpHval_Tent1p96}
-	\caption{Evolution of statistical properties in double entropy plane for TENT map with $u=1.96$.}
+	\caption{Evolución de las propiedades estadísticas en el plano causal entropía-complejidad para el mapa TENT con $u=1.96$.}
 	\label{fig:TENT1p96_HH}
 \end{figure}
 %
@@ -115,6 +115,6 @@ Las posiciones en los planos doble entropía (Figura \ref{fig:TENT1p96_HH}) y en
 	\centering
 	\includegraphics[width=.49\textwidth]{CbpHbp_Tent1p96}
 	\caption{$H_{BP} \times C_{BP}$}
-	\caption{Evolution of statistical properties in causal entropy-complexity plane for TENT map with $u=1.96$.}
+	\caption{Evolución de las propiedades estadísticas en el plano causal entropía-complejidad para el mapa TENT con $u=1.96$.}
 	\label{fig:TENT1p96_HbpCbp}
 \end{figure}

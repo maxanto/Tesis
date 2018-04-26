@@ -3,47 +3,19 @@
 En los últimos años, los sistemas digitales se convirtieron en el estándar en todas las ciencias experimentales.
 Mediante el uso de nuevos dispositivos electrónicos programables como DSP y electrónica reconfigurable como FPGA o ASIC, los experimentadores pueden diseñar y modificar sus propios generadores de señales, sistemas de medición, modelos de simulación, etc.
 
-Cuando se implementa un sistema caótico en computadoras o cualquier dispositivo digital, el atractor caótico se vuelve periódico por el efecto de la precisión finita, entonces solo se pueden generar atractores pseudocaóticos \cite{Alcover2017, Dias2011}.
-La discretización puede incluso destruir el comportamiento pseudocaótico y, en consecuencia, es un proceso no trivial \cite{Azzaz2013, Hoover2017, DeMicco2017}.
-
 En estos nuevos dispositivos, el punto flotante y el punto fijo son las aritméticas más comunes.
-El punto flotante es la solución más precisa, pero no siempre se recomienda cuando se requieren velocidad, baja potencia y/o área de circuito pequeño, una solución de punto fijo es mejor en estos casos.
+El punto flotante es la solución más precisa cuando no se conoce el rango de valores que se implementará, pero no siempre se recomienda cuando se requieren velocidad, baja potencia y/o área de circuito pequeño, una solución de punto fijo es mejor en estos casos.
 
-El efecto de la discretización numérica sobre un mapa caótico fue abordado recientemente en \cite{Alcover2017} y \cite{DeMicco2017}.
-En \cite{Alcover2017}, el autor caracteriza las interfaces de Moire en el sistema Mandelbrot.
-Estas interfaces son consecuencia del tipo de precisión de los datos y no aparecen en el sistema ideal con números reales.
-En \cite{DeMicco2017}, los autores exploran la degradación estadística del espacio de fases para una familia de mapas cuadráticos 2D.
+El efecto de la discretización numérica sobre un mapa caótico fue abordado recientemente en \cite{DeMicco2017}, en donde se explora la degradación estadística del espacio de fases para una familia de mapas cuadráticos 2D.
 Estos mapas presentan una dinámica multiatractor que los hace muy atractivos como generadores de números aleatorios en campos como criptografía, codificación, etc. En \cite{Tlelo-Cuautle2016} y \cite{DelaFraga2017}, los autores propusieron usar el valor de la entropía para elegir el número de bits en la parte fraccionaria, cuando se implementan mapas en aritmética entera.
 
-Grebogi y colaboradores \cite{Grebogi1988} estudiaron este tema y vieron que el período $T$ escala con el redondeo $\epsilon$ como $T\sim\epsilon^{-d/2}$ donde $d$ es la dimensión de correlación del atractor caótico.
-Conseguir un período grande $T$ es una propiedad importante de los mapas caóticos, en \cite{Nagaraj2008} Nagaraj \textit{et. al} se estudió el efecto de cambiar las longitudes de período promedio de los mapas caóticos en precisión finita.
-Vieron que el período $T$ del mapa compuesto obtenido al conmutar entre dos mapas caóticos es más alto que el período de cada mapa.
-Liu \textit{et. al} \cite{Liu2006} estudió diferentes reglas de conmutación aplicadas a sistemas lineales para generar caos.
+En \cite{Grebogi1988}, Grebogi y colaboradores estudiaron este tema y vieron que el período $T$ escala con el redondeo $\epsilon$ como $T\sim\epsilon^{-d/2}$ donde $d$ es la dimensión de correlación del atractor caótico.
+Conseguir un período grande $T$ es una propiedad importante de los mapas caóticos, en \cite{Nagaraj2008} Nagaraj \textit{et al.} estudiaron el efecto de cambiar las longitudes de período promedio de los mapas caóticos en precisión finita.
+Vieron que el período $T$ del mapa compuesto obtenido al conmutar entre dos mapas caóticos es mayor que el período de cada mapa.
+Liu \textit{et al.} \cite{Liu2006} estudiaron diferentes reglas de conmutación aplicadas a sistemas lineales para generar caos.
 El problema de la conmutación también se trató en \cite{Gluskin2008}, el autor consideró algunos aspectos matemáticos, físicos y de ingeniería relacionados con sistemas singulares, principalmente de conmutación.
 Los sistemas conmutados surgen naturalmente en la electrónica de potencia y en muchas otras áreas de la electrónica digital.
 
 La estocasticidad y la mezcla también son relevantes para caracterizar un comportamiento caótico.
 Para investigar estas propiedades, se estudiaron varios cuantificadores \cite{DeMicco2009}.
 La entropía y la complejidad de la teoría de la información se aplicaron para dar una medida de la entropía causal y no causal y la complejidad causal.
-
-Una cuestión fundamental es el criterio para seleccionar la función de distribución de probabilidad (PDF) asignada a las series de tiempo, son posibles las opciones causales y no causales.
-Aquí consideramos la PDF tradicional no causal obtenido al normalizar el histograma de la serie temporal.
-Su cuantificador estadístico es la entropía normalizada $ H_ {hist} $ que es una medida de equiprobabilidad entre todos los valores permitidos.
-También consideramos una PDF causal que se obtiene asignando patrones de orden a segmentos de trayectoria de longitud $D$.
-Este PDF primero fue propuesto por Bandt \& Pompe en \cite{Bandt2002}.
-La entropía correspondiente $H_{BP}$ también fue propuesta como un cuantificador por Bandt \& Pompe, en \cite{Rosso2007} los autores aplicaron la complejidad causal $C_{BP} $ para detectar el caos.
-Entre ellos, merece una consideración especial el uso de una representación planar de complejidad y entropía (plano $H_{hist} \times C_{BP}$) y el plano entropía causal vs. no causal (plano $H_{BP} \times H_{hist}$) \cite{DeMicco2009, Rosso2007, Fouda2017, DeMicco2008, DeMicco2012, Rosso2010, Antonelli2017}.
-
-Recientemente, la información de amplitud se introdujo en \cite{Fadlallah2013} para agregar cierta inmunidad al ruido débil en un PDF causal.
-El nuevo esquema rastrea mejor los cambios abruptos en la señal y asigna menos complejidad a los segmentos que exhiben regularidad o están sujetos a efectos de ruido.
-Luego, definimos la entropía causal con contribuciones de amplitud $H_{BPW}$ y la complejidad causal con contribuciones de amplitud $C_{BPW}$.
-Además, presentamos los planos modificados $H_{hist} \times C_{BP} $ y $H_{BP} \times H_{hist}$.
-fied planes $H_{hist} \times C_{BP}$ and $H_{BP} \times H_{hist}$.
-
-Amigó y colaboradores propusieron el número de patrones prohibidos como un cuantificador de caos \cite{Amigo2007a}.
-Básicamente, informan la presencia de patrones prohibidos como un indicador del caos.
-Recientemente se demostró que el nombre de patrones prohibidos no es conveniente y fue reemplazado por patrones faltantes (MP) \cite{Rosso2012}, en este trabajo los autores muestran que existen sistemas caóticos que presentan MP a partir de una cierta longitud mínima de patrones.
-Nuestro principal interés en MP es porque da un límite superior para los cuantificadores causales.
-
-Siguiendo \cite{Nagaraj2008}, en este trabajo estudiamos las características estadísticas de cinco mapas, dos mapas bien conocidos: (1) los mapas tent (TENT) y (2) logístico (LOG), y tres mapas adicionales generados a partir de ellos: (3) SWITCH, generado al conmutar entre TENT y LOG; (4) EVEN, generado al omitir todos los elementos en posiciones impares de la serie temporal SWITCH y (5) ODD, generados descartando todos los elementos en posiciones pares en la serie de tiempo SWITCH.
-Se usan números binarios flotantes y de punto fijo, estos sistemas numéricos específicos pueden implementarse en modernos dispositivos lógicos programables.

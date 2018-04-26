@@ -1,0 +1,15 @@
+\section{Herramientas de Análisis Estadístico}
+
+Existe un amplio abanico de test estadísticos, aquí se consideró la PDF tradicional no causal obtenida al normalizar el histograma de la serie temporal.
+Su cuantificador estadístico es la entropía normalizada $H_{hist}$, que es una medida de equiprobabilidad entre todos los valores permitidos.
+También se consideró una PDF causal que se obtiene asignando patrones de orden a segmentos de trayectoria de longitud $D$.
+
+La entropía correspondiente $H_{BP}$ también fue propuesta como un cuantificador por Bandt \& Pompe, en \cite{Rosso2007} los autores aplicaron la complejidad causal $C_{BP} $ para detectar el caos.
+Entre ellos, merece una consideración especial el uso de una representación planar de complejidad y entropía (plano $H_{hist} \times C_{BP}$) y el plano entropía causal vs. no causal (plano $H_{BP} \times H_{hist}$).
+Para poder detectar caídas a puntos fijos o trayectorias que divergen utilizamos la entropía causal con contribución de amplitudes $H_{BPW}$.
+Como se mencionó en la Sección \ref{sec:ITQs}, esta entropía se basa en un histograma de patrones de orden en donde cada símbolo está pesado por su frecuencia de aparición y su varianza.
+Un aspecto a tomar en cuenta es que no existe PDF con contribución de amplitud para un vector con todos sus valores iguales, ya que todas las veces aparece el mismo símbolo pesado por $0$, lo que da como resultado una PDF vacía.
+También utilizamos la cantidad de patrones faltantes (MP) para calcular un límite superior para los cuantificadores causales.
+
+Siguiendo el análisis realizado en \cite{Nagaraj2008}, en este caso se estudian las características estadísticas de cinco mapas, dos mapas bien conocidos: (1) los mapas Tent (TENT) y (2) Logístico (LOG), y tres mapas adicionales generados a partir de ellos: (3) SWITCH, generado al conmutar entre TENT y LOG; (4) EVEN, generado al omitir todos los elementos en posiciones impares de la serie temporal SWITCH y (5) ODD, generados descartando todos los elementos en posiciones pares en la serie de tiempo SWITCH.
+Se emplearon números binarios flotantes y de punto fijo, estos sistemas numéricos específicos pueden implementarse en dispositivos modernos lógicos programables.

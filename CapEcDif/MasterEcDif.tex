@@ -1,15 +1,15 @@
-\chapter{Sistemas de dinámica compleja}
+\chapter{Sistemas de Dinámica Compleja}
 \label{capSist}
 
 \input{./CapEcDif/Intro.tex}
 
 \section{Teoría Cualitativa - Espacio de Fases}
-En algunas aplicaciones puede interesar, más que conocer las ecuaciones explícitas de las soluciones de un sistema, poder analizar sus propiedades cualitativas, tales como la periodicidad, el comportamiento cuando crece la variable independiente (la que se supone que es el tiempo), si es constante, o si se aproxima a una solución conocida, etc.
+En algunas aplicaciones puede interesar, más que conocer las soluciones de un sistema, sus propiedades cualitativas tales como la periodicidad, el comportamiento cuando crece la variable independiente (la que generalmente es el tiempo), si es constante, o si se aproxima a una solución conocida, etc.
 Una herramienta útil en este sentido es el diagrama de fase.
 El espacio de fase es el lugar geométrico que ocupan las posibles soluciones del sistema de ecuaciones diferenciales, en él se dibujan las trayectorias que son solución a un sistema de ecuaciones.
-La teoría cualitativa intenta clasificar los sistemas en función del tipo de trayectorias que poseen, en lugar de intentar resolver las ED’s.
+La teoría cualitativa intenta clasificar los sistemas en función del tipo de trayectorias que poseen, en lugar de intentar resolver las ecuaciones diferenciales (EDs).
 
-Se denomina punto crítico de un sistema de ecuaciones diferenciales, al punto del espacio de estados que satisface 
+Se denomina punto crítico de un sistema de ecuaciones diferenciales, al punto del espacio de estados que satisface:
 \begin{equation}
 X'=0
 \end{equation}
@@ -17,62 +17,78 @@ es el punto del espacio de estados a partir del cual el sistema no evoluciona.
 
 Para sistemas homogéneos de ED lineales, el único punto crítico es el origen de coordenadas. Para sistemas no homogéneos de ED lineales, el punto crítico puede ser cualquier punto del espacio. Para sistemas no lineales, pueden existir varios puntos críticos, o ninguno.
 
-Para un sistema planar, pueden darse las siguientes trayectorias respecto de los dos autovalores.
+Ahora, supongamos que encontramos todos los puntos críticos de un sistema de ecuaciones.
+En un entorno reducido de cada uno de ellos podemos linealizar el sistema, de modo que la Ecuación que representa la evolución en ese entorno sea:
+\begin{equation}
+X' = \mathbb{A} \cdot X
+\end{equation}
+En donde $X$ es el vector de soluciones y $\mathbb{A} \in \mathbb{R}^{nxn}$ la matriz de coeficientes.
+Entonces, pueden calcularse los autovalores del sistema $\lambda_i$ como:
+\begin{equation}
+det(\mathbb{A}-\lambda \mathbb{I}) = 0
+\end{equation}
+Además, cada autovalor tiene un autovector asociado $K_i \in \mathbb{R}^{nx1}$ que cumple con la Ecuación:
+\begin{equation}
+	\mathbb{A} \cdot K_i = \lambda_i \cdot K_i
+\end{equation}
+Estos autovectores contienen la información de cuales serán las direcciones naturales en las que evolucionará el sistema sobre el espacio de fases, mientras que los autovalores indican la dirección y velocidad de convergencia.
 
+Para un sistema planar, pueden darse las siguientes trayectorias respecto de los dos autovalores:
 \begin{description}
 
 \item[Nodo estable]
-Si ambos autovalores son negativos, la solución se acerca al orígen asintóticamente.
+Si ambos autovalores son negativos, la solución se acerca al origen asintóticamente.
 Las trayectorias de las soluciones son asintóticas a los autovalores de la matriz de coeficientes $A$, excepto las soluciones con condiciones iniciales que pertenecen a las direcciones propias, entonces el sistema evoluciona sobre ellas.
 %
 \begin{figure}
 \centering\includegraphics[scale=0.5]{nodoestable}
-\caption{Nodo estable}
+\caption{Nodo estable.}
 \end{figure}
 
 \item[Nodo inestable]
-Si ambos autovalores son positivos, la solución se aleja del orígen.
-Las trayectorias de las soluciones son asintóticas a los autovalores de la matriz de coeficientes $A$, excepto las soluciones con condiciones iniciales que pertenecen a las direcciones propias, entonces el sistema evoluciona sobre ellas.
+Si ambos autovalores son positivos, la solución se aleja del origen.
+Las trayectorias de las soluciones son asintóticas a los autovalores de la matriz de coeficientes $\mathbb{A}$, excepto las soluciones con condiciones iniciales que pertenecen a las direcciones propias, entonces el sistema evoluciona sobre ellas.
 %
 \begin{figure}
 \centering\includegraphics[scale=0.5]{nodoinestable}
-\caption{Nodo inestable}
+\caption{Nodo inestable.}
 \end{figure}
 
 \item[Punto silla]
-Si los autovalores tienen signos opuestos, la solución se aleja del orígen asintóticamente a uno de los autovectores y se aproxima a él asintóticamente al otro, excepto las soluciones con condiciones iniciales que pertenecen a las direcciones propias, entonces el sistema evoluciona sobre ellas.
+Si los autovalores tienen signos opuestos, la solución se aleja del origen asintóticamente a uno de los autovectores y se aproxima asintóticamente al otro, excepto las soluciones con condiciones iniciales que pertenecen a las direcciones propias, entonces el sistema evoluciona sobre ellas.
 %
 \begin{figure}
 \centering\includegraphics[scale=0.5]{silla}
-\caption{Punto silla}
+\caption{Punto silla.}
 \end{figure}
 
 \item[Nodos degenerados]
 Aparecen en los casos en que los autovalores o autovectores sean iguales.
-Para iguales autovalores, pueden generarse todas las trayectorias radiales por combinación lineal de los autovectores. La forma de la solución sería
+Para iguales autovalores, pueden generarse todas las trayectorias radiales por combinación lineal de los autovectores. La forma de la solución será
 \begin{equation}
 X(t)=(c_1K_1+c_2+K_2)e^{\lambda t} \nonumber
 \end{equation}
-Si los autovalores son negativos, la solución se acerca al orígen en forma radial y el nodo resulta ser estable, de lo contrario será inestable.
+Con $c_i$ constantes, $K_i$ los autovectores y $\lambda$ un autovalor.
+Si los autovalores son negativos, la solución se acerca al origen en forma radial y el nodo resulta ser estable, de lo contrario será inestable.
 \begin{figure}
 \centering\includegraphics[scale=0.5]{nodoestabledegeneradounautovalor}
-\caption{Nodo estable degenerado con autovalores negativos}
+\caption{Nodo estable degenerado con autovalores negativos.}
 \end{figure}
 Si además tenemos iguales autovectores, la forma de la solución sería
 \begin{equation}
-X(t)=(c_1K+tC_2K+c_2P)e^{\lambda t} \nonumber
+X(t)=(c_1K+tc_2K+c_2P)e^{\lambda t} \nonumber
 \end{equation}
-Si los autovalores son negativos, la solución se acerca al orígen y el nodo resulta ser estable, de lo contrario será inestable.
+Si los autovalores son negativos, la solución se acerca al origen y el nodo resulta ser estable, de lo contrario será inestable.
 \begin{figure}
 \centering\includegraphics[scale=0.5]{nodoestabledegeneradounautovector}
-\caption{Nodo estable degenerado con autovalores negativos y un solo autovector}
+\caption{Nodo estable degenerado con autovalores negativos y un solo autovector.}
 \end{figure}
 
 \item[Centro]
 Si los autovalores son imaginarios puros, la solución describe elipses concéntricas que pasan por el valor inicial.
 \begin{figure}
 \centering\includegraphics[scale=0.5]{centro}
-\caption{Centro}
+\caption{Centro.}
 \end{figure}
 
 \item[Foco estable]
@@ -80,15 +96,15 @@ Si los autovalores son complejos con parte real negativa, la solución es una co
 %
 \begin{figure}
 \centering\includegraphics[scale=0.5]{focoestable}
-\caption{Foco estable}
+\caption{Foco estable.}
 \end{figure}
 
 \item[Foco inestable]
-Si los autovalores son complejos, la solución será periódica conforme su parte imaginaria y se aproximará tenderá a infinito según su parte real.
+Si los autovalores son complejos, la solución será periódica conforme su parte imaginaria y tenderá a infinito según su parte real.
 %
 \begin{figure}
 \centering\includegraphics[scale=0.5]{focoinestable}
-\caption{Foco inestable}
+\caption{Foco inestable.}
 \end{figure}
 
 \end{description}
@@ -96,7 +112,7 @@ Si los autovalores son complejos, la solución será periódica conforme su part
 Para cualquier  sistema de ED, primero se deben hallar todos los puntos críticos del sistema. Luego, se linealiza en torno a cada uno mediante el primer término de la serie de Taylor obteniendo tantos sistemas de ecuaciones como puntos críticos tenga el sistema.
 Estos sistemas son válidos en un entorno suficientemente pequeño del punto crítico.
 
-Por ejemplo, supongamos que se necesita trazar el diagrama de fase para el péndulo físico de la figura \ref{fig:pendulo}.
+Por ejemplo, supongamos que se necesita trazar el diagrama de fase para el péndulo físico de la Figura \ref{fig:pendulo}.
 %
 \begin{figure}[htpb]
 	\centering
@@ -105,7 +121,7 @@ Por ejemplo, supongamos que se necesita trazar el diagrama de fase para el pénd
 	\label{fig:pendulo}
 \end{figure}
 
-Primero hallamos la ecuación de la aceleración, según la figura, la componente tangencial de la gravedad es la que acelera al cuerpo.
+Primero hallamos la ecuación de la aceleración, según la Figura, la componente tangencial de la gravedad es la que acelera al cuerpo.
 Tomando como referencia positiva el sentido dextrógiro, queda
 %
 \begin{equation}
@@ -229,37 +245,38 @@ det(A-\lambda I)= \;
 \end{equation}
 los autovalores son complejos conjugados con parte real negativa (foco estable).
 
-La resolución numérica en Matlab (figura \ref{fig:fase}, muestra las soluciones al sistema elineal en el espacio de estados.
+La resolución numérica en Matlab (Figura \ref{fig:fase}, muestra las soluciones al sistema alineal en el espacio de estados.
 Puede verse que en los puntos críticos, la solución se aproxima a un foco o a un punto silla, según el valor de $n$.
 %
 \begin{figure}
 \centering\includegraphics[scale=.7]{fase}
-\caption{Diagrama de fase del péndulo físico real}
+\caption{Diagrama de fase del péndulo físico real.}
 \label{fig:fase}
 \end{figure}
 
-\section{Sistemas caóticos}
+\section{Sistemas Caóticos}
+\label{secSistCaot}
 
-Cuando se miden variables físicas, no es muy extraño encontrar que el plano de fases tiene un comportamiento similar al de la figura \ref{fig:Secuencia-OK_2}.
-Puede verse que las trayectorias se cortan en el plano de fases, lo que indica que el sistema tiene un orden mayor que dos.
+Cuando se miden variables físicas, no es muy extraño encontrar que el plano de fases tiene un comportamiento similar al de la Figura \ref{fig:Secuencia-OK_2}.
+Puede verse que las trayectorias se cortan en el plano de fase, lo que indica que el sistema tiene un orden mayor que dos.
 Otra observación que se puede hacer es que las trayectorias no se repiten, es decir que, aunque la oscilación persiste, no aparece un ciclo con trayectoria definida.
 Esta última propiedad clasifica al sistema que se está midiendo como caótico.
 
 \begin{figure}
 \centering\includegraphics[width=0.8\textwidth]{Secuencia-OK_2}
-\caption{Salidas de tensión de dos variables de un circuito oscilador}
+\caption{Salidas de tensión de dos variables de un circuito oscilador.}
 \label{fig:Secuencia-OK_2}
 \end{figure}
 
-El teorema de existencia y unicidad de las soluciones a un sistema de ecuaciones garantiza que si f es continuamente diferenciable, los campos vectoriales sobre el espacio de fases son suaves y cada punto de este espacio tiene solución única.
+El teorema de existencia y unicidad de las soluciones a un sistema de ecuaciones garantiza que si una función $f$ es continuamente diferenciable, los campos vectoriales sobre el espacio de fases son suaves y cada punto de este espacio tiene solución única.
 La existencia de este teorema tiene un corolario importante: trayectorias diferentes nunca se intersectan.
-Como consecuenciade esto, las trayectorias sobre el plano de fases quedan restringidas a: un nodo estable o inestable, centro, foco estable o inestable y puerto.
+Como consecuencia de esto, las trayectorias sobre el plano de fases quedan restringidas a: un nodo estable o inestable, centro, foco estable o inestable y puerto.
 Entonces queda claro que un sistema continuo con derivada continua debe tener dimensión mayor o igual a tres para que pueda ser caótico, además, la trayectoria en el espacio de fases debe ocupar un dominio restringido.
 
 Para describir analíticamente el comportamiento de este tipo de sistemas en torno a ciertos puntos de interés podemos hacer uso del álgebra lineal.
 Lo que sigue son tres ejemplos de aplicaciones para atractores caóticos.
 
-El primer y más común ejemplo es el sistema de Lorenz, que está descrito por el siguiente sistema de ecuaciones diferenciales \cite{Lorenz1963}
+El primer y más común ejemplo es el sistema de Lorenz, que está descripto por el siguiente sistema de ecuaciones diferenciales \cite{Lorenz1963}:
 \begin{equation}\label{eq:lorenz}
 \left \{
 \begin{array}{rcl}
@@ -269,30 +286,31 @@ x_3' &=& x_1x_2-\beta x_3
 \end{array}
 \right.
 \end{equation}
+En donde $\sigma$, $\rho$ y $\beta$ son parámatros del sistema, la dinámica será caótica según que combinación de estos valores elijamos.
 
 El sistema de Lorenz tiene tres puntos de equilibrio, $E$, $E^+$ y $E^-$: el primer punto de equilibrio $E$ está situado en el origen (0,0,0) y los otros dos tienen respectivamente como coordenadas,
 \begin{equation}
 (x_1^\pm,x_2^\pm,x_3)=\left(\pm \sqrt{\beta(\rho-1)},\pm \sqrt{\beta(\rho-1)},\rho - 1\right) \nonumber
 \end{equation}
-El comportamiento físico interesante de este sistema ocurre cuando variamos el parámetro de control $\rho$.
-Cuando $\rho<1$, todas las órbitas del campo vectorial dado por \ref{eq:lorenz} tienden al punto fijo situado en el origen.
+
+
+Un comportamiento físico interesante de este sistema ocurre cuando variamos el parámetro de control $\rho$.
+Cuando $\rho<1$, todas las órbitas del campo vectorial dado por la Ecuación \ref{eq:lorenz} tienden al punto fijo situado en el origen.
 A medida que se va incrementando más allá de la unidad, el origen pasa a ser inestable dando lugar a dos puntos fijos, estables, y simétricos $E^+$ y $E^-$. Para todo $\rho<1$, la geometría del comportamiento asintótico del sistema es la misma ya que todas las condiciones iniciales tienden al origen E.
 
 Para $\rho>1$, se observan dos comportamientos.
-El primero, asociado a valores de $\rho$ menores que un cierto valor de humbral $\rho_h=(\sigma(\sigma+\beta)+3\sigma)/(\sigma-\beta-1)$ , valor para el cual los puntos de equilibrio $E^+$ y $E^-$ pierden su estabilidad.
+El primero, asociado a valores de $\rho$ menores que un cierto valor de umbral $\rho_u=(\sigma(\sigma+\beta)+3\sigma)/(\sigma-\beta-1)$ , valor para el cual los puntos de equilibrio $E^+$ y $E^-$ pierden su estabilidad.
 Dentro de este rango de valores del parámetro todas las órbitas terminan en uno de los dos puntos de equilibrio dependiendo de las condiciones iniciales.
 
-Cuando $\rho>\rho_h$, la situación cambia drásticamente.
-Los dos puntos fijos    pasan a ser inestables y nuevos comportamientos pueden surgir.
-Para estudiar estos comportamientos se considera el análisis dinámico del sistema \ref{eq:lorenz}. 
-La linealización del sistema \ref{eq:lorenz} en la proximidad del origen nos proporciona los siguientes autovalores:
-
+Cuando $\rho>\rho_u$, la situación cambia drásticamente.
+Los dos puntos fijos pasan a ser inestables y nuevos comportamientos pueden surgir.
+Para estudiar estos comportamientos se considera el análisis dinámico del sistema de Lorenz \ref{eq:lorenz}. 
+La linealización en la proximidad del origen nos proporciona los siguientes autovalores:
 \begin{equation}
 \lambda = -\beta;\\
-\lambda_\pm = \frac{1}{2} \left(-(\sigma+1) \pm \sqrt{(\sigma+1)^2+4\sigma(\rho-1)} \right) \nonumber
+\lambda_\pm = \frac{1}{2} \left[-(\sigma+1) \pm \sqrt{(\sigma+1)^2+4\sigma(\rho-1)} \right] \nonumber
 \end{equation}
- asociados a la matriz Jacobiana
- 
+ asociados a la matriz Jacobiana:
 \begin{equation}
 \begin{pmatrix}
 -\sigma &\sigma &0 \\
@@ -308,7 +326,7 @@ De modo similar, la linealización del sistema \ref{eq:lorenz} en la proximidad 
 \begin{equation}
 \lambda^3+\lambda^2(\sigma+\beta+1)+\lambda\beta(\sigma+\rho)+2\sigma\beta(\rho-1)=0 \nonumber
 \end{equation}
-asociados a la matriz Jacobiana
+asociados a la matriz Jacobiana:
 \begin{equation}
 \begin{pmatrix}
 -\sigma &\sigma &0 \\
@@ -317,11 +335,10 @@ x_2 &x_1 &-\beta
 \end{pmatrix}
 \nonumber
 \end{equation}
-tiene un autovalor real negativo $\lambda$ combinado con dos autovalores imaginarios puros, $\lambda_\pm = \pm j \alpha$, si $\rho < \rho_h$
-
+tiene un autovalor real negativo $\lambda$ combinado con dos autovalores imaginarios puros, $\lambda_\pm = \pm j \alpha$, si $\rho < \rho_h$.
 La linealización del sistema \ref{eq:lorenz} en la proximidad del punto de equilibrio $E^+$ es un problema simétrico a este.
 
-En la figura \ref{fig:lorenz} pueden verse la evolución de las soluciones al sistema de lorenz.
+En la Figura \ref{fig:lorenz} puede verse la evolución de las soluciones al sistema de Lorenz.
 %
 \begin{figure}
 \centering\includegraphics[scale=.4]{lorenz}
@@ -339,8 +356,9 @@ x_3' &=& b+(x_1+c)x_3
 \end{array}
 \right.
 \end{equation}
+en donde $a$, $b$ y $c$ son parámetros del sistema.
 
-Este sistema tiene dos puntos de equilibrio, $E^+$ y $E^-$ que existen solo cuando $\Delta=c^2-4ab>0$ y cuyas coordenadas están dadas respectivamente por,
+El sistema de Rössler tiene dos puntos de equilibrio, $E^+$ y $E^-$ que existen sólo cuando $\Delta = c^2-4ab > 0$ y cuyas coordenadas están dadas respectivamente por,
 \begin{equation}
 (x_1^\pm,x_2^\pm,x_3^\pm)=\left( \frac{1}{2} (c \pm \sqrt{\Delta}),-\frac{1}{2a} (c \pm \sqrt{\Delta}),\frac{1}{2a} (c \pm \sqrt{\Delta})\right) \nonumber
 \end{equation}
@@ -362,10 +380,10 @@ x_3^\pm &0 &x_1^\pm-c
 \end{equation}
 de donde se deduce que fijando los parámetros $a$ y $b$ y variando $c$ nos encontramos con dos escenarios diferentes, podemos tener un autovalor real negativo y dos complejos conjugados con parte real positiva, o un autovalor real negativo y dos complejos conjugados con parte real negativa.
 Para valores pequeños de c, el atractor de Rössler consiste en una órbita periódica o ciclo límite que tiene un sólo mínimo local.
-A medida que vamos incrementando el parámetro c, el ciclo límite va duplicando su periodo y como consecuencia, sus mínimos locales hasta alcanzar un límite en el cual las trayectorias nunca se repiten lo que corresponde al atractor caótico de Rössler. 
+A medida que vamos incrementando el parámetro c, el ciclo límite va duplicando su período y como consecuencia, sus mínimos locales hasta alcanzar un límite en el cual las trayectorias nunca se repiten, lo que corresponde al atractor caótico de Rössler. 
 
-En la figura \ref{fig:rossler_parametro} pueden verse la evolución de las $x_1$ y $x_2$ al sistema de Rössler para distintos valores del parámetro $c$.
-En la figura \ref{fig:rossler}, la evolución de las tres variables para un parámetro fijo.
+En la Figura \ref{fig:rossler_parametro} pueden verse la evolución de las variables $x_1$ y $x_2$ en el sistema de Rössler para distintos valores del parámetro $c$.
+En la Figura \ref{fig:rossler}, se puede ver la evolución de las tres variables para un parámetro fijo.
 %
 \begin{figure}
 \centering\includegraphics[scale=.5]{rossler_parametro}
@@ -379,7 +397,7 @@ En la figura \ref{fig:rossler}, la evolución de las tres variables para un par�
 \label{fig:rossler}
 \end{figure}
 
-El sistema de Chua está descrito por el siguiente sistema de ecuaciones diferenciales
+El sistema de Chua está descripto por el siguiente sistema de ecuaciones diferenciales:
 \begin{equation}\label{eq:chua}
 \left \{
 \begin{array}{rcl}
@@ -390,7 +408,7 @@ x_3' &=& -\beta x_2
 \right.
 \end{equation}
 
-Tiene tres puntos de equilibrio, $E$, $E^+$ y $E^-$: el primer punto de equilibrio $E$ está situado en el origen (0,0,0) y los otros dos tienen respectivamente como coordenadas,
+Este sistema tiene tres puntos de equilibrio, $E$, $E^+$ y $E^-$: el primer punto de equilibrio $E$ está situado en el origen (0,0,0) y los otros dos tienen respectivamente como coordenadas,
 \begin{equation}
 (x_1^\pm,x_2^\pm,x_3)=\left(\pm \sqrt{-c}, 0,\pm \sqrt{-c}\right) \nonumber
 \end{equation}
@@ -412,7 +430,7 @@ asociados a la matriz Jacobiana
 \end{equation}
 donde podemos detectar un punto de bifurcación para $\alpha=0$ en el cual el autovalor real negativo pasa a ser positivo provocando la inestabilidad del punto de equilibrio $E$ que permanece inestable para una amplia gama de valores del parámetro $\alpha$.
 
-En la figura \ref{fig:chua}, puede verse la evolución de las tres variables de estado para este sistema.
+En la Figura \ref{fig:chua}, puede verse la evolución de las tres variables de estado para este sistema.
 %
 \begin{figure}
 \centering\includegraphics[scale=.5]{chua}
@@ -420,11 +438,58 @@ En la figura \ref{fig:chua}, puede verse la evolución de las tres variables de 
 \label{fig:chua}
 \end{figure}
 
-\section{Mapas caóticos}
+\section{Mapas Caóticos}
 
-¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡Hablar de mapas como Logístico, tent, etc..!!!!!!!!!!!!!!!!!!!!
+Los mapas son una relación de recurrencias, cuya salida puede presentar un comportamiento caótico. Dentro de la gran familia de mapas unidimensionales destacamos los mapas Tent y Logístico, que son utilizados posteriormente en esta tesis.
 
-\subsection{Mapas cuadráticos bidimensionales}
+\subsection{Mapa Logístico}
+
+El mapa Logístico es un claro ejemplo de cómo a partir de ecuaciones dinámicas lineales muy simples puede surgir un comportamiento caótico complejo. Su representación matemática es una relación de recurrencia polinomial de grado 2:
+\begin{equation}\label{eqLogistico}
+x_{n+1} = rx_n(1-x_n)
+\end{equation}
+en donde $r$ es un parámetro del sistema.
+
+La evolución de las iteraciones de este mapa exhibe una gran sensibilidad a las condiciones iniciales, dependiendo del parámetro $r$. Para el intervalo $3.57 \leq r \leq 4$ este mapa presenta comportamiento caótico.
+Su representación en el plano $x_{n+1}$ vs. $x_n$ se ve en la Figura \ref{figLogisticMap} para tres valores del parámetro $r = {2, 3, 4}$.
+También podemos ver su diagrama de bifurcaciones en \ref{figLogisticBifurcations}, los tres valores del parámetro elegidos se resaltan en esta Figura.
+\begin{figure}
+	\centering\includegraphics[width=.75\textwidth]{LogisticMap}
+	\caption{Mapa Logístico para tres parámetros distintos, $r = {2, 3, 4}$}
+	\label{figLogisticMap}
+\end{figure}
+\begin{figure}
+	\centering\includegraphics[width=.75\textwidth]{LogisticBifurcations}
+	\caption{Diagrama de bifurcaciones para el mapa Logístico, con valores de parámetro $2.8 \leq r \leq 4$.}
+	\label{figLogisticBifurcations}
+\end{figure}
+
+\subsection{Mapa Tent}
+
+El mapa Tent está definido por la ecuación de recurrencias:
+\begin{equation}\label{eqTent}
+x_{n+1} =
+\begin{cases}
+u~x_n &, \textrm{si } 0\leq x_n\leq 1/u\\
+\frac{u}{1-u}~(1-x_n) &, \textrm{si } 1/u< x_n\leq 1 
+\end{cases}
+\end{equation}
+%
+con $x_n$ y $u \in \mathbb{R}$.
+
+El nombre ``Tent'' viene de su representación en el plano $x_{n+1}$ vs. $x_n$ que se ve en la Figura \ref{figTentMap}, en donde el parámetro toma tres valores, $u = {4, 2, 4/3}$.
+Cuando este parámetro es distinto de $2$, se dice que el mapa es un \textit{skew Tent}.
+\begin{figure}
+	\centering\includegraphics[width=.75\textwidth]{TentMap}
+	\caption{Mapa Tent para tres parámetros distintos, $u = {4, 2, 4/3}$}
+	\label{figTentMap}
+\end{figure}
+
+Este mapa tiene la característica de que para $r = 2$ sus propiedades estadísticas son ideales, cuando se las calcula teóricamente mediante el operador de Perron-Frobenious \cite{Lasota1994, Lasota1973}, es decir analíticamente.
+Sin embargo, a la hora de la implementación en un medio digital, todas sus iteraciones pueden ser representadas con una operación de acarreo de bits desde la izquierda, lo que provoca que converja rápidamente a cero.
+Este hecho está muy bien explicado en \cite{Li2004}.
+
+\subsection{Mapas Cuadráticos Bidimensionales}
 \label{ssecQMaps}
 
 La familia de mapas cuadráticos bidimensionales que estudiamos aquí es modelada por un par de ecuaciones cuadráticas acopladas:
@@ -437,39 +502,39 @@ y_{n+1}&=a_7+a_8 x_n+a_9 x_n^2+a_{10} x_n y_n+a_{11} y_n+a_{12} y_n^2
 \right.
 \end{equation}
 %
-donde $\{x, y\}$ son las variables de estado y $A = \{a_i, i = 1, \dots, 12 \}$ son los parámetros.
+donde $(x, y)$ son las variables de estado y $A = \{a_i, i = 1, \dots, 12 \}$ son los parámetros.
 La principal característica de este sistema es que presenta múltiples atractores caóticos en función del punto seleccionado en el espacio del parámetros.
 El espacio de parámetros de $12D$ generado por los coeficientes $A$ es muy difícil de explorar.
 
-Las razones para estudiar este sistema en particular son dobles:
+Las razones para estudiar este sistema en particular son dos:
 %
 \begin{enumerate}
 	\item Usando la aritmética de punto flotante con un barrido automático de parámetros $a_i$ y una gran cantidad de puntos en el espacio del parámetro (alrededor de $6\cdot10 ^ {16}$), Sprott pudo detectar varios atractores en régimen caótico permanente.
-	Es decir, tienen la característica de modificar su atractor según los valores que tomen sus 12 coeficientes reales.
-	Él también encontró una relación entre la dimensión de correlación y los exponentes de Lyapunov, con su estética visual, un tema interesante para la generación automática de arte.
+	Es decir, este sistema tiene la característica de modificar su atractor según los valores que tomen sus 12 coeficientes reales.
+	También encontró una relación entre la dimensión de correlación y los exponentes de Lyapunov, con su estética visual, un tema interesante para la generación automática de arte.
 	\item Es posible emplear estos atractores en una amplia variedad de aplicaciones electrónicas, como la generación de nuevos sistemas de encriptación, ya sea reemplazando el S-box en AES \cite{Ahmad2013, Hussain2013}, o incluso desarrollando nuevos algoritmos \cite{Machado2004, Smaoui2009}.
 \end{enumerate}
 
-Tres de estos atractores caóticos se muestran juntos en la figura \ref{fig:atractoresQMaps}.
+Tres de estos atractores caóticos se muestran juntos en la Figura \ref{fig:atractoresQMaps}.
 Sus juegos de parámetros $A_i$ son:	
 %
 \begin{eqnarray}
-A_1&=\{-0.7,-0.4,0.5,-1.0,-0.9,-0.8,0.5,0.5,0.3,0.9,-0.1,-0.9\},\nonumber\\
-A_2&=\{-0.6,-0.1,1.1,0.2,-0.8,0.6,-0.7,0.7,0.7,0.3,0.6,0.9\}, \nonumber\\
-A_3&=\{ -0.1,0.8,-0.7,-1.1,1.1,-0.7,-0.4,0.6,-0.6,-0.3,1.2,0.6\}.\nonumber\\
+A_1 &=& \{-0.7,-0.4,0.5,-1.0,-0.9,-0.8,0.5,0.5,0.3,0.9,-0.1,-0.9\},\nonumber\\
+A_2 &=& \{-0.6,-0.1,1.1,0.2,-0.8,0.6,-0.7,0.7,0.7,0.3,0.6,0.9\}, \nonumber\\
+A_3 &=& \{-0.1,0.8,-0.7,-1.1,1.1,-0.7,-0.4,0.6,-0.6,-0.3,1.2,0.6\}.\nonumber\\
 \end{eqnarray}
 %
-Como se puede ver en la figura, es posible obtener salidas muy diferentes simplemente modificando el valor de los parámetros y manteniendo la estructura del sistema.
+Como se puede ver en la Figura, es posible obtener salidas muy diferentes simplemente modificando el valor de los parámetros y manteniendo la estructura del sistema.
 En una implementación electrónica, esto sería equivalente a poder variar la salida manteniendo la estructura del hardware y modificando los parámetros a través de, por ejemplo, una entrada.
 %
 \begin{figure}
 	\centering
 	\includegraphics[width=1\columnwidth]{atractoreslindos}\\
-	\caption{Tres atractores para tres juegos de parámetros distintos.}\label{fig:atractoresQMaps}
+	\caption{Atractores de sistema de mapas cuadráticos bidimensionales evaluado con tres juegos diferentes de parametros.}\label{fig:atractoresQMaps}
 \end{figure}
 
-Las figuras \ref{fig:atractores3592}.a a \ref{fig:atractores3592}.d muestran los mismos tres atractores $A_1$ a $A_3$ de la Fig. \ref{fig:atractoresQMaps} junto a un atractor con $A_4=\{-1,0.9,0.4,-0.2,-0.6,-0.5,0.4,0.7,0.3,-0.5,0.7,-0.8\}$, superpuestos con sus regiones de atracción (en gris).
-Las áreas blancas de cada figura corresponden a aquellas condiciones iniciales que generan trayectorias divergentes del sistema (semillas inútiles con respecto a su uso como PRNG).	
+Las Figuras \ref{fig:atractores3592}.a a \ref{fig:atractores3592}.d muestran los mismos tres atractores $A_1$ a $A_3$ de la Figura \ref{fig:atractoresQMaps} junto a un atractor con $A_4 = \{-1, 0.9, 0.4, -0.2, -0.6,-0.5, 0.4, 0.7, 0.3, -0.5, 0.7, -0.8\}$, superpuestos con sus dominios de atracción (en gris).
+Las áreas blancas de cada Figura corresponden a aquellas condiciones iniciales que generan trayectorias divergentes del sistema (semillas inútiles con respecto a su uso como PRNG).	
 %
 \begin{figure}
 	\centering
@@ -495,3 +560,23 @@ Las áreas blancas de cada figura corresponden a aquellas condiciones iniciales 
 	\caption{Cuatro atractores caóticos y sus respectivos dominios de atracción.}
 	\label{fig:atractores3592}
 \end{figure}
+
+\section{El problema de la Aritmética Discreta}
+
+Cuando un sistema con MLE positivo es implementado utilizando Aritmética discreta, su comportamiento puede variar respecto del sistema original en aritmética de números reales. En un sistema como este, las pequeñas perturbaciones son amplificadas exponencialmente, y los ``saltos'' en las trayectorias provocados por la aritmética pueden ser considerados como tales.
+
+Al iterar mapas caóticos, después de un transitorio que depende del parámetro de mezcla ($r_{mix}$), la secuencia generada limita en un punto o colección de puntos llamado atractor.
+Un mapa caótico puede tener uno o más atractores.
+Dominio de atracción se llama a todas las condiciones iniciales (CIs) que convergen a cada atractor.
+Las secuencias ergódicas de los atractores, generadas por el mapa, tienen una distribución determinada llamada Función de densidad de probabilidad invariable (IPDF).
+Las principales características de los mapas caóticos, IPDF y $r_{mix}$, pueden obtenerse calculando el operador Perron-Frobenius (PFO), que depende de la estructura del mapa.
+Los puntos fijos de su espectro son las densidades invariables y corresponden a los vectores propios con valor propio igual a uno, la constante de mezcla corresponde al segundo mayor valor propio del PFO, \cite{Lasota1994, Lasota1973}.
+
+Cuando se utiliza precisión finita, este análisis no es válido, todos los atractores toman la forma de puntos fijos u órbitas periódicas.
+El PFO del mapa ya no describe las características de las secuencias.
+Con respecto al dominio de atracción, también cambiará cuando se digitalice, cada valor inicial será parte de, o convergerá a, un cierto punto fijo u órbita periódica.
+En general, aparecen muchas nuevas órbitas periódicas y cambian cuando varía el número de bits empleados.
+
+Con el propósito de utilizar estos sistemas en aplicaciones electrónicas, se hace necesario comprender cómo evoluciona el dominio de atracción con la variación de bits empleados.
+Principalmente es importante saber cuál es la duración del período y el \textsl{grado de aleatoriedad} del ciclo en el que converge cada semilla.
+Por esta razón, se proponen cuantificadores de aleatoriedad que estiman indirectamente el $r_{mix}$ e IPDF del sistema digitalizado.
