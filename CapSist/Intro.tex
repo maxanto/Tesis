@@ -1,31 +1,31 @@
 En los últimos treinta años, los sistemas caóticos han producido una revolución en nuestra visión de la naturaleza ya que tienen dos características contrastantes:
-(1) son deterministas ya que su dinámica está determinada por un un modelo matemático, pero
+(1) son deterministas ya que su dinámica está determinada por un modelo matemático, pero
 (2) debido a su sensibilidad a las condiciones iniciales, se pierde la predicción a largo plazo y, en consecuencia, pueden incluirse en la clase de sistemas estocásticos que se estudian mediante herramientas estadísticas.
 Estos sistemas pueden generar señales estocásticas a partir de modelos simples que son fáciles de implementar a través del software o hardware apropiado.
 
 Esta \emph{dualidad determinista-estocástica} hace que los sistemas caóticos sean especialmente interesantes para las aplicaciones de ingeniería, en la medida en que las señales generadas pueden usarse como ruidos controlados en una amplia gama de aplicaciones.
 Por lo general, se requiere una manipulación adecuada de las series temporales que generan estos modelos para mejorar sus propiedades estadísticas.
-Esto se debe a que las secuencias caóticas presentan correlaciones internas no lineales, por lo tanto es necesario utilizar técnicas de aleatorización romper estas correlaciones y para mejorar la aleatoriedad de la serie \cite{DeMicco2008}.
+Esto se debe a que las secuencias caóticas presentan correlaciones internas no lineales, por lo tanto, es necesario utilizar técnicas de aleatorización romper estas correlaciones y para mejorar la aleatoriedad de la serie \cite{DeMicco2008}.
 La determinación del grado de estocasticidad tiene como objetivo proporcionar una metodología de diseño optimizada para una aplicación particular.
 
-Así, por ejemplo, hay aplicaciones que requieren que el sistema caótico reemplace un sistema estocástico (criptografía \cite{Fernandez2003}, generadores de secuencia para esparcir el espectro en comunicaciones de espectro esparcido \cite{Setti2004, DeMicco2007B}, generadores de números pseudoaleatorios \cite{Kocarev2003, Larrondo2006, DeMicco2009}, reducción de la interferencia electromagnética \cite{Callegari2003A}, etc.).
-Por otro lado, algunas aplicaciones requieren previsibilidad a largo plazo, por ejemplo para reproducir el sistema caótico de la manera más precisa posible, este es el caso de las comunicaciones analógicas que usan señales caóticas como de portadoras \cite{Kocarev1995, Hidalgo2001}.
+Así, por ejemplo, hay aplicaciones que requieren que el sistema caótico reemplace un sistema estocástico (criptografía \cite{Fernandez2005}, generadores de secuencia para esparcir el espectro en comunicaciones de espectro esparcido \cite{Setti2004, DeMicco2007B}, generadores de números pseudoaleatorios \cite{Kocarev2003, Larrondo2006, DeMicco2009}, reducción de la interferencia electromagnética \cite{Callegari2003A}, etc.).
+Por otro lado, algunas aplicaciones requieren previsibilidad a largo plazo, por ejemplo, para reproducir el sistema caótico de la manera más precisa posible, este es el caso de las comunicaciones analógicas que usan señales caóticas como de portadoras \cite{Kocarev1995, Hidalgo2001}.
 
 Un problema es la determinación exacta del período de la secuencia pseudoaleatoria.
 Para generadores que se basan en operaciones lineales, el problema se ha estudiado en profundidad y existen criterios de diseño bien conocidos para obtener dispositivos que generen secuencias de máximo período.
 Ejemplos de algoritmos lineales son: el algoritmo Mersenne Twister que es un generador de números aleatorios muy rápido de período $T = 2^{19937} - 1$ \cite{Matsumoto1998} y Multiply-With-Carry (MWC), que es un método inventado por George Marsaglia para la generación de secuencias aleatorias de números enteros basados en un conjunto inicial de dos a miles de valores de semilla elegidos al azar, presenta períodos inmensos, que van desde alrededor de $2 ^ {60}$ a $2 ^ {2000000}$ \cite{Marsaglia1991}.
 Sin embargo, desde el punto de vista criptográfico son débiles.
 
-Cuando se trata de aplicaciones criptográficas, no se recomienda utilizar métodos lineales para generar secuencias pseudoaleatorias (como LFSR, LCG o sus combinaciones adecuadas), ya que hay disponibles algoritmos eficientes para predecir la secuencia a partir de observaciones relativamente cortas \cite{Boyar1989, Plumstead1982}.
+Cuando se trata de aplicaciones criptográficas, no se recomienda utilizar métodos lineales para generar secuencias pseudoaleatorias (como LFSR, LCG o sus combinaciones adecuadas), ya que hay disponibles algoritmos eficientes para predecir la secuencia a partir de observaciones relativamente cortas \cite{Boyar1989}.
 Por otro lado, para la mayoría de las familias de generadores no lineales, el problema parece ser intratable y, con pocas excepciones, no existe un análisis analítico de sus períodos \cite{kocarev2011}.
 
 En realidad, si los sistemas caóticos pudieran implementarse con una precisión infinita, serían deterministas en sentido estricto.
 Sin embargo, solo disponemos de computadoras y dispositivos digitales, que pueden representar internamente las señales con una cantidad finita de bits, esto significa que los valores se describen usando aritmética de precisión finita.
 Esta restricción es crítica para un sistema caótico ya que es extremadamente sensible a la aritmética empleada, estos dispositivos solo pueden generar atractores \textsl{pseudocaóticos}, en el mejor de los casos.
-En consecuencia la discretización es un proceso no trivial ya que puede destruír el comportamiento pseudocaótico del sistema original.
+En consecuencia la discretización es un proceso no trivial ya que puede destruir el comportamiento pseudocaótico del sistema original.
 
 Otro de los problemas fundamentales, desde el punto de vista de la implementación en hardware, es la optimización de recursos.
-Contínuamente aparecen nuevas formas de implementar los sistemas para reducir área y potencia.
+Continuamente aparecen nuevas formas de implementar los sistemas para reducir área y potencia.
 
 En este Capítulo se resumen varios trabajos propios orientados a la implementación de sistemas caóticos en hardware.
 Primero, en la Sección \ref{sec:RNA}, se explora la la posibilidad de implementar redes neuronales con comportamiento caótico.
@@ -33,8 +33,11 @@ Este tipo de sistemas es interesante por presentar un comportamiento autónomo, 
 Luego, en la Sección \ref{sec:CodCaot} se propone un nuevo esquema de codificación basado en los mapas cuadráticos bidimensionales presentados en la Sección \ref{ssecQMaps}.
 Estos mapas presentan distintos atractores con propiedades muy diferentes según sus $12$ parámetros, que pueden ser usados como llave, lo que permite mantener la estructura del circuito y generar salidas pseudoaleatorias muy distintas según sea la llave utilizada.
 Como se dijo más arriba, la precisión numérica es un factor que puede determinar la caoticidad y la estocasticidad de los sistemas caóticos digitalizados.
-En las Secciones \ref{sec:AnalysisImpLorenz} y \ref{sec:StochDegr} se explora este tema.
+Estos resultados fueron presentados en \cite{Antonelli2012}.
+En las Secciones \ref{sec:AnalysisImpLorenz} y \ref{sec:StochDegr} se explora la degradación de las propiedades estadísticas de los sistemas caóticos cuando son implementados en hardware digital.
 Primero, en la Sección \ref{sec:AnalysisImpLorenz} se estudió el comportamiento del sistema de Lorenz utilizando distintos tipos de representación numérica.
+Este análisis fue publicado en \cite{CAMTA2012}.
 Se utilizaron estrategias de aleatorización ya que, en este caso, el sistema está orientado a la generación de números pseudoaleatorios.
 En este caso se utilizaron herramientas estándar de uso libre para evaluar la estocasticidad del sistema resultante.
-Luego, en \ref{sec:StochDegr}, se realizó un análisis exaustivo de los atractores y regiones de atracción para los mapas cuadráticos bidimensionales presentados en la Sección \ref{ssecQMaps}.
+Luego, en \ref{sec:StochDegr}, se realizó un análisis exhaustivo de los atractores y regiones de atracción para los mapas cuadráticos bidimensionales presentados en la Sección \ref{ssecQMaps}.
+Estos resultados fueron publicados en \cite{DeMicco2017}.

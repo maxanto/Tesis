@@ -1,30 +1,66 @@
 \chapter{Introducción}
 
-Los números aleatorios constituyen una de las bases del desarrollo tecnológico, han sido utilizados exitosamente en una gran variedad de aplicaciones como juegos, criptografía, modelado de sistemas físicos, sistemas biológicos, etc.
-Éstos pueden ser generados a partir de fuentes de aleatoriedad de naturaleza física (TRNG) o a partir de generadores algorítmicos (PRNG).
-En esta tesis se propone reemplazar los generadores algorítmicos por sistemas caóticos, aunque las secuencias generadas por estos últimos requieren un postprocesamiento para mejorar sus propiedades aleatorias.
+Los números aleatorios constituyen una de las bases del desarrollo tecnológico, han sido utilizados exitosamente en una gran variedad de aplicaciones como juegos, criptografía \cite{Machado2004, Smaoui2009}, modelado de sistemas físicos  \cite{Kapral1995, Awrejcewicz2003}, sistemas biológicos \cite{Strogatz2018}, etc.
+Dado que cada aplicación tiene diferentes requerimientos, existe un amplio abanico de herramientas para analizar las propiedades de estas secuencias.
+Un ejemplo paradigmático es el generador Marsanne Twister, cuyas secuencias presentan un período extremadamente largo, poseen propiedades estadísticas excelentes, pero son perfectamente predecibles.
+Como resultado, este generador es inviable en el campo de la criptografía, sin embargo, es el más utilizado para el resto de las aplicaciones.
+Dentro de esta tesis se utilizan dos enfoques, cuando se quiere saber si un sistema es apto para ser utilizado como generador de números aleatorios para criptografía se utilizan test estadísticos estándar como NIST o  DieHard \cite{Marsaglia1995}.
+Cuando lo que se desea es evaluar el grado de aleatoriedad de un sistema se utilizan cuantificadores de la Teoría de la Información para medir la estocasticidad (basados en entropías de valores) \cite{Shannon1948} y la mezcla (basados en entropías de patrones de orden) de las secuencias generadas \cite{Bandt2002}.
+Estas dos entropías son complementarias y cubren los dos principales aspectos a considerar: estocasticidad de los valores generados e  independencia estadística de valores consecutivos.
+Además, también interesa conocer el período y el máximo exponente de Lyapunov \cite{Kantz1994}, para evaluar la caoticidad de los sistemas implementados en hardware.
+
+Los números aleatorios pueden ser generados a partir de fuentes de aleatoriedad de naturaleza física (TRNG) o a partir de generadores algorítmicos (PRNG).
+Existen de las más variadas técnicas de generación de números aleatorios utilizando TRNGs, siendo el ruido térmico generado por una resistencia caliente el más conocido.
+Las propiedades estadísticas de este generador son malas desde el punto de vista estadístico, sin embargo, el modelo de un TRNG nunca es totalmente conocido, por lo que sus secuencias son impredecibles en el corto y/o largo plazo.
+Por otro lado, los PRNGs pueden clasificarse en dos conjuntos, los basados en algoritmos y los basados en sistemas caóticos, estos últimos son los que se ocupa esta tesis.
+Los sistemas caóticos poseen dos propiedades que los hacen atractivos para ser utilizados como PRNGs, su dinámica está determinada por un un modelo matemático y presentan sensibilidad a las condiciones iniciales.
+Como consecuencia son sistemas deterministas impredecibles a largo plazo, por lo que pueden generar señales estocásticas \cite{Liao2013a}.
+Estos sistemas pueden incluirse en la clase de sistemas estocásticos que se estudian mediante herramientas estadísticas, sin embargo, sus propiedades estadísticas no son óptimas dado que presentan estructuras internas.
+En consecuencia, es necesario un postprocesamiento de las secuencias generadas para mejorar su aleatoriedad.
 
 Esta tesis se centra en la implementación en hardware electrónico de RNGs, particularmente se trata de responder dos preguntas principales: ¿Cómo varían las propiedades estadísticas de los sistemas caóticos cuando son implementados en hardware digital? y, ¿Es posible implementar un generador físico de ruido en hardware?
-La primer pregunta está directamente relacionada con generadores PRNG, la segunda apunta a la posibilidad de implementar un TRNG (analógico) en hardware digital.
-
-Para estudiar los RNGs, se utilizaron cuantificadores de la teoría de la información, por un lado basados en entropías de valores y por otro en entropías de patrones de orden.
-Estas dos entropías son complementarias y cubren los dos principales aspectos a considerar: estocasticidad de los valores generados e  independencia estadística de valores consecutivos.
-Además se utilizaron exponentes de Lyapunov para evaluar la caoticidad de los sistemas implementados en hardware.
+La primera pregunta está directamente relacionada con generadores PRNG, se propone reemplazar los generadores algorítmicos por sistemas caóticos.
+Por otro lado, como todo PRNG tiene un modelo, existen propiedades que no puede satisfacer (como impredictibilidad o período infinito).
+Por lo tanto, es deseable contar con ambos generadores (PRNG y TRNG) en el mismo sistema.
+Aquí entra en juego la segunda pregunta, que apunta a la posibilidad de implementar un TRNG (analógico) en hardware digital.
 
 Cuando un sistema es calculado en precisión finita, el resultado de cada iteración se sustituye por el valor representable más cercano, lo que desvía su trayectoria de la que tendría utilizando números reales.
+Frecuentemente, estas desviaciones del valor exacto son tomadas como incertezas en un resultado o como ruido de cuantificación y no presentan mayores inconvenientes para representar un sistema.
+Estos dos catálogos (ruido o incerteza) tienen validez cuando el sistema que se intenta describir es dinámicamente estable, entonces la cuantificación puede representarse como un ruido superpuesto a una órbita, por ejemplo; o cuando se caracteriza una fuente de ruido, entonces la cuantificación es sólo una incerteza en la medición.
+Los sistemas caóticos vienen a llenar la brecha existente entre estos dos conjuntos disjuntos (determinísticos vs. estocásticos) y la precisión juega un papel determinante que puede tener varias interpretaciones.
+Una de ellas es modelar a la cuantificación como una perturbación del sistema.
 La inherente sensibilidad a las condiciones iniciales que presentan los sistemas caóticos hace que estas perturbaciones se vean amplificadas con cada iteración (vía el máximo exponente de Lyapunov) y el sistema resultante pueda tener poco que ver con el original.
-En el mejor de los casos el sistema pasa a ser pseudocaótico y sus propiedades como estocasticidad, mezcla, período y caoticidad se ven degradadas.
+Con este panorama, ya no tenemos acceso a los sistemas caóticos ya que estos sólo existen cuando la base numérica puede representar toda la escala real.
+En el mejor de los casos el sistema pasa a ser pseudocaótico, en donde las propiedades como estocasticidad, mezcla, período y caoticidad se ven degradadas.
+En este caso, el sistema se mantiene oscilando sobre el mismo atractor que el calculado en números reales.
+Cuando la aritmética utilizada para calcular cada iteración no es suficiente, el sistema no oscilará y se perderá toda caoticidad.
+Un ejemplo muy interesante es el mapa Tent, que posee propiedades estadísticas ideales en el campo de los números reales, pero cuando es implementado en cualquier base 2, por precisa que sea, siempre converge a un punto fijo.
+Por lo que no puede implementarse en ningún dispositivo digital.
 Uno de los aportes de la tesis es el estudio de esta degradación en función de la precisión de la aritmética representada en un sistema electrónico digital.
 
-Por el lado de los TRNG, está bien establecido que un oscilador en anillo (RO) presenta fluctuaciones de fase (jitter) que dependen de procesos puramente físicos como gradientes durante el proceso de difusión en la fabricación del circuito integrado, gradientes en la temperatura de trabajo, ruido térmico en las junturas semiconductoras, etc.
-Como los ROs son comúnmente utilizados como generadores de señales de reloj para sincronizar sistemas, el jitter suele ser un problema.
-Sin embargo en esta tesis se utilizan como la fuente de aleatoriedad física para generar señales estocásticas.
-Se propuso un método basado en entropías diferenciales que permite extraer un valor que indica el grado de aleatoriedad de una serie binaria y, por lo tanto, puede indicar el nivel de jitter esta que contiene.
+Por el lado de los TRNG, el objetivo es implementar un generador que coexista en el mismo dispositivo que un PRNG.
+Está bien establecido que un oscilador en anillo (RO) presenta fluctuaciones de fase (jitter) que dependen de procesos puramente físicos como gradientes durante el proceso de difusión en la fabricación del circuito integrado, gradientes en la temperatura de trabajo, ruido térmico en las junturas semiconductoras, etc.
+Ninguna de estas variables pueden ser incluidas en el modelo del oscilador, lo que hace a este sistema muy atractivo para aprovechar esas incertezas.
+Como los ROs son comúnmente utilizados como generadores de señales de reloj para sincronizar sistemas, el jitter suele ser un problema \cite{Baron2012}.
+Sin embargo, en esta tesis se lo utiliza como la fuente de aleatoriedad física para generar señales estocásticas.
+Existen diferentes topologías circuitales en donde se mezclan las señales de varios de estos ROs, de donde surge una señal binaria aleatoria \cite{Sunar2007}.
+En esta tesis se propuso un método basado en entropías diferenciales que permite extraer un valor que indica el grado de aleatoriedad de esta serie binaria y, por lo tanto, puede indicar el nivel de jitter esta que contiene.
 Este método es útil para catalogar un dado RO como bueno para generar ruido o como señal de reloj.
 Además, se implementó un TRNG basado en ROs mediante la mezcla de varios osciladores.
 
+Esta tesis se centra principalmente en dos aportes de relevancia internacional, en donde se publicaron los resultados de los dos últimos capítulos.
+En \cite{Antonelli2018}, se exploran técnicas de aleatorización de datos como switching y skipping desde el punto de vista de la implementación digital.
+Cuando se estudian técnicas de aleatorización, generalmente se pierde de vista la plataforma digital que calcula la salida del PRNG.
+Además, los mapas caóticos estudiados fueron caracterizados en trabajos anteriores midiendo el período de las secuencias que generan, por lo que el aporte de este trabajo es doble, por un lado, la caracterización desde el punto de vista estadístico y por otro, respecto de la precisión finita en base binaria.
+Luego, en \cite{Antonelli2017} se propuso un método para medir el jitter basado en cuantificadores de la Teoría de la Información.
+Los métodos actuales más comunes (sin equipo especial) para medir jitter se basan en valores máximos, es decir, se detecta la desviación máxima medida y se verifica que quede dentro de ciertos márgenes preestablecidos.
+Como resultado de la técnica propuesta se obtiene un valor que cuantifica el jitter medio, pudiendo conseguir un grado de incerteza en la duración de cada período.
+Conocer las propiedades del jitter en un oscilador es útil para catalogarlo como buen generador de pulsos de reloj o como buen TRNG.
+
+La organización de esta tesis es la siguiente:
 El Capítulo \ref{capSist} es una introducción a los sistemas dinámicos caóticos utilizados a lo largo de la tesis.
-El Capítulo \ref{capCuanti} contiene, por un lado una introducción a los cuantificadores de aleatoriedad que se utilizan para medir los generadores de números, y por otro, algunos avances en la implementación de estos cuantificadores en hardware electrónico (FPGA).
-El Capítulo \ref{capGen} presenta avances en generadores de números aleatorios utilizando sistemas caóticos y sus aplicaciones.
-En el Capítulo \ref{capSwitch} se estudia la degradación estadística de los mapas caóticos cuando son implementados en precisión finita.
-Y por último en el Capítulo \ref{capRings}, primero se propone la utilización de cuantificadores de la teoría de la información para medir la mezcla y estocasticidad de la fuente de incertezas en RO's, luego se muestran los resultados de la implementación en FPGA de un TRNG utilizando ROs.
+El Capítulo \ref{capCuanti} contiene, por un lado, una introducción a los cuantificadores de aleatoriedad que se utilizan para medir los generadores de números, y por otro, algunos avances en la implementación de estos cuantificadores en hardware electrónico (FPGA). Además, en este capítulo se presentan los resultados publicados en \cite{CASE2013}, \cite{DeMicco2013}, \cite{CASE2013} y \cite{LASCAS2017}.
+El Capítulo \ref{capGen} presenta avances en generadores de números aleatorios utilizando sistemas caóticos y sus aplicaciones. Se resumen los resultados de \cite{Antonelli2012}, \cite{CAMTA2012} y \cite{DeMicco2017}.
+En el Capítulo \ref{capSwitch} se estudia la degradación estadística de los mapas caóticos cuando son implementados en precisión finita. Aquí se muestran los resultados de \cite{Antonelli2018}, el cual es uno de los aportes principales de esta tesis.
+Y por último en el Capítulo \ref{capRings}, primero se propone la utilización de cuantificadores de la teoría de la información para medir la mezcla y estocasticidad de la fuente de incertezas en ROs, que es el otro aporte principal presentado en \cite{Antonelli2017}.
+Luego se muestran los resultados de la implementación en FPGA de un TRNG utilizando ROs, resultados presentados en \cite{SPL2014}.

@@ -17,7 +17,7 @@ En resumen, a pesar de la aritmética utilizada, ya sea de punto fijo o punto fl
 Incluso utilizando una precisión extremadamente alta como lo hacen Liao y Wang \cite{Liao2013a}, las secuencias generadas por un sistema caótico que usa hardware digital siempre serán periódicas.
 
 En esta Sección, se implementó un oscilador discreto de Lorenz obtenido mediante el uso del algoritmo de primer orden de Euler y tres estándares de representación diferentes.
-Además se aplicaron técnicas de aleatorización a las variables de estado para obtener un PRNG en tiempo real.
+Además, se aplicaron técnicas de aleatorización a las variables de estado para obtener un PRNG en tiempo real.
 El objetivo de este trabajo es estudiar la influencia del procedimiento de discretización en la dinámica del sistema.
 En \cite{DeMicco2010} se estudió el grado de estocasticidad de un sistema caótico determinista mediante su implementación en coma flotante de precisión simple (32 bits estándar IEEE 754).
 
@@ -182,7 +182,7 @@ floor\left[{\frac{{Z}_{t}}{2^{{n-5}}}}\right]\nonumber \\
 				{\frac{n}{2}}\right] )}}}\right]+2^{44-n}1680 \ . \nonumber
 \end{eqnarray}
 %
-Este sistema discreto tiene un comportamiento caótico (de hecho pseudocaótico) y todos los divisores están en potencia de $2$.
+Este sistema discreto tiene un comportamiento caótico (de hecho, pseudocaótico) y todos los divisores están en potencia de $2$.
 Todo el procedimiento de preprocesamiento de las ecuaciones minimiza los recursos de hardware necesarios (como se mostrará más adelante).
 
 \subsection{Post-procesamiento de Aleatorización}
@@ -229,7 +229,7 @@ Las Figuras \ref{fig:tiempo} y \ref{fig:atractor} muestran respectivamente la se
 %
 \begin{figure}
 	\centering
-	\includegraphics[width=1\columnwidth]{LorenzAtractor}\\
+	\includegraphics[width=.6\columnwidth]{LorenzAtractor}\\
 	\caption{Atractor de Lorenz.}\label{fig:atractor}
 \end{figure}
 

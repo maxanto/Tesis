@@ -1,6 +1,7 @@
 \section{Implementación de {TRNG} basado en {RO}s}
+\label{secRoTRNG}
 
-En este Capítulo se estudia el uso de los {RO}s como generadores de números aleatorios ({TRNG}).
+En esta Sección se estudia el uso de los {RO}s como generadores de números aleatorios ({TRNG}).
 Se explica el diseño, hecho para {ALTERA Cyclone} III, usando primitivas de bajo nivel.
 Se consideran dos características relevantes de un {RNG} para validar el diseño: 1) ll equiprobabilidad de todos los resultados posibles y 2) la estadística independencia de valores consecutivos.
 En este trabajo, estas propiedades se miden a través de Cuantificadores de teoría de la información descriptos en la Sección \ref{sec:ITQs}.
@@ -43,7 +44,7 @@ El {FF} y la {LUT} se pueden usar juntos o independientemente, \cite{Altera}.
 %
 \begin{figure}
 \begin{center}
-\includegraphics[ width=0.5\textwidth]{NOTenLEmasFF}
+\includegraphics[ width=\textwidth]{NOTenLEmasFF}
 \caption{Imagen del Chip Planner que muestra la implementación de un inversor y un Flip Flop.} \label{fig:LE}
 \end{center}
 \end{figure}
@@ -52,17 +53,17 @@ Por lo general, el software de síntesis asigna recursos sin la intervención de
 Pero en el diseño de {TRNG}s basados en {RO}s es necesario controlar la ubicación exacta de cada componente individual  para evitar la simplificación de los inversores realizada por la herramienta de síntesis.
 En {Altera} el uso de primitivas de bajo nivel permite controlar la implementación.
 Por consiguiente, estas primitivas y asignaciones de bajo nivel se emplean dentro del código {HDL} empleado en el diseño desarrollado.
-Además, se debe configurar la herramienta de síntesis para evitar que elimine los búferes redundantes.
+Además, se debe configurar la herramienta de síntesis para evitar que elimine los buffers redundantes.
 
 Las cadenas de {RO}s se pueden implementar en el chip programando las {LUT}s como inversores.
 Es necesario evitar que el motor de síntesis {Quartus} II fusione dos compuertas {NOT} en serie, utilizando una primitiva llamada {LCELL}.
 Una {LCELL} consume una celda lógica y no es eliminada del proyecto durante la síntesis lógica.
-Para crear un {RO}, se programan {LCELL}s como búferes de inversores.
+Para crear un {RO}, se programan {LCELL}s como buffers de inversores.
 Las Figuras \ref{fig:RTL1ring} y \ref{fig:postMap1ring} muestran como esta primitiva es implementada por el compilador Quartus II.
 %
 \begin{figure*}
 \begin{center}
-\includegraphics[width=0.7\textwidth]{RTL_view_1ring}
+\includegraphics[width=\textwidth]{RTL_view_1ring}
 \caption{Vista RTL de un ring con $3$ inversores.}
 \label{fig:RTL1ring}
 \end{center}
@@ -70,7 +71,7 @@ Las Figuras \ref{fig:RTL1ring} y \ref{fig:postMap1ring} muestran como esta primi
 %
 \begin{figure*}
 \begin{center}
-\includegraphics[ width=0.7\textwidth]{tech_map_viewer_post_mapping}
+\includegraphics[ width=\textwidth]{tech_map_viewer_post_mapping}
 \caption{\textit{Technology map viewer} (post mapeo) de un ring con $3$ inversores.} \label{fig:postMap1ring}
 \end{center}
 \end{figure*}
@@ -85,7 +86,7 @@ Cada región tiene $16$ {LAB}s, lo que permite aumentar el número de inversores
 %
 \begin{figure*}
 \begin{center}
-\includegraphics[ width=0.5\textwidth]{fpgaplan}
+\includegraphics[ width=0.6\textwidth]{fpgaplan}
 \caption{Vista de las regiones \emph{LogicLock} del \emph{Chip Planner}.}
 \label{fig:fpgaplan}
 \end{center}
@@ -96,7 +97,7 @@ Hay muchos factores que determinan la frecuencia de cada {RO}, y contribuyen a l
 \item Ubicación dentro de {LAB}: las diferentes ubicaciones entre los anillos pueden dar como resultado diferencias de tiempo.
 \item Conexiones: incluso teniendo exactamente colocación idéntica de una {LUT} con respecto a otra en un anillo dado, no es posible tener exactamente el mismo {uso de recursos de enrutamiento} en las conexiones.
 \item Selección de entrada: durante la etapa de enrutamiento, el \emph{fitter} elegirá qué entrada de la {LUT} se utiliza. Como el retraso a través de la {LUT} depende de cuál de las cuatro entradas se utiliza, los anillos tienen diferentes retardos.
-\item Vecindad: incluso si os ROs pudieran ser exactamente identicos en los items anteriores, el retardo puede cambiar dependiendo de lo que se coloque y enrute alrededor del anillo.
+\item Vecindad: incluso si os ROs pudieran ser exactamente idénticos en los items anteriores, el retardo puede cambiar dependiendo de lo que se coloque y enrute alrededor del anillo.
 \end{enumerate}
 
 
@@ -104,7 +105,7 @@ En la Figura \ref{fig:RTL3rings} (vista RTL) se muestra un {TRNG} usando $3$ {RO
 %
 \begin{figure}
 \begin{center}
-\includegraphics[ width=0.5\textwidth]{RTL_view_3ROs}
+\includegraphics[ width=0.6\textwidth]{RTL_view_3ROs}
 \caption{{RTL} de {TRNG} con $3$ {RO}s.}
 \label{fig:RTL3rings}
 \end{center}
@@ -129,7 +130,7 @@ Para tener una idea de los recursos empleados para este diseño, la Tabla \ref{t
 \subsection{Resultados}
 \label{sec:results}
 
-La herramienta \emph{Embedded Logic Analyzer} se utilizó para recopilar las secuencias aleatorias generadas.
+La herramienta \emph{Emmbedded Logic Analyzer} se utilizó para recopilar las secuencias aleatorias generadas.
 Esta es una {herramienta de depuración a nivel de sistema}, proporcionada por $ Altera $ \cite{QUARTUS}, que captura y almacena el comportamiento de la señal en tiempo real y permite observar las interacciones entre el hardware y el software en los diseños del sistema.
 Después de adquirir los datos y guardarlos en un archivo {SignalTap II}, pueden ser analizado o visto como una forma de onda.
 Este procedimiento no introduce \textit{jitter} ni distorsión en la señal medida.
@@ -164,7 +165,7 @@ El plano de entropía dual muestra que un aumento en el número de {RO}s mejora 
 \begin{center}
 \includegraphics[ width=0.8\textwidth]{HhistvsHBP_t}
 \caption{Plano $H_{hist} \times H_{BP}$ para distintos RNGs. Los números que siguen a cada cuadrado indica la cantidad de {RO}s utilizado en cada {TRNG}.
-Los números al lado de cada punto en los resultados de los mapas {Logistico} y {TWBM} indican el número de iteración.}
+Los números al lado de cada punto en los resultados de los mapas {Logístico} y {TWBM} indican el número de iteración.}
 \label{fig:HBPvsHhis_all}
 \end{center}
 \end{figure*}
@@ -179,7 +180,7 @@ Finalmente, las secuencias de Mersenne Twister y Matlab presentan un valor idén
 \begin{figure*}
 	\begin{center}
 		\includegraphics[ width=0.8\textwidth]{HhistvsHBP_z}
-		\caption{Detalle de la Fig. \ref{fig:HBPvsHhis_all} alrededor del punto ideal $(1,1)$.}
+		\caption{Detalle de la Figura \ref{fig:HBPvsHhis_all} alrededor del punto ideal $(1,1)$.}
 		\label{HhistvsHBP_zoom}
 	\end{center}
 \end{figure*}

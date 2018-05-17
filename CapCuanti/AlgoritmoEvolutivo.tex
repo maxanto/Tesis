@@ -4,7 +4,7 @@ Se propuso emplear un método heurístico para buscar parámetros del sistema im
 La idea es utilizar al MLE como la \textit{fitness function} de un algoritmo evolutivo, mediante el cual se busca maximizarla.
 Este algoritmo tiene la ventaja que realiza una búsqueda inteligente mediante el empleo de un algoritmo genético, lo que minimiza el tiempo de cómputo.
 
-Los algoritmos evolutivos son algoritmos de optimización metaheurísticos basados en poblaciones, que utilizan mecanismos inspirados en la biología tales como mutación, cruza, selección natural y supervivencia del más apto para refinar un conjunto de soluciones candidatas en forma iterativa\cite{Weise2009}.
+Los algoritmos evolutivos son algoritmos de optimización metaheurísticos basados en poblaciones, que utilizan mecanismos inspirados en la biología tales como mutación, cruza, selección natural y supervivencia del más apto para refinar un conjunto de soluciones candidatas en forma iterativa \cite{Weise2009}.
 
 Las entidades que representan posibles soluciones al problema son llamados \textit{cromosomas} y el grupo de cromosomas es llamados \textit{población inicial}.
 Desde la población inicial, o los primeros padres, se genera un hijo mediante el cruce entre ellos.
@@ -25,20 +25,20 @@ Este segundo diagrama puede verse en la Figura \ref{fig:diagramaflujo2}, esta su
 %
 \begin{figure}
 	\centering
-	\includegraphics[width=0.9\columnwidth]{main_flowchart}\\
+	\includegraphics[width=0.6\columnwidth]{main_flowchart}\\
 	\caption{Diagrama de flujo principal.}
 	\label{fig:diagramaflujo1}
 \end{figure}
 %
 \begin{figure}
 	\centering
-	\includegraphics[width=0.56\columnwidth]{evolution_flowchart.pdf}\\
+	\includegraphics[width=0.45\columnwidth]{evolution_flowchart.pdf}\\
 	\caption{Diagrama de flujo del bloque \textit{Evolution}.}\label{fig:diagramaflujo2}
 \end{figure}
 
 El algoritmo comienza con una inicialización general de parámetros como el número máximo de generaciones $max\_gen$, el número máximo de mutaciones $max\_mut$ y el número máximo de cambios en cada mutación $max\_stem$.
 Luego se definen los primeros dos padres, ellos definirán los márgenes de búsqueda.
-Además se calcula su \textit{fitness function} $F_p$.
+Además, se calcula su \textit{fitness function} $F_p$.
 A partir de este punto se itera la segunda generación, se elige en forma aleatoria un valor de parámetro $r$ con una distribución aleatoria entre los primeros dos padres, generando un nuevo hijo.
 Luego este hijo entra en la subrutina \textit{Evolution} cuya salida es el valor de $r$ evolucionado y su correspondiente \textit{fitness function} $F_c$.
 
@@ -68,8 +68,8 @@ El reporte de compilación muestra que la utilización de la lógica no excede e
 %
 \begin{figure}
 	\centering
-	\includegraphics[width=.75\columnwidth]{compilacion.pdf}\\
-	\caption{Reporte de compilación de la implementación del calculo del MLE.}\label{fig:compilacion}
+	\includegraphics[width=.7\columnwidth]{compilacion.pdf}\\
+	\caption{Reporte de compilación de la implementación del cálculo del MLE.}\label{fig:compilacion}
 \end{figure}
 
 En la Figura \ref{fig:st} se muestra la salida del Signal Tap, esta herramienta permite tomar muestras directamente desde la placa en donde es implementado el algoritmo.

@@ -32,7 +32,7 @@ Este \emph{jitter} está limitado y se caracteriza por su valor máximo de $\Del
 También frecuentemente las señales presentan \textit{jitter} periódico determinístico, en este caso el tiempo entre flancos consecutivos se incrementa y decrementa a intervalos regulares.
 Estos intervalos entre dos tiempos el efecto máximo son el período del \textit{jitter}; el inverso de este período  es la frecuencia del jitter.
 El \textit{jitter} periódico con frecuencia de fluctuación inferior a $10 Hz$ usualmente se denomina \emph{wander} y el nombre \emph{jitter} se refiere sólo a las fluctuaciones periódicas con frecuencias en o por encima de $10 Hz$.
-En comunicaciones, \emph{jitter total} es $T = \Delta_{pp} + 2nR_{rms}$ donde $n$ es un número entre $6$ y $8$ relacionado con la tasa de error binsrio (\emph{BER}).
+En comunicaciones, \emph{jitter total} es $T = \Delta_{pp} + 2nR_{rms}$ donde $n$ es un número entre $6$ y $8$ relacionado con la tasa de error binario (\emph{BER}).
 
 Los \emph{RO}s son uno de los principales componentes de los circuitos integrados analógicos y digitales y se han utilizado ampliamente como osciladores \emph{on-chip} para generar relojes en circuitos de alta velocidad.
 Además, los \emph{RO}s se pueden implementar fácilmente en circuitos digitales programables como \emph{FPGA}s.
@@ -48,3 +48,7 @@ Se usa un plano de representación para comparar diferentes situaciones.
 Una vez que se elige la \emph{PDF}, la Entropía de Shannon es la función básica que cuantifica la uniformidad de la \emph{PDF}.
 Las \emph{entropías normalizadas}, \emph{entropías diferenciales} y \emph{tasa entropía} son las otras \emph{ITQ}s evaluadas.
 En este caso las \emph{entropías diferenciales} obtienen los mejores resultados y se utiliza un \emph{plano de entropías diferenciales} para comparar su sensibilidad como medida de \textit{jitter}.
+
+En este Capítulo se muestran los resultados de dos publicaciones.
+Primero, en \ref{sec:jitter} se presentan los datos publicados en \cite{Antonelli2017}, en donde se propone utilizar ITQs para medir la amplitud de jitter y constituye el principal aporte de este capítulo.
+Luego, en \ref{secRoTRNG} se muestran los aportes publicados en \cite{SPL2014}, en donde se hace uso de ROs como bloques de base para construir un TRNG.

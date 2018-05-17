@@ -18,7 +18,7 @@ Para obtener los resultados, se trabajó con una PC Intel i7, que cuenta con una
 
 El mapa TENT ha sido ampliamente estudiado en la literatura porque teóricamente tiene buenas propiedades estadísticas que pueden obtenerse analíticamente.
 Por ejemplo, es fácil probar que tiene un histograma uniforme y, en consecuencia, un $H_{hist} = 1$ ideal.
-El operador Perron-Frobenius y sus autovalores y autofunciones correspondientes se pueden obtener analíticamente para este mapa \cite{Lasota1994}.
+El operador Perron-Frobenius y sus autovalores y autovectores correspondientes se pueden obtener analíticamente para este mapa \cite{Lasota1994}.
 
 En el redondeo de números fraccionarios base-2, la Ecuación \ref{eqTent} se convierte en:
 %
@@ -33,7 +33,7 @@ con $\epsilon=2^{-B}$, $\mu = \epsilon ~\text{floor}\{\frac{1}{\epsilon} u\}$, $
 
 En \cite{DelaFraga2017}, los autores mostraron la evolución de la entropía de valores $H_{hist}$ con respecto a la precisión binaria. Ellos caracterizaron la evolución del mapa TENT como función de la precisión binaria en aritmética de punto fijo.
 En su esquema de generación de números aleatorios usaron dos etapas de postprocesamiento, primero binarizaron los datos detectando el cruce por un umbral y luego estos datos fueron procesados por una compuerta XOR.
-Aquí se utilizó la salida de los mapas caóticos sin ningún postprocesamiento de aleatorización, sin embargo sus resultados son muy interesantes y permiten obtener un criterio acerca de cuales parámetros son útiles para implementar.
+Aquí se utilizó la salida de los mapas caóticos sin ningún postprocesamiento de aleatorización, sin embargo, sus resultados son muy interesantes y permiten obtener un criterio acerca de cuáles parámetros son útiles para implementar.
 Aquí se utilizaron dos valores de $u$ por dos distintas razones, siguiendo a \cite{DelaFraga2017} un valor interesante es $u = 1.96$ o el valor más cercano en la aritmética utilizada, por otro lado, el valor $u=2$ es muy atractivo dado su extremadamente bajo costo de implementación.
 
 En la Figura \ref{fig:seq} se muestran los procedimientos de conmutación, skipping par y skipping impar.
@@ -78,8 +78,8 @@ El skipping no cambia los valores de $H_{hist}$ para los mapas ergódicos porque
 En el caso bajo consideración, se estudiaron saltos pares e impares de la conmutación secuencial de los mapas de Tent y de Logístico:
 \begin{enumerate}
 	\item Skipping par de la conmutación secuencial de mapas TENT y LOG (EVEN). \\
-	Si $\{x_n; n = 1, \dots, \infty \}$ es la serie de tiempo generada por la eq. \ref{eq:SWITCH}, descarta todos los valores en posiciones impares y conserva los valores en posiciones pares.
+	Si $\{x_n; n = 1, \dots, \infty \}$ es la serie de tiempo generada por la Ecuación \ref{eq:SWITCH}, descarta todos los valores en posiciones impares y conserva los valores en posiciones pares.
 	\item Skipping impar de la conmutación secuencial de mapas TENT y LOG.
-	Si $\{x_n; n = 1, \dots, \infty \}$ es la serie de tiempo generada por la eq. \ref{eq:SWITCH}, descarta todos los valores en posiciones pares y conserva todos los valores en posiciones impares.
+	Si $\{x_n; n = 1, \dots, \infty \}$ es la serie de tiempo generada por la Ecuación \ref{eq:SWITCH}, descarta todos los valores en posiciones pares y conserva todos los valores en posiciones impares.
 \end{enumerate}
 El skipping par se puede expresar como la función de composición TENT $\circ$ LOG mientras que el skipping impar se puede expresar como LOG $\circ$ TENT.

@@ -1,17 +1,17 @@
-\subsection{Dinámica de los ITQ's con AWGN y Banda Limitada}
+\subsection{Dinámica de los ITQs con AWGN y Banda Limitada}
 \label{ssec:TDdS}
 	
 En esta Sección exploramos la respuesta de un sistema de medición de entropías en presencia de ruido aditivo y señales filtradas.
 Esta inquietud surge como resultado de la implementación detallada en la Sección \ref{ssecCuantiImpFPGA}.
-El filtrado es inherente al ancho de banda del sistema de medición y las señales a medir siempre están contaminadas con ruido, por lo tanto es necesario caracterizar la respuesta de nuestro sistema de medición ante estos dos procesos.
+El filtrado es inherente al ancho de banda del sistema de medición y las señales a medir siempre están contaminadas con ruido, por lo tanto, es necesario caracterizar la respuesta de nuestro sistema de medición ante estos dos procesos.
 Este trabajo es complementario al desarrollo de un sistema de medición de entropías implementado en FPGA.
 
 \subsubsection{Filtrado digital}
 \label{sec:filtrado}
 
-Ya sea en la elección de un filtro como en cualquier problema de diseño en ingeniería, generalmente no es posible dar una respuesta posible acerca de cuál es al mejor solución. Se discute la posibilidad de la implementación de distintos filtros porque no hay un solo método de diseño ni un sólo tipo de filtro mejor para todas las circunstancias. La elección del tipo de filtro depende de la importancia de sus ventajas aplicadas a cada problema.
+Ya sea en la elección de un filtro como en cualquier problema de diseño en ingeniería, generalmente no es posible dar una respuesta acerca de cuál es la mejor solución. Se discute la posibilidad de la implementación de distintos filtros porque no hay un solo método de diseño ni un sólo tipo de filtro mejor para todas las circunstancias. La elección del tipo de filtro depende de la importancia de sus ventajas aplicadas a cada problema.
 
-Un filtro ideal es aquel en el que la respuesta en frecuencia es unitaria en el rango de las frecuencias de paso, cero en la banda de rechazo y no posee banda de transición. Dada la inherente periodicidad de la respuesta en frecuencia para tiempo discreto esta tiene la apariencia de un tren rectangular en el dominio de las frecuencias, sin embargo en este trabajo sólo se muestra la frecuencia normalizada en el intervalo $(0,1)$. Entonces la transferencia de un filtro pasabajos ideal en frecuencia normalizada quedaría:
+Un filtro ideal es aquel en el que la respuesta en frecuencia es unitaria en el rango de las frecuencias de paso, cero en la banda de rechazo y no posee banda de transición. Dada la inherente periodicidad de la respuesta en frecuencia para tiempo discreto esta tiene la apariencia de un tren rectangular en el dominio de las frecuencias, sin embargo, en este trabajo sólo se muestra la frecuencia normalizada en el intervalo $(0,1)$. Entonces la transferencia de un filtro pasabajos ideal en frecuencia normalizada quedaría:
 \begin{equation}
 H_{LP}=
 \left\{ 
@@ -27,7 +27,7 @@ El hecho de que no podemos contar con series de valores infinitamente largas par
 Como el producto en el dominio del tiempo equivale a una convolución en el dominio de la frecuencia, podemos estudiar el efecto que este enventanado tiene sobre la respuesta frecuencial del filtro.
 Consideremos la ventana más sencilla; la ventana rectangular. Supongamos que la aplicamos sobre una versión retardada de la respuesta ideal, su efecto en el dominio de la frecuencia será la convolución entre la respuesta de nuestro filtro ideal y la transformada esta ventana rectangular, es decir una función $sinc$ de período $1/N$ en donde $N$ es la cantidad de muestras que entran en la ventana.
 
-El efecto de enventanado o truncaminto de la respuesta es doble: por una parte, la anchura del lóbulo principal está relacionada con la aparición de una banda de transición en el filtro. Por otra, la presencia de lóbulos laterales (secundarios) lleva a la aparición de un ripple u oscilaciones en la respuesta en frecuencia, en ambas bandas, (más apreciable en la banda no pasante).
+El efecto de enventanado o truncamiento de la respuesta es doble: por una parte, la anchura del lóbulo principal está relacionada con la aparición de una banda de transición en el filtro. Por otra, la presencia de lóbulos laterales (secundarios) lleva a la aparición de un ripple u oscilaciones en la respuesta en frecuencia, en ambas bandas, (más apreciable en la banda no pasante).
 La aparición de los lóbulos secundarios se debe a que la ventana rectangular presenta una discontinuidad abrupta que, al pasar al dominio de la frecuencia, conlleva un reparto de la energía sobre todo el espectro a causa del aliasing.
 
 Una opción que se plantea es generalizar el concepto de ventana y emplear ventanas más suaves que la rectangular para realizar el truncamiento de la respuesta deseada, esta técnica es una de las formas de realizar un filtro FIR.
@@ -57,7 +57,7 @@ Para calcular la entropía de patrones de orden se utilizó el histograma de pat
 
 Para evaluar la contribución de cada componente espectral a las entropías, se evaluaron dos filtros.
 Primero se aplicó un filtro elíptico de orden $10$ con ripple pasabanda de $0,5 dB$, ripple en la banda de rechazo de $100 dB$ y frecuencia de corte variable $f_c$, en la Figura \ref{fig:filtroellip} se muestra su respuesta en ganancia (Figura \ref{subfig:filtroellip_amplitud}) y fase (Figura \ref{subfig:filtroellip_frecuencia}) para el caso de $f_c=0,5$. De esta forma se logra un filtrado lo suficientemente abrupto como para considerar que a medida que se barren distintas frecuencias de corte se eliminan componentes espectrales individualmente.
-Los resultados de este filtrado se compararon con los resultados de un filtro ideal (Figura \ref{fig:filtroideal}), que consiste en una máscara aplicada a la transformada de fourier de la señal a filtrar, de esta manera se consigue el espectro de la señal filtrada, el cual es antitransformado para recuperar la versión filtrada en las muestras. El diagrama de este filtro puede verse en la Figura \ref{subfig:filtroideal_diagrama}. Este procedimiento equivale a un filtrado ideal sin retardo, por lo que el bode de amplitud es $0dB$ en la banda de paso y $-\infty dB$ en la banda de rechazo (Figura \ref{subfig:filtroideal_diagrama}); la fase $\omega\tau=0$ es lineal con pendiente nula (Figura \ref{subfig:filtroideal_frecuencia}).
+Los resultados de este filtrado se compararon con los resultados de un filtro ideal (Figura \ref{fig:filtroideal}), que consiste en una máscara aplicada a la transformada de Fourier de la señal a filtrar, de esta manera se consigue el espectro de la señal filtrada, el cual es antitransformado para recuperar la versión filtrada en las muestras. El diagrama de este filtro puede verse en la Figura \ref{subfig:filtroideal_diagrama}. Este procedimiento equivale a un filtrado ideal sin retardo, por lo que el bode de amplitud es $0dB$ en la banda de paso y $-\infty dB$ en la banda de rechazo (Figura \ref{subfig:filtroideal_diagrama}); la fase $\omega\tau=0$ es lineal con pendiente nula (Figura \ref{subfig:filtroideal_frecuencia}).
 %
 \begin{figure}[h]
     \centering
@@ -138,7 +138,7 @@ Por último, en el plano $H_{hist} - H_{BP}$ de la Figura \ref{subfig:ellip_HbpH
     \caption{Cuantificadores calculados sobre la salida del filtro elíptico cuando se ingresa con ruido blanco gaussiano.}\label{fig:ellip}
 \end{figure}
 
-En la Figura \ref{fig:ideal} se muestran los resultados del mismo procedimiento pero cuando se aplica un filtro ideal.
+En la Figura \ref{fig:ideal} se muestran los resultados del mismo procedimiento, pero cuando se aplica un filtro ideal.
 El comportamiento de los cuantificadores es igual al del filtro elíptico en todos los casos con la diferencia que el método no diverge cuando $f_c\to1$ o $f_c\to0$.
 Pueden verse por lo tanto los valores que arrojan los cuantificadores en los extremos de la frecuencia de corte.
 La entropía no causal de la Figura \ref{subfig:ideal_Hhist} aumenta levemente en los extremos, en donde el histograma de valores deja de tener una distribución gaussiana y se aplana levemente.
@@ -174,7 +174,7 @@ Esto muestra que la sensibilidad al filtrado de $H_{BP}$ es mucho mayor que la d
 Para el sistema planteado no se necesita volver al dominio continuo analógico, por lo que las dificultades mencionadas en la Sección \ref{sec:filtrado} respecto al filtrado ideal (como ripple en las bandas de paso y rechazo) no aplican a este caso.
 Por este motivo para esta serie de pruebas elegimos el filtro ideal, dado que presenta mejores resultados que el elíptico.
 
-La primer señal determinística que se muestra es una senoidal de amplitud unitaria con $100$ muestras por período, los resultados pueden verse en la Figura \ref{fig:Senoidal}.
+La primera señal determinística que se muestra es una senoidal de amplitud unitaria con $100$ muestras por período, los resultados pueden verse en la Figura \ref{fig:Senoidal}.
 Mientras la única componente espectral no es filtrada, el valor de la entropía de valores es $H_{hist}\approx0,57$ en la Figura \ref{subfig:Senoidal_Hhist} y la entropía de patrones de orden $H_{BP}\approx0,16$ en la Figura \ref{subfig:Senoidal_Hbp}.
 Ambos cuantificadores caen a cero cuando la única componente espectral es filtrada, ya sea por el filtro pasa-bajos (azul) o por el pasa-altos (rojo).
 El plano doble entropía muestra un punto en $\left(0,57;0,16\right)$ para la senoidal sin filtrar y otro en $\left(0;0\right)$ cuando la única componente espectral es filtrada.
@@ -237,7 +237,7 @@ En el plano doble entropía (Figura \ref{subfig:SenoidalRuidosa_HbpHhist}) se ve
 
 En la Figura \ref{fig:Cuadrada} se muestran los resultados cuando la señal determinística es una cuadrada de amplitud unitaria sin ruido y $100$ muestras por período.
 Tanto la entropía de valores $H_{hist}$ como la entropía de patrones de orden $H_{BP}$ presentan una forma escalonada, sus valores se mantienen constantes a medida que se barre la frecuencia de corte de los filtros hasta que la siguiente componente espectral es filtrada.
-También se ve que en ambos casos los valores resultantes se mantienen bastante lejos del valor sin filtrar, el cual es indicado con una linea negra punteada.
+También se ve que en ambos casos los valores resultantes se mantienen bastante lejos del valor sin filtrar, el cual es indicado con una línea negra punteada.
 %
 \begin{figure}[h]
     \centering
@@ -264,9 +264,9 @@ También se ve que en ambos casos los valores resultantes se mantienen bastante 
 \end{figure}
 
 El caso contaminado con ruido (Figura \ref{fig:CuadradaRuidosa}) cambia respecto del caso sin contaminar.
-En la Figura \ref{subfig:CuadradaRuidosa_Hhist} se ve que para el filtro pasabajos (rojo) $H_{hist}$ se mantiene alrededor del valor sin filtrar (linea punteada), excepto con las tres frecuencias más bajas, en donde su valor aumenta un levemente por las mismas razones que aumentaba con la senoidal contaminada.
+En la Figura \ref{subfig:CuadradaRuidosa_Hhist} se ve que para el filtro pasabajos (rojo) $H_{hist}$ se mantiene alrededor del valor sin filtrar (línea punteada), excepto con las tres frecuencias más bajas, en donde su valor aumenta un levemente por las mismas razones que aumentaba con la senoidal contaminada.
 Algo parecido sucede con $H_{BP}$ en la Figura \ref{subfig:CuadradaRuidosa_Hbp}.
-Cuando la señal cuadrada se contamina con ruido su valor se mantiene cercano al del ruido gaussiano, esto es por que en las regiones en las que la señal cuadrada es plana su contribución al patrón de orden es nula.
+Cuando la señal cuadrada se contamina con ruido su valor se mantiene cercano al del ruido gaussiano, esto es porque en las regiones en las que la señal cuadrada es plana su contribución al patrón de orden es nula.
 Para el filtro pasa bajos se ve un escalonado en la posición de cada componente espectral que se hace más notorio para las frecuencias más bajas, en donde la contribución del ruido ya es bastante baja y a la vez se encuentran las componentes espectrales de mayor peso.
 Esto no es tan notorio en el filtro pasa-altos, en este caso cuando la contribución del ruido es de baja amplitud también lo es la de la señal determinística, enmascarando este fenómeno.
 %
@@ -296,7 +296,7 @@ Esto no es tan notorio en el filtro pasa-altos, en este caso cuando la contribuc
 
 Para caracterizar el comportamiento de los cuantificadores frente a la amplitud de ruido, se generaron señales cuadradas contaminadas con AWGN de dos amplitudes y se filtraron para calcular los cuantificadores.
 En la Figura \ref{fig:HCuadradaRuidosa_Sigma} se muestran ambos cuantificadores cuando se hace variar el ruido con valores de la desviación estándar $\sigma=[0~0,1~1]$.
-Cuando comparamos las Figuras \ref{subfig:HhistCuadradaRuidosa_Sigma_0}, \ref{subfig:HhistCuadradaRuidosa_Sigma_0p1} y \ref{subfig:HhistCuadradaRuidosa_Sigma_1} vemos un cambio significativo cuando pasamos de la señal limpia de \ref{subfig:HhistCuadradaRuidosa_Sigma_0} a la contaminada con bajos niveles de ruido de la \ref{subfig:HhistCuadradaRuidosa_Sigma_0p1}, sin embargo cuando pasamos del bajo nivel de ruido de la Figura \ref{subfig:HhistCuadradaRuidosa_Sigma_0p1} al de la Figura \ref{subfig:HhistCuadradaRuidosa_Sigma_1} el cambio es mucho más sutil.
+Cuando comparamos las Figuras \ref{subfig:HhistCuadradaRuidosa_Sigma_0}, \ref{subfig:HhistCuadradaRuidosa_Sigma_0p1} y \ref{subfig:HhistCuadradaRuidosa_Sigma_1} vemos un cambio significativo cuando pasamos de la señal limpia de \ref{subfig:HhistCuadradaRuidosa_Sigma_0} a la contaminada con bajos niveles de ruido de la \ref{subfig:HhistCuadradaRuidosa_Sigma_0p1}, sin embargo, cuando pasamos del bajo nivel de ruido de la Figura \ref{subfig:HhistCuadradaRuidosa_Sigma_0p1} al de la Figura \ref{subfig:HhistCuadradaRuidosa_Sigma_1} el cambio es mucho más sutil.
 De modo similar, entre las Figuras \ref{subfig:HbpCuadradaRuidosa_Sigma_0} y \ref{subfig:HbpCuadradaRuidosa_Sigma_0p1} hay muy pocas similitudes, mientras que las Figuras \ref{subfig:HbpCuadradaRuidosa_Sigma_0p1} y \ref{subfig:HbpCuadradaRuidosa_Sigma_1} son bastante similares.
 En este segundo caso es más evidente la diferencia cuando cambia el nivel de ruido, con bajos niveles puede verse el escalonado que aparece cada vez que una frecuencia es filtrada, mientras que cuando la amplitud de ruido es mayor este escalonado aparece solo en el pasabajos para las tres primeras frecuencias, que resultan ser las de mayor peso.
 %

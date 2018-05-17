@@ -18,7 +18,7 @@ Cabe destacar que el valor estable de los patrones faltantes $MP = 645$ hace que
 Entonces, $B = 30$ es la opción más conveniente para la implementación en hardware porque un aumento en el número de dígitos fraccionarios no mejora las propiedades estadísticas.
 
 Se pueden sacar algunas conclusiones comparando los cuantificadores de BP y BPW.
-Para $B = 1, 2, 3$ y $4$, los cuantificadores de BP promediados toman valores cercanos a $0$ mientras que no existe solución para los cuantificadores de BPW promediados (ver en las Figuras \ref{fig:Hbpw_Log} y \ref{fig:Cbpw_Log} la línea punteada negra faltante).
+Para $B = 1, 2, 3$ y $4$, los cuantificadores de BP promediados toman valores cercanos a $0$ mientras que no existe solución para los cuantificadores de BPW promediados (ver en las Figuras \ref{fig:Hbpw_Log} y \ref{fig:Cbpw_Log} la línea punteada negra no aparece entre $B = {1 2 3 4 5}$).
 Esto se debe a que para esas secuencias la condición inicial fue cero, todas las iteraciones resultan ser una secuencia de ceros (el punto fijo del mapa), esto es más probable que ocurra cuando se usan pequeñas precisiones debido al redondeo.
 
 Cuando $B$ aumenta las condiciones iniciales se redondean a cero con menos frecuencia, esto se puede ver para $B > 6$.
@@ -68,7 +68,7 @@ Estas Figuras muestran: $100$ puntos rojos por cada precisión de punto fijo ($B
 Aquí, los $100$ puntos azules y su promedio se superponen.
 
 Como se esperaba, la implementación de la arquitectura de punto fijo converge al valor de coma flotante a medida que aumenta $B$.
-Para ambos planos, $H_{hist} \times H_{BP}$ y $H_{hist} \times H_{BPW}$, desde $B = 20$, $H_{hist}$ aumenta pero $H_{BP}$ y $H_{BPW}$ permanecen constantes.
+Para ambos planos, $H_{hist} \times H_{BP}$ y $H_{hist} \times H_{BPW}$, desde $B = 20$, $H_{hist}$ aumenta, pero $H_{BP}$ y $H_{BPW}$ permanecen constantes.
 Se puede ver que la entropía de distribución de valores es alta ($\left \langle H_{hist} \right \rangle = 0.9669$) pero su mezcla es pobre ($\left \langle H_{BP} \right \rangle = 0.6269$).
 %
 \begin{figure}[htpb]

@@ -2,7 +2,7 @@
 \label{ssecCuantiImpFPGA}
 
 En esta Sección se describe la implementación de un sistema de medición de entropías.
-El diseño fue optimizado para ser implementado en un microcotrolador simple y pequeño, conservando una precisión aceptable.
+El diseño fue optimizado para ser implementado en un microcontrolador simple y pequeño, conservando una precisión aceptable.
 El sistema permite medir entropías a señales generadas internamente por código y a señales externas analógicas muestreadas.
 Se utilizó la placa de desarrollo \textit{M1AFS-embedded kit} de ACTEL.
 En la FPGA (\textit{Field Programmable Gate Array}) se instanció un microcontrolador 8051 al que se programó en lenguaje C.
@@ -10,7 +10,7 @@ Se detalla el diseño del \textit{hardware} y \textit{software} y los resultados
 Al momento hay muy poca bibliograf\'ia sobre implementaciones en \textit{hardware} de estos cuantificadores \cite{DeMicco2013}.
 
 La entropía es empleada en diversas aplicaciones, como por ejemplo, en la detección de anomalías en flujos de datos IP \cite{Gu2005,Wagner2006, actelM1AFS1500}.
-En \cite{Subramanya2008} se presentó un diseño y simulación en FPGA de un cuantificador de entropía, sin embargo actualmente no hay disponibles implementaciones en \textit{hardware} de este cuantificador.
+En \cite{Subramanya2008} se presentó un diseño y simulación en FPGA de un cuantificador de entropía, sin embargo, actualmente no hay disponibles implementaciones en \textit{hardware} de este cuantificador.
 
 En esta tesis se implementó un sistema que calcula la entropía para la PDF asociada a una serie de datos.
 Se analizan PDFs causales y no causales.
@@ -27,7 +27,7 @@ Fue realizado con el paquete de programas \textit{Libero~Soc~v11.3\textsuperscri
 Se utilizó la placa de desarrollo \textit{M1AFS-EMBEDDED-KIT} que contiene una FPGA \textit{M1AFS1500} de ACTEL y periféricos \cite{actelM1AFS1500}.
 El chip \textit{M1AFS1500} contiene embebido un bloque analógico que consiste en nueve adaptadores direccionables de cuatro entradas cada uno, un multiplexor analógico de 32 entradas y un conversor analógico-digital configurable.
 
-El sistema implementado puede dividirse en tres etapas principales como se muestra en la Figura \ref{Fig:Sistema}: una primer etapa de Adquisición de datos, que convierte a palabras digitales las señales del mundo analógico, una Lógica de Cálculo, que se vale de la memoria SRAM para llevar a cabo los cálculos y coordinar las interfaces y una etapa de Presentación de resultados, que envía los resultados de la medición a una computadora a través de la interfaz \textit{USB-to-UART}.
+El sistema implementado puede dividirse en tres etapas principales como se muestra en la Figura \ref{Fig:Sistema}: una primera etapa de Adquisición de datos, que convierte a palabras digitales las señales del mundo analógico, una Lógica de Cálculo, que se vale de la memoria SRAM para llevar a cabo los cálculos y coordinar las interfaces y una etapa de Presentación de resultados, que envía los resultados de la medición a una computadora a través de la interfaz \textit{USB-to-UART}.
 %
 \begin{figure}
 	\centering
@@ -59,7 +59,7 @@ El sistema implementado puede dividirse en tres etapas principales como se muest
 	Este micro tiene una arquitectura Von Newman con un bus de direcciones de 16~bits, lo que limita nuestro diseño a $64~KB$ de memoria de código y $64~KB$ de memoria de datos.
 	
 	Sobre este microcontrolador corre el programa que realiza los cálculos presentados en la Sección \ref{sec:ITQs}.
-	Se encarga de, a partir de los datos de entrada, obtener las PDFs ($BP$ e $hist$) y de realizar los cálculos para la obtención de las entropías, según la ec. \ref{shannon-disc-normalizada}.
+	Se encarga de, a partir de los datos de entrada, obtener las PDFs ($BP$ e $hist$) y de realizar los cálculos para la obtención de las entropías, según la Ecuación \ref{shannon-disc-normalizada}.
 	El \textit{software} implementado se describe más detalladamente en la Sección \ref{sec:Software}.
 	
 	La memoria de código es una memoria no volátil (NVM) implementada con los bloques flash internos de la FPGA.
@@ -118,7 +118,7 @@ El cuadro \ref{tablaErrores} muestra el error absoluto entre los resultados de l
 	\centering
 	\begin{tabular}{@{\extracolsep{\fill}}| c| c | c |c |}
 		\hline
-		\textbf{{Generador}} & \textbf{{Orígen}} & \textbf{{Error}} \textbf{{$H_{BP}$}} & \textbf{\textbf{{Error}}} \textbf{{$H_{hist}$}} \\ \hline
+		\textbf{{Generador}} & \textbf{{Origen}} & \textbf{{Error}} \textbf{{$H_{BP}$}} & \textbf{\textbf{{Error}}} \textbf{{$H_{hist}$}} \\ \hline
 		{Rand}               & {Digital}         & {$1,7421E^{-6}$}                     & {$2,6977E^{-6}$}                                \\ \hline
 		{Logístico}          & {Digital}         & {$0,4256E^{-6}$}                     & {$94,693E^{-6}$}                                \\ \hline
 		{Triangular}         & {Analógico}       & {$6,3445E^{-6}$}                     & {$2,0028EE^{-6}$}                               \\ \hline
@@ -139,7 +139,7 @@ La Figura \ref{fig:resultados} muestra los valores entregados por la FPGA en el 
 Los resultados de la compilación nos permiten conocer los recursos de la FPGA utilizados por el sistema completo y la cantidad de memoria ocupada por el \textit{software} que corre en el microcontrolador.
 Recordemos que esta es una implementación de \textit{hardware} rígida, es decir primero se arma el circuito en la FPGA (microcontrolador, periféricos, etc.) y luego se carga el \textit{software} sobre él.
 
-El reporte de la compilación de \textit{hardware} devuelto por el \textit{Place and Route} se muestr en la Figura \ref{fig:hard}. Podemos ver que la implementación utiliza un 19\% de los recursos lógicos de la FPGA, el $21\%$ de las celdas de entrada-salida y el $28\%$ de los bloques de memoria.
+El reporte de la compilación de \textit{hardware} devuelto por el \textit{Place and Route} se muestra en la Figura \ref{fig:hard}. Podemos ver que la implementación utiliza un 19\% de los recursos lógicos de la FPGA, el $21\%$ de las celdas de entrada-salida y el $28\%$ de los bloques de memoria.
 %
 \begin{figure}[htb]
 	\centering\includegraphics[scale=.13]{reporteHard}
@@ -165,8 +165,8 @@ En el Cuadro \ref{tablaErrores} se ve que el error absoluto no supera el sexto d
 
 En la Figura \ref{fig:resultados} puede verse como los cuantificadores $H_{BP}$y $H_{hist}$ diferencian claramente las propiedades estadísticas de las series de datos analizadas.
 Las señales Senoidal, Rampa y Triangular presentan un valor alto de $H_{hist}$ porque tienen casi todos los valores que es capaz de generar el conversor Analógico-Digital.
-Sin embargo, la mezcla de estos datos es mala por tratarse de una señales periódicas totalmente predecibles, esto se ve en el bajo valor de $H_{BP}$.
+Sin embargo, la mezcla de estos datos es mala por tratarse de señales periódicas totalmente predecibles, esto se ve en el bajo valor de $H_{BP}$.
 Un caso interesante de analizar es la señal Cuadrada.
 El efecto del ruido aditivo es especialmente notable en las zonas en donde el valor de la señal debería ser constante.
-Se generan dos Gaussianas muy finas en torno a los valores ideales en la $PDF_{hist}$, esto no afecta demasiado el valor calculado $H_{hist}$, sin embargo para la $PDF_{BP}$, se calcula el patrón de orden directamente a la señal ruidosa, por lo que el valor de $H_{BP}$ es más alto que el esperado.
+Se generan dos Gaussianas muy finas en torno a los valores ideales en la $PDF_{hist}$, esto no afecta demasiado el valor calculado $H_{hist}$, sin embargo, para la $PDF_{BP}$, se calcula el patrón de orden directamente a la señal ruidosa, por lo que el valor de $H_{BP}$ es más alto que el esperado.
 La señal generada mediante la función rand de C, presenta las mejores propiedades estadísticas ubicándose en el punto $\sim(1,1)$.

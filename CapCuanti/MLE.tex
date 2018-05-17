@@ -9,7 +9,7 @@ La implicación práctica de esto es que la predicción a largo plazo se vuelve 
 Hagamos estas ideas un poco más precisas.
 Supongamos que tenemos una trayectoria sobre el atractor y un punto $x(t_1)$ perteneciente a dicha trayectoria en un instante $t_1$.
 Ahora consideremos un punto vecino $x(t_1) + \delta_0$, en donde $\delta_0$ es una pequeña perturbación inicial.
-Ahora veamos como evoluciona esta separación $\delta(t)$.
+Ahora veamos cómo evoluciona esta separación $\delta(t)$.
 Encontramos que:
 %
 \begin{eqnarray}
@@ -26,10 +26,10 @@ t_h \sim O ( \frac{1}{\lambda} \ln \frac{a}{\lVert \delta_0 \rVert})
 %
 Como este sistema presenta un horizonte de tiempo, puede decirse que es sensible a las condiciones iniciales, su exponente de Lyapunov es positivo y resulta ser caótico.
 
-Los exponentes de Lyapunov son quantificadores que caracterizan como evoluciona la separación entre dos trayectorias \cite{Sprott2003}.
+Los exponentes de Lyapunov son cuantificadores que caracterizan cómo evoluciona la separación entre dos trayectorias \cite{Sprott2003}.
 En general es bien conocido que el comportamiento caótico está principalmente caracterizado por los números de Lyapunov de la dinámica del sistema.
 
-Venimos llamando al número $\lambda$ exponente de Lyapunov, sin embargo este es un uso poco riguroso de este término, por dos razones:
+Venimos llamando al número $\lambda$ exponente de Lyapunov, sin embargo, este es un uso poco riguroso de este término, por dos razones:
 Primero, $\lambda$ depende de la trayectoria que estamos estudiando, deberíamos promediar sobre muchos puntos sobre la misma trayectoria para obtener su verdadero valor.
 Segundo, realmente hay tantos exponentes de Lyapunov como dimensiones tenga el sistema.
 Supongamos la evolución de una esfera infinitesimal de condiciones iniciales en el espacio de estados de tres dimensiones.
@@ -40,7 +40,7 @@ Esta es una condición suficiente de caoticidad, ya que un sistema divergente pu
 Por lo tanto, para que un sistema sea caótico, además de tener algún exponente de Lyapunov positivo debe tener una trayectoria acotada no divergente en el plano de fase.
 
 Entonces, el MLE caracteriza qué tan rápido se apartan dos trayectorias inicialmente vecinas.
-Para un sistema no divergente, si esta velocidad es exponencial, se dice que el sistema es caótico, por lo que este exponente es conocido como un detector de  ``caoticidad", \cite{Strotgartz1994,Kantz1994,Sprott2003}.
+Para un sistema no divergente, si esta velocidad es exponencial, se dice que el sistema es caótico, por lo que este exponente es conocido como un detector de  ``caoticidad", \cite{Strogatz2018,Kantz1994,Sprott2003}.
 
 El MLE fue utilizado en diversas aplicaciones de muy distintas áreas.
 Sólo por mencionar algunas, en \cite{Ma2013} el MLE es usado para medir una señal muy débil en un gas ideal utilizando criterios caóticos.
@@ -54,7 +54,7 @@ Sabemos que el sistema en tiempo continuo es una idealización, por lo que se us
 \end{eqnarray}
 en donde $n$ es la cantidad de puntos consecutivos tomados del oscilador caótico.
 %
-El vector columna de tres dimensiones $L$, contiene los tres exponentes de Lyapunov y $J_F(x,y,z)$ es la matriz jacobiana de la función $F$ para las variables $(x,y,z)$.
+El vector columna de tres dimensiones $L$, contiene los tres exponentes de Lyapunov y $J_F(x,y,z)$ es la matriz Jacobiana de la función $F$ para las variables $(x,y,z)$.
 El logaritmo es en base dos para estimar la velocidad de apartamiento en bits.
 Con estas dos consideraciones (tiempo discreto y base numérica binaria finita) la distancia entre dos trayectorias cambia en $2^{MLE}$ por cada iteración, en promedio.
 Por lo tanto, suponiendo que estamos ante un sistema no divergente tenemos tres situaciones posibles.
@@ -65,8 +65,8 @@ Si el $MLE>0$ la distancia entre las trayectorias es creciente, lo que es un ind
 Calcular $L$ con la Ecuación \ref{eq:LtdiscB2} tiene dos problemas: (1) requiere infinitas iteraciones para hallar los exponentes de Lyapunov y (2) trabajar con el jacobiano puede ser computacionalmente pesado, o éste puede no existir.
 Afortunadamente existe un algoritmo no analítico por aproximaciones sucesivas que converge al máximo exponente de Lyapunov.
 Las entradas y las salidas de un sistema deben ser accesibles para poder utilizarlo.
-El procedimiento es el siguiente: el sistema debe ser iniciado desde dos puntos cercanos en el plano de fase, llamémoslos $(x_a,y_a)$ y $(x_b,y_b)$.
-A medida que el sistema es iterado se mide la distancia euclideana entre las dos trayectorias ($d_n$ en la muestra $n_{ésima}$) (Ecuación \ref{eq:D0D1}), y la trayectoria $b$ es relocalizada en cada iteración (Ecuación \ref{eq:reubicacion}) obteniendo los puntos $(x_{br},y_{br})$ para realimentar el sistema.
+El procedimiento es el siguiente: el sistema debe ser iniciado desde dos puntos cercanos en el plano de fase, digamos $(x_a,y_a)$ y $(x_b,y_b)$.
+A medida que el sistema es iterado se mide la distancia euclideana entre las dos trayectorias ($d_n$ en la muestra $n_{esima}$) (Ecuación \ref{eq:D0D1}), y la trayectoria $b$ es relocalizada en cada iteración (Ecuación \ref{eq:reubicacion}) obteniendo los puntos $(x_{br},y_{br})$ para realimentar el sistema.
 Entonces, el MLE puede ser calculado como se muestra en la Ecuación \ref{eq:Lyapunov}.
 El proceso puede verse en la Figura \ref{fig:relocalizacion}.
 

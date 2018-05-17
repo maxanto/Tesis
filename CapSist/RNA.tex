@@ -14,7 +14,7 @@ Las aplicaciones de señales caóticas son muy diversas, pero en este caso son e
 
 \subsection{El Modelo de Hopfield}
 
-Una de las piedras fundamentales para el reciente renacimiento en el campo de las redes neuronales fué el modelo asociativo propuesto por Hopfield en 1982.
+Una de las piedras fundamentales para el reciente renacimiento en el campo de las redes neuronales fue el modelo asociativo propuesto por Hopfield en 1982.
 La aproximación de Hopfield es un enfoque teórico para pensar ensambles entre unidades de cómputo \cite{Weise2009}.
 
 El perceptrón multicapa es una Red Neuronal Artificial (RNA) formada por capas de neuronas.
@@ -29,7 +29,7 @@ En la Figura \ref{fig:PerceptronSimple} se ve un ejemplo para un perceptrón peq
 	\caption{Perceptrón multicapa y matriz de pesos asociada. Puede verse que la topología de la red y la configuración de la matriz de pesos son biunívocas.}\label{fig:PerceptronSimple}
 \end{figure}
 
-Al contrario de los preceptrones multicapa, los sistemas adaptativos y los mapas auto-organizados, las redes de Hopfield sí tienen realimentación entre neuronas.
+Al contrario de los perceptrones multicapa, los sistemas adaptativos y los mapas auto-organizados, las redes de Hopfield sí tienen realimentación entre neuronas.
 Este tipo de arquitectura tiene como campo principal de aplicación la optimización de procesos.
 Se basa en el planteamiento de una memoria asociativa, es decir que el estado actual de una neurona depende de su historia y de la de las neuronas asociadas a ella; se hace necesario entonces definir una función de energía.
 Además, se destaca la facilidad de implementación en FPGA y VLSI.
@@ -39,7 +39,7 @@ Intuitivamente, la idea de Hopfield es localizar cada patrón que se requiere al
 Se parte de un determinado estado inicial (información de partida) tras lo cual se deja evolucionar el sistema hasta llegar a un estado estable.
 Este estado estable será el patrón que se corresponde con el estado inicial (reconocimiento de patrones).
 
-Hopfield, en su trabajo destaca tres diferencias con el preceptrón multicapa:
+Hopfield, en su trabajo destaca tres diferencias con el perceptrón multicapa:
 \begin{itemize}
 		\item Su modelo incluye realimentaciones, que son fundamentales en su modo de funcionamiento.
 		\item La elección de la arquitectura del perceptrón multicapa se realiza en forma arbitraria.
@@ -87,7 +87,7 @@ Las Ecuaciones \ref{eq:uWf} se corresponden con el diagrama de la Figura \ref{fi
 De la ecuación que se corresponde con una red de Hopfield de memoria diferencial.
 No disponemos de computadoras analógicas, por lo que el sistema debe ser convertido a tiempo discreto.
 Aunque el paquete de programas Matlab incluye rutinas para el cálculo de ecuaciones diferenciales, perdemos el control de paso de tiempo necesario para calcular el exponente de Lyapunov con el método descripto en la Sección \ref{secMLE}.
-Por lo tanto se emplea la aproximación de Euler de primer orden, en donde la derivada se aproxima con un trapecio de base $\Delta t$.
+Por lo tanto, se emplea la aproximación de Euler de primer orden, en donde la derivada se aproxima con un trapecio de base $\Delta t$.
 %
 \begin{eqnarray}\label{eq:EulerRNA}
 	\dfrac{u_{n+1}-u_n}{\Delta t} \approx \dot{u}_n &=& -u + W \cdot f(u_n) \Rightarrow\\ \nonumber

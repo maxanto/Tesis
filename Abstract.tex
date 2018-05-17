@@ -1,0 +1,18 @@
+\chapter{Abstract}
+
+Random numbers have been used successfully in a wide variety of applications such as games, cryptography, physical systems modeling, biological systems, etc.
+These numbers, can be generated from sources of randomness of a physical nature (TRNG) or from algorithmic generators (PRNG).
+
+This thesis focuses on the implementation of RNGs in electronic hardware, particularly in answering two main questions: How do the statistical properties of chaotic systems vary when they are implemented in digital hardware? And, it is possible to implement a physical noise generator in hardware? The first question is directly related to PRNG generators.
+The second one introduces the possibility of implementing a TRNG (analog) in digital hardware.
+
+When a system is calculated in finite precision, the result of each iteration is replaced by the nearest representable value.
+Because chaotic systems are inherently sensitive to initial conditions these variations are amplified and the resulting system may be totally different from the original one.
+The inherent sensitivity to the initial conditions, characteristic of chaotic systems, causes these perturbations to be amplified and the resulting system may be different from the original.
+The system can become pseudo-chaotic and its properties as Lyapunov exponent, stochasticity, mixing and period are degradated.
+One contribution of this thesis is the study of the degradation due to the arithmetic precision in a digital electronic system.
+
+On the TRNG side, a ring oscillator (RO) presents phase fluctuations (jitter) that depend on factors such as gradients during the diffusion process in the manufacturing of the integrated circuit, gradients in the working temperature, thermal noise in the semiconductor junctions, etc.
+In this thesis, jitter is the source of physical randomness used to generate stochastic signals.
+A method based on differential entropies that allows to extract binary series randomness degree and, therefore, can indicate the level of jitter that it contains was proposed.
+This method is useful for cataloging a RO as a good RNG or clock generator.

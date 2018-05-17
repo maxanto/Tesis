@@ -8,14 +8,14 @@ Se obtuvo un MLE positivo en toda una zona del parámetro $P$, además la trayec
 
 Se desarrolló un nuevo método para el diseño de sistemas de criptocodificación mediante el empleo de mapas caóticos cuadráticos bidimensionales.
 Se obtuvieron resultados muy prometedores hasta el momento mediante las simulaciones realizadas.
-También se obtuvieron buenos resultados en la implementación en VHDL del sistema codificador, en la que se verificó que la salida generada por el sistema no cayera en ciclos periódicos debido a la utilización de presición finita.
+También se obtuvieron buenos resultados en la implementación en VHDL del sistema codificador, en la que se verificó que la salida generada por el sistema no cayera en ciclos periódicos debido a la utilización de precisión finita.
 
-A partir de los resultados presentados para PRNGs determinístico-estocásticos, es posible concluir que los los mejores PRNGs en cuanto a recursos y frecuencia de operación, resultaron ser los representados por aritmética entera.
+A partir de los resultados presentados para PRNGs determinístico-estocásticos, es posible concluir que los mejores PRNGs en cuanto a recursos y frecuencia de operación, resultaron ser los representados por aritmética entera.
 La técnica de aleatorización de \textit{concatenado} hace que la calidad sea independiente de $\Delta t$ para esta representación numérica.
 Para la técnica de aleatorización de \textit{descarte} se obtienen buenos resultados sólo para valores grandes de $\Delta t$.
 Lo mismo ocurre con las implementaciones de punto fijo con ambas técnicas de aleatorización.
 En términos de uso de recursos y limitaciones de frecuencia, el rendimiento en aritmética de enteros es considerablemente mejor que en punto flotante y punto fijo.
-Se observó que para minimizar los recursos, se requiere un preprocesamiento de las ecuaciones del sistema caótico (escalado y polarización) para obtener divisores que sean potencia de $2$, tal como se explica en la Subsección \ref{sec:impleInt}.
+Se observó que, para minimizar los recursos, se requiere un preprocesamiento de las ecuaciones del sistema caótico (escalado y polarización) para obtener divisores que sean potencia de $2$, tal como se explica en la Subsección \ref{sec:impleInt}.
 Por otro lado, para el caso de la aritmética de punto flotante, el exponente que indica la posición de la coma se descarta en todas las técnicas de aleatorización utilizadas y, en consecuencia, la dinámica del sistema se ve muy perturbada por el proceso de aleatorización.
 Entonces, como se muestra en el Cuadro \ref{tabla:TablaImpLorenz2}, $\Delta t $ no es la variable relevante para predecir si un PRNG será bueno o malo.
 

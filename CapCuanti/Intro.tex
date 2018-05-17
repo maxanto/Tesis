@@ -12,8 +12,14 @@ Por lo tanto, nos centramos en las métricas que toman en cuenta el orden tempor
 En un enfoque puramente estadístico, las correlaciones entre los valores sucesivos de las series temporales se ignoran o simplemente se destruyen a través de la construcción de la PDF; mientras que un enfoque causal se centra en las PDFs de secuencias de datos.
 Además, los exponentes de Lyapunov permiten analizar los datos de un punto de vista topológico y brindan una valiosa información acerca de la caoticidad del sistema.
 
-En este Capítulo primero se presenta al Máximo Exponente de Lyapunov (MLE) como un detector de caos, para luego presentar un caso de aplicación de un algoritmo de búsqueda de caos.
+En este Capítulo se presenta al Máximo Exponente de Lyapunov (MLE) como un detector de caos en la Sección \ref{secMLE}, para luego presentar un caso de aplicación de un algoritmo de búsqueda de caos.
 Este algoritmo fue presentado en \cite{CASE2013} y muestra la factibilidad de la búsqueda automática de caos con algoritmos eurísticos basados en el  MLE.
+Otras publicaciones en este campo son dos implementaciones en FPGA de distintos algoritmos.
+En \cite{DeMicco2013} se presenta una implementación en hardware de un estimador del MLE.
+Esta técnica precisa tener acceso a las entradas y salidas del sistema analizado, es decir, introducir las CIs del sistema.
+Además, forma parte del sistema presentado en \cite{CASE2013}.
+En \cite{LASCAS2017} se presentó otro algoritmo que estima el MLE a partir de una serie de datos, es decir que no precisa acceso al sistema.
+Esta última aproximación es más realista, ya que generalmente uno sólo tiene acceso a una serie temporal observable del sistema.
 
 En la segunda Sección de este Capítulo se presentan una serie cuantificadores de aleatoriedad provenientes de la Teoría de la Información.
 Estos cuantificadores se utilizan luego a través del resto de esta tesis como una herramienta de análisis, con ellos se evalúa la calidad de los generadores de números aleatorios.
@@ -21,4 +27,5 @@ Luego se muestran los resultados presentados en \cite{Antonelli2016}, en donde s
 La implementación de estos cuantificadores surge como una solución práctica, así es posible medir la calidad de los generadores en la misma plataforma, sin la necesidad de extraer los datos y medirlos en una computadora.
 Aprovechando la disponibilidad de entradas analógicas en el kit de desarrollo, al diseño se le agregó la posibilidad de medir señales analógicas externas.
 Cuando se midieron señales de prueba bien conocidas, los resultados mostraron ciertos corrimientos de los valores esperados debido a la contaminación con ruido aditivo (AWGN) y a la limitación en la banda de paso inherentes a todo sistema analógico.
-Esto abre la inquietud de caracterizar el comportamiento de los cuantificadores frente a estos dos factores, en la Sección \ref{ssec:TDdS} se realiza un estudio al respecto.
+Esto abre la inquietud de caracterizar el comportamiento de los cuantificadores frente a estos dos factores, por lo que se presentó un trabajo al respecto en \cite{TREFEMAC2016}.
+Los resultados de este estudio se muestran en la Sección \ref{ssec:TDdS}.

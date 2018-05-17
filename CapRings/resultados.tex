@@ -3,7 +3,7 @@
 
 Se simuló con Matlab una salida de un \emph{RO} muestreada uniformemente sin \textit{jitter} y se generó un archivo de salida con una longitud de $N_b = 7~000~000$ de bits.
 Se exploró un conjunto de cien valores con relación de muestreo $r = T_s/T \in [6,5; 9,5]$ (donde $T_s$ es el período de muestreo y $T$ es el período de salida \emph{RO}).
-Se agregó \textit{Jitter} con una distribución normal en las secuencias generadas con diferentes valroes de varianza $\sigma_s$ (ver a continuación) y se generaron nuevos archivos de igual longitud.
+Se agregó \textit{Jitter} con una distribución normal en las secuencias generadas con diferentes valores de varianza $\sigma_s$ (ver a continuación) y se generaron nuevos archivos de igual longitud.
 El método propuesto emula el verdadero proceso de muestreo de la salida ruidosa de un \emph{RO} real; el código detallado se publicó en Mathworks \cite{MathworksMaxi}.
 
 Para cada valor de $\sigma_s$, se generaron diez surrogados (cada uno con una condición inicial aleatoria diferente) y se almacenaron nuevos archivos con $N_b$ bits cada uno. Se asumió que el \textit{jitter} de las muestras individuales es independiente, con variables aleatorias distribuidas normales y un valor medio cero y varianza $\sigma_i = \sigma_s$.
@@ -111,17 +111,17 @@ Cabe destacar que este mínimo es robusto también en presencia de jitter.
 \label{fig:h_r_CJ}
 \end{figure}
 
-Se debe realizar un análisis adicional para asegurar que al utilizar los valores seleccionados $W = 6$ y $D = 8$ se este trabajando con una cantidad de datos suficiente para tener una buena estadística.
+Se debe realizar un análisis adicional para asegurar que al utilizar los valores seleccionados $W = 6$ y $D = 8$ se esté trabajando con una cantidad de datos suficiente para tener una buena estadística.
 De acuerdo con la Sección \ref{capCuanti}, para un alfabeto dado $\mathcal{A}$ con $m$ elementos, y un archivo simbólico dado de longitud $n$, se define el parámetro de calidad $\alpha = n/m$.
 La calidad es mejor a medida que $\alpha$ aumenta y para esta aplicación se acepta un valor mínimo $\alpha = 10$.
 Los valores seleccionados $W = 6$ y $D = 8$ proporcionan $\alpha_h \simeq 10^5$, $ \alpha_ {h^*} \simeq 175$ si las $w_i$ palabras son tomadas con superposición.
 Si las palabras son tomadas con superposición, resulta $ \alpha_ {h^*} \simeq 29$.
-Todos los casos se trabajó con un valor $\alpha>10$ como es requerido.
+En todos los casos se trabajó con un valor $\alpha>10$ como es requerido.
 
 La Figura \ref{fig:hm_h_CJ} muestra el plano $h^*_{m} \times h$.
 Los cuantificadores se calcularon barriendo los valores de $D$ de $2$ a $11$ y $W$ de $2$ a $26$ (se barrió ambos para $h^*$ y sólo $W$ en el caso de $h_{hist}$).
 Se obtuvo una mejor diferenciación para valores más altos de los parámetros, esto se debe a que ambos cuantificadores tienden a cuantificar la entropía de la fuente cuando $D$ y $W$ tienden a infinito.
-Sin embargo esto es imposible en la práctica real, la cantidad de datos disponibles limita los valores de los parámetros para lograr buenas estadísticas.
+Sin embargo, esto es imposible en la práctica real, la cantidad de datos disponibles limita los valores de los parámetros para lograr buenas estadísticas.
 Por lo tanto, se buscaron los valores mínimos (valor umbral) de los parámetros que distinguieran suficientemente bien el \textit{jitter}.
 %
 \begin{figure}
@@ -137,23 +137,23 @@ Hay que tener en cuenta que la pendiente de cualquiera de estas curvas es $dh^*/
 Si $dh^*/dh\to1$, $h^*$ es más sensible que $h$ para medir el \textit{jitter}.
 La pendiente aumenta levemente de $\sim2.47$ para $W =5 $ a $\sim5.54$ para $W = 19$, esto muestra que $h^*$ se vuelve más sensible a medida que aumenta $W$.
 
-También se evaluó $h^*$ sin la superposición de bits entre números naturales consecutivos pero manteniendo la superposición de los $D-1$ números naturales entre patrones de orden (en todos los casos $h$ se evaluó con la superposición de $W-1$ bits consecutivos).
+También se evaluó $h^*$ sin la superposición de bits entre números naturales consecutivos, pero manteniendo la superposición de los $D-1$ números naturales entre patrones de orden (en todos los casos $h$ se evaluó con la superposición de $W-1$ bits consecutivos).
 Los resultados se representan en la Figura \ref{fig:Deltahm_Deltah_CS_SS} donde se muestra que al eliminar la superposición aumenta la sensibilidad de este cuantificador.
 Por supuesto, se obtiene una cantidad menor de $W$ bits en números naturales del archivo original de siete millones de datos binarios, y en consecuencia, la calidad estadística es menor que la del cálculo original con superposición.
-Para aumentar el valor de $\alpha$ hy llegar al minimo nivel requerido y asegurar una buena estadística, se requieren archivos binarios más largos.
+Para aumentar el valor de $\alpha$ hy llegar al mínimo nivel requerido y asegurar una buena estadística, se requieren archivos binarios más largos.
 %
 \begin{figure}
 \centering
 \includegraphics[ width=0.8\textwidth]{Deltahm_Deltah_CS_SS}
-\caption{$h^*$ en función de $h$ para $r=8$, $W=6$ y $D=8$. Son considerados los dos procedimientos para obtener números naturales de $W$-bits: con y sin superposición (see text).}
+\caption{$h^*$ en función de $h$ para $r=8$, $W=6$ y $D=8$. Son considerados los dos procedimientos para obtener números naturales de $W$-bits: con y sin superposición (ver texto).}
 \label{fig:Deltahm_Deltah_CS_SS}
 \end{figure}
 
 En la Figura \ref{fig:PlanoHHTodos} se muestra el plano doble entropía diferencial con todas las curvas obtenidas para todas las longitudes de palabra $W$ y de emmbedding $D$ utilizados en esta Sección.
 Sobre el eje horizontal es posible separar cuatro grupos de curvas ($W = 1$, $W = 2$, $W = 3$ y $W \geq 4$).
-Sobre el eje vertical puede verse que a medida que $D$ crece, las curvas tienen orígen en valores cada vez menores.
+Sobre el eje vertical puede verse que a medida que $D$ crece, las curvas tienen origen en valores cada vez menores.
 El grupo de curvas que se encuentran a la izquierda van del azul al rojo según el valor de $W$.
-El área inferior izquierda del plano es la que tiene un mejor rendimiento de ambos cuantificadores, sin embargo es la que precisa un mayor esfuerzo de cómputo y una mejor estadística.
+El área inferior izquierda del plano es la que tiene un mejor rendimiento de ambos cuantificadores, sin embargo, es la que precisa un mayor esfuerzo de cómputo y una mejor estadística.
 Este detalle es fácil de ver en la Figura \ref{fig:PlanoHHZoom}, allí se muestra cómo la sensibilidad al jitter aumenta cuando $W$ aumenta.
 %
 \begin{figure}
@@ -165,7 +165,7 @@ Este detalle es fácil de ver en la Figura \ref{fig:PlanoHHZoom}, allí se muest
 %
 \begin{figure}
 	\centering
-	\includegraphics[width=\textwidth]{PlanoHHZoom}
+	\includegraphics[width=.5\textwidth]{PlanoHHZoom}
 	\caption{Detalle del plano doble entropía, en donde puede verse la sensibilidad como funcional de $W$ y $D$.}
 	\label{fig:PlanoHHZoom}
 \end{figure}

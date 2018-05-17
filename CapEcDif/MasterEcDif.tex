@@ -31,7 +31,7 @@ Además, cada autovalor tiene un autovector asociado $K_i \in \mathbb{R}^{nx1}$ 
 \begin{equation}
 	\mathbb{A} \cdot K_i = \lambda_i \cdot K_i
 \end{equation}
-Estos autovectores contienen la información de cuales serán las direcciones naturales en las que evolucionará el sistema sobre el espacio de fases, mientras que los autovalores indican la dirección y velocidad de convergencia.
+Estos autovectores contienen la información de cuáles serán las direcciones naturales en las que evolucionará el sistema sobre el espacio de fases, mientras que los autovalores indican la dirección y velocidad de convergencia.
 
 Para un sistema planar, pueden darse las siguientes trayectorias respecto de los dos autovalores:
 \begin{description}
@@ -246,7 +246,7 @@ det(A-\lambda I)= \;
 los autovalores son complejos conjugados con parte real negativa (foco estable).
 
 La resolución numérica en Matlab (Figura \ref{fig:fase}, muestra las soluciones al sistema alineal en el espacio de estados.
-Puede verse que en los puntos críticos, la solución se aproxima a un foco o a un punto silla, según el valor de $n$.
+Puede verse que, en los puntos críticos, la solución se aproxima a un foco o a un punto silla, según el valor de $n$.
 %
 \begin{figure}
 \centering\includegraphics[scale=.7]{fase}
@@ -268,7 +268,7 @@ Esta última propiedad clasifica al sistema que se está midiendo como caótico.
 \label{fig:Secuencia-OK_2}
 \end{figure}
 
-El teorema de existencia y unicidad de las soluciones a un sistema de ecuaciones garantiza que si una función $f$ es continuamente diferenciable, los campos vectoriales sobre el espacio de fases son suaves y cada punto de este espacio tiene solución única.
+El teorema de existencia y unicidad de las soluciones a un sistema de ecuaciones garantiza que, si una función $f$ es continuamente diferenciable, los campos vectoriales sobre el espacio de fases son suaves y cada punto de este espacio tiene solución única.
 La existencia de este teorema tiene un corolario importante: trayectorias diferentes nunca se intersectan.
 Como consecuencia de esto, las trayectorias sobre el plano de fases quedan restringidas a: un nodo estable o inestable, centro, foco estable o inestable y puerto.
 Entonces queda claro que un sistema continuo con derivada continua debe tener dimensión mayor o igual a tres para que pueda ser caótico, además, la trayectoria en el espacio de fases debe ocupar un dominio restringido.
@@ -276,7 +276,7 @@ Entonces queda claro que un sistema continuo con derivada continua debe tener di
 Para describir analíticamente el comportamiento de este tipo de sistemas en torno a ciertos puntos de interés podemos hacer uso del álgebra lineal.
 Lo que sigue son tres ejemplos de aplicaciones para atractores caóticos.
 
-El primer y más común ejemplo es el sistema de Lorenz, que está descripto por el siguiente sistema de ecuaciones diferenciales \cite{Lorenz1963}:
+El primer y más común ejemplo es el sistema de Lorenz, que está descrito por el siguiente sistema de ecuaciones diferenciales \cite{Lorenz1963}:
 \begin{equation}\label{eq:lorenz}
 \left \{
 \begin{array}{rcl}
@@ -286,7 +286,7 @@ x_3' &=& x_1x_2-\beta x_3
 \end{array}
 \right.
 \end{equation}
-En donde $\sigma$, $\rho$ y $\beta$ son parámatros del sistema, la dinámica será caótica según que combinación de estos valores elijamos.
+En donde $\sigma$, $\rho$ y $\beta$ son parámetros del sistema, la dinámica será caótica según que combinación de estos valores elijamos.
 
 El sistema de Lorenz tiene tres puntos de equilibrio, $E$, $E^+$ y $E^-$: el primer punto de equilibrio $E$ está situado en el origen (0,0,0) y los otros dos tienen respectivamente como coordenadas,
 \begin{equation}
@@ -342,7 +342,7 @@ En la Figura \ref{fig:lorenz} puede verse la evolución de las soluciones al sis
 %
 \begin{figure}
 \centering\includegraphics[scale=.4]{lorenz}
-\caption{(a) Evolución temporal de las tres variables del sistema de Lorenz.(b) Disposición de sus puntos de equilibrio (estrellas rojas) con respecto a su atractor en el espacio de estados.}
+\caption{(a) Evolución temporal de las tres variables del sistema de Lorenz. (b) Disposición de sus puntos de equilibrio (estrellas rojas) con respecto a su atractor en el espacio de estados.}
 \label{fig:lorenz}
 \end{figure}
 
@@ -397,7 +397,7 @@ En la Figura \ref{fig:rossler}, se puede ver la evolución de las tres variables
 \label{fig:rossler}
 \end{figure}
 
-El sistema de Chua está descripto por el siguiente sistema de ecuaciones diferenciales:
+El sistema de Chua está descrito por el siguiente sistema de ecuaciones diferenciales:
 \begin{equation}\label{eq:chua}
 \left \{
 \begin{array}{rcl}
@@ -503,7 +503,7 @@ y_{n+1}&=a_7+a_8 x_n+a_9 x_n^2+a_{10} x_n y_n+a_{11} y_n+a_{12} y_n^2
 \end{equation}
 %
 donde $(x, y)$ son las variables de estado y $A = \{a_i, i = 1, \dots, 12 \}$ son los parámetros.
-La principal característica de este sistema es que presenta múltiples atractores caóticos en función del punto seleccionado en el espacio del parámetros.
+La principal característica de este sistema es que presenta múltiples atractores caóticos en función del punto seleccionado en el espacio de parámetros.
 El espacio de parámetros de $12D$ generado por los coeficientes $A$ es muy difícil de explorar.
 
 Las razones para estudiar este sistema en particular son dos:
@@ -569,7 +569,7 @@ Al iterar mapas caóticos, después de un transitorio que depende del parámetro
 Un mapa caótico puede tener uno o más atractores.
 Dominio de atracción se llama a todas las condiciones iniciales (CIs) que convergen a cada atractor.
 Las secuencias ergódicas de los atractores, generadas por el mapa, tienen una distribución determinada llamada Función de densidad de probabilidad invariable (IPDF).
-Las principales características de los mapas caóticos, IPDF y $r_{mix}$, pueden obtenerse calculando el operador Perron-Frobenius (PFO), que depende de la estructura del mapa.
+Las principales características de los mapas caóticos, IPDF y $r_{mix}$, pueden obtenerse calculando el operador Perron-Frobenious (PFO), que depende de la estructura del mapa.
 Los puntos fijos de su espectro son las densidades invariables y corresponden a los vectores propios con valor propio igual a uno, la constante de mezcla corresponde al segundo mayor valor propio del PFO, \cite{Lasota1994, Lasota1973}.
 
 Cuando se utiliza precisión finita, este análisis no es válido, todos los atractores toman la forma de puntos fijos u órbitas periódicas.

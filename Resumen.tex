@@ -1,0 +1,17 @@
+\chapter{Resumen}
+
+Los números aleatorios, han sido utilizados exitosamente en una gran variedad de aplicaciones como juegos, criptografía, modelado de sistemas físicos, sistemas biológicos, etc.
+Éstos pueden ser generados a partir de fuentes de aleatoriedad de naturaleza física (TRNG) o a partir de generadores algorítmicos (PRNG).
+
+Esta tesis se centra en la implementación en hardware electrónico de RNGs, particularmente se trata de responder dos preguntas principales: ¿Cómo varían las propiedades estadísticas de los sistemas caóticos cuando son implementados en hardware digital? Y ¿Es posible implementar un generador físico de ruido en hardware? La primera pregunta está directamente relacionada con generadores PRNG.
+La segunda apunta a la posibilidad de implementar un TRNG (analógico) en hardware digital.
+
+Cuando un sistema es calculado en precisión finita, el resultado de cada iteración se sustituye por el valor representable más cercano.
+La sensibilidad inherente a las condiciones iniciales que presentan los sistemas caóticos hace que estas perturbaciones se vean amplificadas y que el sistema resultante difiera del original.
+El sistema puede pasar a ser pseudocaótico y sus propiedades como estocasticidad, mezcla, período y exponente de Lyapunov se ven degradadas.
+Uno de los aportes de esta tesis es el estudio de esta degradación en función de la precisión de la aritmética representada en un sistema electrónico digital.
+
+Por el lado de los TRNG, un oscilador en anillo (RO) presenta fluctuaciones de fase (jitter) que dependen de factores como gradientes durante el proceso de difusión en la fabricación del circuito integrado, gradientes en la temperatura de trabajo, ruido térmico en las junturas semiconductoras, etc.
+En esta tesis, el jitter es la fuente de aleatoriedad física utilizada para generar señales estocásticas.
+Se propuso un método basado en entropías diferenciales que permite extraer un valor que indica la aleatoriedad de una serie binaria y, por lo tanto, puede indicar el nivel de jitter que contiene.
+Este método es útil para catalogar un dado RO como un buen generador de ruido o de señal de reloj.

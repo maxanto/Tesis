@@ -38,7 +38,7 @@ Las principales contribuciones de esta Sección son:
 
 Un código ANSI C que simula un sistema no lineal iterando (el mapa cuadrático) en un dispositivo electrónico digital fue desarrollado con el fin de generar secuencias que luego fueron analizadas.
 
-Este código itera el mapa cuaratónico $2D$ $10 ^ 5$ veces, en este caso los coeficientes $a_0$ a $a_ {11}$ tienen los valores: $\{a_i \}$ $=$ $\{- 1.0,$ $0.9,$ $0.4,$ $-0.2,$ $-0.6,$ $-0.5,$ $0.4,$ $0.7,$ $0.3,$ $-0.5,$ $0.7,$ $-0.8 \}$.
+Este código itera el mapa cuadrático-$2D$ $10 ^ 5$ veces, en este caso los coeficientes $a_0$ a $a_ {11}$ tienen los valores: $\{a_i \}$ $=$ $\{- 1.0,$ $0.9,$ $0.4,$ $-0.2,$ $-0.6,$ $-0.5,$ $0.4,$ $0.7,$ $0.3,$ $-0.5,$ $0.7,$ $-0.8 \}$.
 El sistema fue diseñado para trabajar en arquitectura fraccionaria de punto fijo con $n$ bits, donde $n = n_i + n_f$, en representación de complemento a $2$ ($Ca_2$).
 En este caso, se empleó $n_i = 4$ bits para representar la parte entera, y el código varía automáticamente la cantidad de bits que representan la parte fraccionaria del número, $n_f$, para analizar cómo reacciona el sistema cuando cambia la precisión.
 El código se ejecuta a partir de todas las CIs dentro del intervalo $[-2,2]$ en pasos determinados por $n_f$, por lo tanto, la grilla tendrá un paso de:
@@ -58,18 +58,18 @@ Entonces, se pueden ver los diferentes dominios de atracción (incluyendo los at
 \begin{figure*}
 	\centering
 	\begin{tabular}{cc}
-		\includegraphics[width=0.35\textwidth]{m5_lu}
-		\includegraphics[width=0.35\textwidth]{m6_lu}
-		\includegraphics[width=0.35\textwidth]{m7_lu}\\
-		\includegraphics[width=0.35\textwidth]{m8_lu}
-		\includegraphics[width=0.35\textwidth]{m9_lu}
-		\includegraphics[width=0.35\textwidth]{m10_lu}\\
-		\includegraphics[width=0.35\textwidth]{m11_lu}
-		\includegraphics[width=0.35\textwidth]{m12_lu}
-		\includegraphics[width=0.35\textwidth]{m13_lu}\\
-		\includegraphics[width=0.35\textwidth]{m14_lu}
-		\includegraphics[width=0.35\textwidth]{m17_lu}
-		\includegraphics[width=0.35\textwidth]{m18_lu}\\
+		\includegraphics[width=0.32\textwidth]{m5_lu}
+		\includegraphics[width=0.32\textwidth]{m6_lu}
+		\includegraphics[width=0.32\textwidth]{m7_lu}\\
+		\includegraphics[width=0.32\textwidth]{m8_lu}
+		\includegraphics[width=0.32\textwidth]{m9_lu}
+		\includegraphics[width=0.32\textwidth]{m10_lu}\\
+		\includegraphics[width=0.32\textwidth]{m11_lu}
+		\includegraphics[width=0.32\textwidth]{m12_lu}
+		\includegraphics[width=0.32\textwidth]{m13_lu}\\
+		\includegraphics[width=0.32\textwidth]{m14_lu}
+		\includegraphics[width=0.32\textwidth]{m17_lu}
+		\includegraphics[width=0.32\textwidth]{m18_lu}\\
 	\end{tabular}
 	\caption{Áreas coexistentes en el dominio de atracción para: (a) $n_f=5$, (b) $n_f=6$, (c) $n_f=7$, (d) $n_f=8$, (e) $n_f=9$, (f) $n_f=10$, (g) $n_f=11$, (h) $n_f=12$, (i) $n_f=13$, (j) $n_f=14$, (k) $n_f=17$, (l) $n_f=18$.}
 	\label{fig:avvelo}
@@ -89,7 +89,7 @@ Por ejemplo, para $n_f = 5$ hay una prevalencia de ciclos de períodos cortos.
 En ese caso, existen solo dos ciclos límite, la zona gris más clara corresponde al dominio de atracción de los ciclos límite de longitud seis, que es el ciclo menos numeroso, de acuerdo con el Cuadro \ref{tabla}, y la zona más oscura corresponde al dominio de atracción de longitud de ciclo dos.
 
 Aunque para $n_f \geqslant 13$ (Figuras \ref{fig:avvelo}.i a \ref{fig:avvelo}.l), el dominio de atracción parece ser suave y uniforme, todavía hay ciclos con diferentes períodos que coexisten en el atractor por $ n_f = 14 $, $ 17 $ y $ 18 $.
-Esto se puede ver si ampliamos una Sección de las figuras (Fig.\ref{fig:m_zoom}).
+Esto se puede ver si ampliamos una Sección de las figuras (Figura \ref{fig:m_zoom}).
 %
 \begin{figure}
 	\centering
@@ -124,20 +124,20 @@ Sin embargo, cuando queremos hacer una comparación general de lo que ocurre con
 \begin{figure*}
 	\centering
 	\begin{tabular}{cc}
-		\includegraphics[width=0.35\textwidth]{m5}
-		\includegraphics[width=0.35\textwidth]{m6}
-		\includegraphics[width=0.35\textwidth]{m7}\\
-		\includegraphics[width=0.35\textwidth]{m8}
-		\includegraphics[width=0.35\textwidth]{m9}
-		\includegraphics[width=0.35\textwidth]{m10}\\
-		\includegraphics[width=0.35\textwidth]{m11}
-		\includegraphics[width=0.35\textwidth]{m12}
-		\includegraphics[width=0.35\textwidth]{m13}\\
-		\includegraphics[width=0.35\textwidth]{m14}
-		\includegraphics[width=0.35\textwidth]{m17}
-		\includegraphics[width=0.35\textwidth]{m18}\\
+		\includegraphics[width=0.32\textwidth]{m5}
+		\includegraphics[width=0.32\textwidth]{m6}
+		\includegraphics[width=0.32\textwidth]{m7}\\
+		\includegraphics[width=0.32\textwidth]{m8}
+		\includegraphics[width=0.32\textwidth]{m9}
+		\includegraphics[width=0.32\textwidth]{m10}\\
+		\includegraphics[width=0.32\textwidth]{m11}
+		\includegraphics[width=0.32\textwidth]{m12}
+		\includegraphics[width=0.32\textwidth]{m13}\\
+		\includegraphics[width=0.32\textwidth]{m14}
+		\includegraphics[width=0.32\textwidth]{m17}
+		\includegraphics[width=0.32\textwidth]{m18}\\
 		\\   
-		\includegraphics[width=0.6\textwidth]{ColorMapConEje}
+		\includegraphics[width=0.75\textwidth]{ColorMapConEje}
 	\end{tabular}
 	\caption{Evolución de las longitudes de período de los dominios de atracción para: (a) $n_f=5$, (b) $n_f=6$, (c) $n_f=7$, (d) $n_f=8$, (e) $n_f=9$, (f) $n_f=10$, (g) $n_f=11$, (h) $n_f=12$, (i) $n_f=13$, (j) $n_f=14$, (k) $n_f=17$, (l) $n_f=18$.}
 	\label{fig:m}
@@ -146,7 +146,7 @@ Sin embargo, cuando queremos hacer una comparación general de lo que ocurre con
 La Figura \ref{fig:m} muestra que a medida que aumenta el valor de $n_f$ el color del área se vuelve más uniforme y claro, lo que indica que las CIs convergen a ciclos de períodos más largos.
 Esto también se puede ver en el Cuadro \ref{tabla}, donde a medida que $n_f$ aumenta, la longitud del ciclo límite predominante también aumenta.
 
-Para comparar los valores obtenidos con las secuencias reales, se iteraron los atractores en punto flotante con mantisa de $236$ bits (IEEE754 de punto flotante binario de precisión octuple) lo que aquí se llamó \textit{punto flotante} o simplemente \textit{flotante}, es la aritmética más cercana a los números reales a la que podemos acceder con tiempos de cómputo razonables.
+Para comparar los valores obtenidos con las secuencias reales, se iteraron los atractores en punto flotante con mantisa de $236$ bits (IEEE754 de punto flotante binario de precisión óctuple) lo que aquí se llamó \textit{punto flotante} o simplemente \textit{flotante}, es la aritmética más cercana a los números reales a la que podemos acceder con tiempos de cómputo razonables.
 Se puede observar que cuando se empleó la precisión mencionada, todos los períodos resultaron ser superiores a $10 ^ 5$ y convergieron al atractor caótico que se ve en la Figura \ref{fig:atractores3592}.d.
 
 \begin{table*}[!t]
@@ -222,7 +222,7 @@ Un resumen del análisis observado de estos resultados se puede ver en la Figura
 	\hfill   
 	\begin{subfigure}[b]{0.49\textwidth}
 		\includegraphics[width=\textwidth]{PuntosO}
-		\caption{CIs con longitudes de período mayores y menores que $1,000$.}
+		\caption{CIs con longitudes de período mayores y menores que $1~000$.}
 	\end{subfigure}
 	\caption{Comportamiento de las condiciones iniciales.}\label{puntos}
 \end{figure}
